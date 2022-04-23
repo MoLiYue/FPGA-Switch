@@ -1,0 +1,5 @@
+xpm_cdc.sv,systemverilog,xpm,../tools/Xilinx/Vivado/2021.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv,incdir="../../../ipstatic"incdir="../../../ipstatic"
+xpm_VCOMP.vhd,vhdl,xpm,../tools/Xilinx/Vivado/2021.2/data/ip/xpm/xpm_VCOMP.vhd,incdir="../../../ipstatic"incdir="../../../ipstatic"
+mac_clk_10_25_125M_clk_wiz.v,verilog,xil_defaultlib,../../../../swtich.gen/sources_1/ip/mac_clk_10_25_125M/mac_clk_10_25_125M_clk_wiz.v,incdir="../../../ipstatic"incdir="../../../ipstatic"
+mac_clk_10_25_125M.v,verilog,xil_defaultlib,../../../../swtich.gen/sources_1/ip/mac_clk_10_25_125M/mac_clk_10_25_125M.v,incdir="../../../ipstatic"incdir="../../../ipstatic"
+glbl.v,Verilog,xil_defaultlib,glbl.v
