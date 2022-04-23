@@ -1,3 +1,3 @@
-# The Design of Streamlined Ethernet Switch Based on FPGA
+# The Design of Simplified Ethernet Switch Based on FPGA
 
 ## 
