@@ -1,0 +1,10 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  --include "../../../../swtich.gen/sources_1/ip/mac_clk_10_25_125M" \
+"../../../../swtich.srcs/sources_1/new/MAC_layer/CRC_check.v" \
+"../../../../swtich.srcs/sim_1/new/tb_CRC_check.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

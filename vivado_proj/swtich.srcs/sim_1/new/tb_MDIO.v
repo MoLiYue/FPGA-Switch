@@ -144,30 +144,42 @@ assign data_out = (!link) ? MDIO_data : 1'bz;
     end
 */
 MDIO MDIO_inst(
+    //------------------------------系统信号---------------------------------
     .mac_clk        (mac_clk),     //input wire 
     .sys_rst_n      (sys_rst_n),   //input wire 
+    //----------------------------------------------------------------------
+
+    //------------------------reg_ctl模块信号--------------------------------
     .rd_PHYreg_en   (rd_PHYreg_en),    //读取寄存器使能信号 input wire
     .REG_addr       (REG_addr),    //读取寄存器地址  input wire [4:0] 
 
+    .reg_data     (reg_data),      //                   output reg [15:0] 
+    .reg_data_en  (reg_data_en),    //PHY寄存器数据有效信号 output reg  
+    //----------------------------------------------------------------------
+
+    //------------------------PHY接口信号------------------------------------
     .MDIO_data    (MDIO_data), //PHY管理数据 inout wire 
 
-    .mdc          (mdc),      //PHY管理时钟         output wire 
-    .reg_data     (reg_data),      //                   output reg [15:0] 
-    .reg_data_en  (reg_data_en)    //PHY寄存器数据有效信号 output reg  
+    .mdc          (mdc)      //PHY管理时钟         output wire 
+    //----------------------------------------------------------------------
     );
 
 reg_ctl reg_ctl_inst(
+    //---------------------------系统信号-------------------------------
     .mac_clk        (mac_clk),                         //input wire 
     .sys_rst_n      (sys_rst_n),                         //input wire 
+    //-----------------------------------------------------------------
 
+    //--------------------------MDIO模块信号-----------------------------
     .reg_data_en    (reg_data_en),     //PHY寄存器数据有效信号     input wire 
     .reg_data       (reg_data),     //PHY某个寄存器的数据   input wire [15:0] 
 
-    //output wire [4:0] PHY_addr, //暂时用不到
     .REG_addr       (REG_addr),     //寄存器地址                output reg [4:0] 
-    .mac_reg_data   (mac_reg_data),     //MAC缓存下某个寄存器的数据 output wire  [15:0] 
-    .rd_PHYreg_en   (rd_PHYreg_en)       //读取PHY寄存器信号       output reg 
+    .rd_PHYreg_en   (rd_PHYreg_en),       //读取PHY寄存器信号       output reg 
+    //------------------------------------------------------------------
 
+    //output wire [4:0] PHY_addr, //暂时用不到
+    .mac_reg_data   (mac_reg_data)     //MAC缓存下某个寄存器的数据 output wire  [15:0] 
     //.rd_MACreg_en   ()   //MAC寄存器数据可读取信号  output reg 
 );
 
