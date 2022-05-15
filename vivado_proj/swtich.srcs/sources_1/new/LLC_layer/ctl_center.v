@@ -25,7 +25,7 @@ module ctl_center(
 	//-----------------------------------------------------------------------------------
 
     //
-    output reg [2:0] mac_choose
+    output reg [2:0] mac_choose     //MAC选择信号
 );
 
 localparam RX_IDLE = ;
