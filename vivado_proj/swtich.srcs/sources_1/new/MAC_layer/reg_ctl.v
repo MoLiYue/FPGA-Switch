@@ -1,7 +1,7 @@
 /*
 reg_ctl reg_ctl_inst(
     //---------------------------系统信号-------------------------------
-    .mac_clk		(mac_clk),	//input wire
+    .MDIO_clk		(MDIO_clk),	//input wire
     .sys_rst_n		(sys_rst_n),	//input wire
     //-----------------------------------------------------------------
 
@@ -23,7 +23,7 @@ reg_ctl reg_ctl_inst(
 */
 module reg_ctl(
     //---------------------------系统信号-------------------------------
-    input wire mac_clk,
+    input wire MDIO_clk,
     input wire sys_rst_n,
     //-----------------------------------------------------------------
 
@@ -38,7 +38,7 @@ module reg_ctl(
 
     //output wire [4:0] PHY_addr, //暂时用不到
     output wire [1:0] duplex_mode, //双工模式   10：full 01：half
-    output wire [2:0] speed_mode, //速度模式    100：1000Mbps 010：100Mbps 001：10Mbps
+    output wire [2:0] speed_mode //速度模式    100：1000Mbps 010：100Mbps 001：10Mbps
 
     //output wire [15:0] mac_reg_data     //MAC缓存下某个寄存器的数据 目前似乎仅用于测试
 
@@ -117,7 +117,7 @@ module reg_ctl(
     assign gbsr = phy_reg[GBSR][11:10];
 
     //组合逻辑实现自协商模式判断
-    always @(posedge mac_clk or negedge sys_rst_n) begin
+    always @(posedge MDIO_clk or negedge sys_rst_n) begin
         if(!sys_rst_n) begin
             duplex_mode <= 2'b0;
             speed_mode <= 3'b0;
@@ -148,7 +148,7 @@ module reg_ctl(
     end
 
     //轮询发送 读取PHY寄存器 间隔时间计数器
-    always @(posedge mac_clk or negedge sys_rst_n) begin
+    always @(posedge MDIO_clk or negedge sys_rst_n) begin
         if(sys_rst_n == 1'b0)
             cnt <= 7'b0;
         else if(cnt == 7'd65)
@@ -158,7 +158,7 @@ module reg_ctl(
     end
 
     //模式检查使能信号
-    always @(posedge mac_clk or negedge sys_rst_n) begin
+    always @(posedge MDIO_clk or negedge sys_rst_n) begin
         if(!sys_rst_n)
             mode_check_en <= 1'b0;
         else if(reg_data_en == 1'b1 && REG_addr == 5'b11111)
@@ -172,7 +172,7 @@ module reg_ctl(
     
 
     //循环查询 寄存器地址
-    always @(posedge mac_clk or negedge sys_rst_n) begin
+    always @(posedge MDIO_clk or negedge sys_rst_n) begin
         if(sys_rst_n == 1'b0)
             REG_addr <= 5'd0;
         else if(reg_data_en == 1'b1)
@@ -183,7 +183,7 @@ module reg_ctl(
             REG_addr <= REG_addr;
     end
 
-    always @(posedge mac_clk or negedge sys_rst_n) begin
+    always @(posedge MDIO_clk or negedge sys_rst_n) begin
         if(sys_rst_n == 1'b0)
             rd_PHYreg_en <= 1'b0;
         else if(cnt == 7'd65)
@@ -193,7 +193,7 @@ module reg_ctl(
     end
 
     //状态转移条件
-    always @(posedge mac_clk or negedge sys_rst_n) begin
+    always @(posedge MDIO_clk or negedge sys_rst_n) begin
         if(sys_rst_n == 1'b0) begin
             phy_reg[0]  <= 16'd0;
             phy_reg[1]  <= 16'd0;
@@ -256,7 +256,7 @@ module reg_ctl(
 
     //寄存器inst
 //    mac_reg_12x32 mac_reg_12x32_inst (
-//        .clka(mac_clk),    // input wire clka
+//        .clka(MDIO_clk),    // input wire clka
 //        .wea(reg_data_en),      // input wire [0 : 0] wea
 //        .addra(REG_addr),  // input wire [4 : 0] addra
 //        .dina(reg_data),    // input wire [15 : 0] dina

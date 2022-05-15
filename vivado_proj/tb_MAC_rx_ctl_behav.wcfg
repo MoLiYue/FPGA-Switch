@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_MAC_rx_ctl_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_MAC_rx_ctl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="166.134 ns"></ZoomStartTime>
+      <ZoomEndTime time="579.335 ns"></ZoomEndTime>
+      <Cursor1Time time="196.734 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="186"></NameColumnWidth>
+      <ValueColumnWidth column_width="73"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="3" />
+   <wave_markers>
+      <marker label="" time="3144000" />
+      <marker label="" time="3192000" />
+   </wave_markers>
+   <wvobject type="group" fp_name="group16">
+      <obj_property name="label">tb</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/eth_rx_clk">
+         <obj_property name="ElementShortName">eth_rx_clk</obj_property>
+         <obj_property name="ObjectShortName">eth_rx_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/eth_tx_clk">
+         <obj_property name="ElementShortName">eth_tx_clk</obj_property>
+         <obj_property name="ObjectShortName">eth_tx_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/sys_rst_n">
+         <obj_property name="ElementShortName">sys_rst_n</obj_property>
+         <obj_property name="ObjectShortName">sys_rst_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/eth_rxdv">
+         <obj_property name="ElementShortName">eth_rxdv</obj_property>
+         <obj_property name="ObjectShortName">eth_rxdv</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MAC_rx_ctl/cnt_data">
+         <obj_property name="ElementShortName">cnt_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">cnt_data[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/start_flag">
+         <obj_property name="ElementShortName">start_flag</obj_property>
+         <obj_property name="ObjectShortName">start_flag</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/rec_end">
+         <obj_property name="ElementShortName">rec_end</obj_property>
+         <obj_property name="ObjectShortName">rec_end</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MAC_rx_ctl/rec_en">
+         <obj_property name="ElementShortName">rec_en[3:0]</obj_property>
+         <obj_property name="ObjectShortName">rec_en[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/rec_data">
+         <obj_property name="ElementShortName">rec_data</obj_property>
+         <obj_property name="ObjectShortName">rec_data</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/rec_data_num">
+         <obj_property name="ElementShortName">rec_data_num</obj_property>
+         <obj_property name="ObjectShortName">rec_data_num</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MAC_rx_ctl/eth_rx_data">
+         <obj_property name="ElementShortName">eth_rx_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">eth_rx_data[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MAC_rx_ctl/mac_rx_fifo_din">
+         <obj_property name="ElementShortName">mac_rx_fifo_din[7:0]</obj_property>
+         <obj_property name="ObjectShortName">mac_rx_fifo_din[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/mac_rx_fifo_wr_en">
+         <obj_property name="ElementShortName">mac_rx_fifo_wr_en</obj_property>
+         <obj_property name="ObjectShortName">mac_rx_fifo_wr_en</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/mac_rx_fifo_clk">
+         <obj_property name="ElementShortName">mac_rx_fifo_clk</obj_property>
+         <obj_property name="ObjectShortName">mac_rx_fifo_clk</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MAC_rx_ctl/data_mem">
+         <obj_property name="ElementShortName">data_mem[97:0][7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_mem[97:0][7:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group41">
+      <obj_property name="label">rx_ctl</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/MAC_rx_ctl_inst/sys_rst_n">
+         <obj_property name="ElementShortName">sys_rst_n</obj_property>
+         <obj_property name="ObjectShortName">sys_rst_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/MAC_rx_ctl_inst/gmii_rx_clk">
+         <obj_property name="ElementShortName">gmii_rx_clk</obj_property>
+         <obj_property name="ObjectShortName">gmii_rx_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/MAC_rx_ctl_inst/gmii_rx_dv">
+         <obj_property name="ElementShortName">gmii_rx_dv</obj_property>
+         <obj_property name="ObjectShortName">gmii_rx_dv</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/MAC_rx_ctl_inst/gmii_rxd">
+         <obj_property name="ElementShortName">gmii_rxd[7:0]</obj_property>
+         <obj_property name="ObjectShortName">gmii_rxd[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/MAC_rx_ctl_inst/mac_rx_fifo_din">
+         <obj_property name="ElementShortName">mac_rx_fifo_din[7:0]</obj_property>
+         <obj_property name="ObjectShortName">mac_rx_fifo_din[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/MAC_rx_ctl_inst/crc_data">
+         <obj_property name="ElementShortName">crc_data[31:0]</obj_property>
+         <obj_property name="ObjectShortName">crc_data[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/MAC_rx_ctl_inst/crc_next">
+         <obj_property name="ElementShortName">crc_next[7:0]</obj_property>
+         <obj_property name="ObjectShortName">crc_next[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/MAC_rx_ctl_inst/crc_check">
+         <obj_property name="ElementShortName">crc_check[31:0]</obj_property>
+         <obj_property name="ObjectShortName">crc_check[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/MAC_rx_ctl_inst/crc_err">
+         <obj_property name="ElementShortName">crc_err</obj_property>
+         <obj_property name="ObjectShortName">crc_err</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/MAC_rx_ctl_inst/crc_en">
+         <obj_property name="ElementShortName">crc_en</obj_property>
+         <obj_property name="ObjectShortName">crc_en</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/MAC_rx_ctl_inst/crc_clr">
+         <obj_property name="ElementShortName">crc_clr</obj_property>
+         <obj_property name="ObjectShortName">crc_clr</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/MAC_rx_ctl_inst/cur_state">
+         <obj_property name="ElementShortName">cur_state[6:0]</obj_property>
+         <obj_property name="ObjectShortName">cur_state[6:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/MAC_rx_ctl_inst/next_state">
+         <obj_property name="ElementShortName">next_state[6:0]</obj_property>
+         <obj_property name="ObjectShortName">next_state[6:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/MAC_rx_ctl_inst/cnt_crc">
+         <obj_property name="ElementShortName">cnt_crc[2:0]</obj_property>
+         <obj_property name="ObjectShortName">cnt_crc[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/MAC_rx_ctl_inst/sw_en">
+         <obj_property name="ElementShortName">sw_en</obj_property>
+         <obj_property name="ObjectShortName">sw_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/MAC_rx_ctl_inst/cnt">
+         <obj_property name="ElementShortName">cnt[10:0]</obj_property>
+         <obj_property name="ObjectShortName">cnt[10:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/MAC_rx_ctl_inst/err_en">
+         <obj_property name="ElementShortName">err_en</obj_property>
+         <obj_property name="ObjectShortName">err_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/MAC_rx_ctl_inst/mac_length">
+         <obj_property name="ElementShortName">mac_length[15:0]</obj_property>
+         <obj_property name="ObjectShortName">mac_length[15:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group51">
+      <obj_property name="label">crc</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/CRC_check_inst/clk">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/CRC_check_inst/sys_rst_n">
+         <obj_property name="ElementShortName">sys_rst_n</obj_property>
+         <obj_property name="ObjectShortName">sys_rst_n</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/CRC_check_inst/data">
+         <obj_property name="ElementShortName">data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/CRC_check_inst/crc_en">
+         <obj_property name="ElementShortName">crc_en</obj_property>
+         <obj_property name="ObjectShortName">crc_en</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/CRC_check_inst/crc_clr">
+         <obj_property name="ElementShortName">crc_clr</obj_property>
+         <obj_property name="ObjectShortName">crc_clr</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/CRC_check_inst/crc_data">
+         <obj_property name="ElementShortName">crc_data[31:0]</obj_property>
+         <obj_property name="ObjectShortName">crc_data[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/CRC_check_inst/crc_next">
+         <obj_property name="ElementShortName">crc_next[31:0]</obj_property>
+         <obj_property name="ObjectShortName">crc_next[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/CRC_check_inst/crc_err">
+         <obj_property name="ElementShortName">crc_err</obj_property>
+         <obj_property name="ObjectShortName">crc_err</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MAC_rx_ctl/MAC_rx_ctl_top_inst/CRC_check_inst/data_t">
+         <obj_property name="ElementShortName">data_t[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_t[7:0]</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

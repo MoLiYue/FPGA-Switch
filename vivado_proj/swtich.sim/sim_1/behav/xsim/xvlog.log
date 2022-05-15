@@ -1,4 +1,8 @@
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.srcs/sources_1/new/MAC_layer/CRC_check.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module CRC_check
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.srcs/sim_1/new/tb_CRC_check.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module tb_CRC_check
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.gen/sources_1/ip/pll_mac/pll_mac_clk_wiz.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pll_mac_clk_wiz
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.gen/sources_1/ip/pll_mac/pll_mac.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pll_mac
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.srcs/sources_1/new/MAC_layer/clock_ctl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clock_ctl
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.srcs/sim_1/new/tb_clock_ctl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_clock_ctl

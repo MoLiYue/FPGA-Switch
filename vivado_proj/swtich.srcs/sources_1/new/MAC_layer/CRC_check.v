@@ -11,7 +11,7 @@ module CRC_check(
 	
 	output reg [31:0] crc_data,		//CRC校验数据
 	output wire [31:0] crc_next,	//CRC下次校验完成数据
-	output reg crc_err//CRC校验错误信号
+	output reg crc_err//CRC校验错误信号(无用)
 	//
 );
 

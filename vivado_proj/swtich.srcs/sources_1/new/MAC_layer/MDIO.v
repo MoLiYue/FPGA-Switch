@@ -1,7 +1,7 @@
 /*
 MDIO MDIO_inst(
     //------------------------------系统信号---------------------------------
-    .mac_clk        (mac_clk),     //input wire 
+    .MDIO_clk        (MDIO_clk),     //input wire 
     .sys_rst_n      (sys_rst_n),   //input wire 
     //----------------------------------------------------------------------
 
@@ -22,7 +22,7 @@ MDIO MDIO_inst(
 */
 module MDIO(
     //------------------------------系统信号---------------------------------
-    input wire mac_clk,     //mac控制器时钟
+    input wire MDIO_clk,     //mac控制器时钟     10MHz
     input wire sys_rst_n,
     //----------------------------------------------------------------------
 
@@ -67,7 +67,7 @@ module MDIO(
     parameter TA       = 8'b0100_0000;
     parameter REG_DATA = 8'b1000_0000;
     
-    assign mdc = mac_clk;
+    assign mdc = MDIO_clk;
     assign MDIO_data = MDIO_data_tx_ctl ? MDIO_data_tx : 1'bz;
     assign MDIO_data_in = (!MDIO_data_tx_ctl) & MDIO_data;
 

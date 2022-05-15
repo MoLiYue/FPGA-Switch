@@ -1,5 +1,6 @@
 module Switch(
-    input wire 
+    input wire sys_clk,
+    input wire sys_rst_n
 );
 
 //mac_top

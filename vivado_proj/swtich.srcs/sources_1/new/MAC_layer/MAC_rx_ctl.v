@@ -23,18 +23,29 @@ module MAC_rx_ctl(
 	input wire mac_rx_fifo_almost_full, 	//写将满信号
 	input wire mac_rx_fifo_overflow, 	//写溢出信号
 
-	output wire mac_rx_fifo_wr_clk,//写时钟
-    output wire [7:0] mac_rx_fifo_din,//输入数据			CRC输入待校验的8位数据
+	output wire mac_rx_fifo_wr_clk,//rx_fifo写时钟			rx_que_fifo写时钟
+    output reg [7:0] mac_rx_fifo_din,//输入数据			CRC输入待校验的8位数据
 	output reg mac_rx_fifo_wr_en,//写使能
 	//-----------------------------------------------------------------
 
+	//------------------------rx_que_fifo相关信号-----------------------------
+	input wire mac_rx_que_fifo_full,	//写满信号
+	input wire mac_rx_que_fifo_almost_full,		//写将满信号
+	input wire mac_rx_que_fifo_overflow,	//写溢出信号
+
+	output reg mac_rx_que_fifo_wr_en,//写使能
+	output wire [7:0] mac_rx_que_fifo_din,//输入数据
+	//output wire mac_rx_que_fifo_clk,	//同mac_rx_fifo_wr_clk
+	//------------------------------------------------------------------------
+
 	//------------------------CRC校验相关端口----------------------------
-	input reg [31:0] crc_data,		//CRC校验数据
-	input wire [31:0] crc_next,	//CRC下次校验完成数据
-	input reg crc_err,//CRC校验错误信号
+	input wire [31:0] crc_data,		//CRC校验数据
+	input wire [7:0] crc_next,	//CRC下次校验完成数据
+	input wire crc_err,//CRC校验错误信号
 
 	output reg crc_en,		//crc使能，进行校验标志
 	output reg crc_clr		//crc数据复位信号
+	//CRC输入待校验的8位数据	见mac_rx_fifo_din
 	//-------------------------------------------------------------------
 
 );
@@ -63,13 +74,35 @@ parameter LEN_MAX = 11'd1517;//最大帧长度1518字节，最大数据长度为
 
 reg [6:0] cur_state;
 reg [6:0] next_state;
-reg [10:0] cnt;
+reg [10:0] cnt;			//计数器，计帧间隔、SFD
+reg [2:0] cnt_crc;		//计数器，计crc的补充32位0
 reg sw_en;
 reg err_en;
 reg [15:0] mac_length;//mac帧长度
 
+wire [31:0] crc_check;
+
 assign mac_rx_fifo_wr_clk = gmii_rx_clk;
-assign mac_rx_fifo_din = gmii_rxd;
+
+//计crc的补充32位0
+always@(posedge gmii_rx_clk or negedge sys_rst_n) begin
+	if(sys_rst_n == 1'b0)
+		cnt_crc <= 3'b0;
+	else
+		case(next_state)
+			RX_DROP: ;
+			RX_IPG:;
+			RX_IDLE: ;
+			RX_PRE:;
+			RX_DATA: 
+				if(gmii_rx_dv == 0)
+					cnt_crc <= cnt_crc + 1;
+				else
+					cnt_crc <= 3'd0;
+			RX_CRCCHK: cnt_crc <= cnt_crc + 1;
+			default: ;
+		endcase
+end
 
 //状态机Byte计数器
 always@(posedge gmii_rx_clk or negedge sys_rst_n) begin
@@ -85,20 +118,16 @@ always@(posedge gmii_rx_clk or negedge sys_rst_n) begin
 					cnt <= cnt + 1;
 			RX_IDLE: ;
 			RX_PRE:
-				if(gmii_rx_dv)
+				if(gmii_rxd == 8'hd5)
+					cnt <= cnt;
+				else if(gmii_rx_dv)
 					cnt <= cnt + 1;
-				else if(cnt == 11'd6)
-					cnt <= 11'd0;
 				else
 					cnt <= 11'd0;
-			RX_DATA: 
-				if(gmii_rx_dv)
-					cnt <= cnt + 1;
-				else if(cnt > LEN_MAX || cnt < LEN_MIN)
-					cnt <= 11'd0;
-				else
-					cnt <= 11'd0;
-			RX_CRCCHK: ;
+			RX_DATA: ;
+				
+			RX_CRCCHK: 
+				cnt <= 11'd0;
 			default: cnt <= 11'b0;
 		endcase
 end
@@ -182,7 +211,7 @@ always @(posedge gmii_rx_clk or negedge sys_rst_n) begin
 				else
 					sw_en <= 1'b0;
 			RX_PRE:
-				if(gmii_rx_dv && cnt == 11'd6 && gmii_rxd == 8'hd5)
+				if(gmii_rx_dv && cnt < 11'd7 && gmii_rxd == 8'hd5)
 					sw_en <= 1'b1;
 				else
 					sw_en <= 1'b0;
@@ -191,7 +220,11 @@ always @(posedge gmii_rx_clk or negedge sys_rst_n) begin
 					sw_en <= 1'b1;
 				else
 					sw_en <= 1'b0;
-			RX_CRCCHK:;
+			RX_CRCCHK:
+				if(cnt_crc == 3'd4)
+					sw_en <= 1'b1;
+				else
+					sw_en <= 1'b0;
 			default: ;
 		endcase 
 	end 
@@ -203,23 +236,24 @@ always @(posedge gmii_rx_clk or negedge sys_rst_n) begin
 		err_en <= 1'b0;
 	else
 		case(next_state)
-			RX_DROP:;
-			RX_IPG:;
+			RX_DROP:
+				err_en <= 1'b0;
+			RX_IPG:
+				if(gmii_rx_dv == 1)
+					err_en <= 1'b1;
+				else
+					err_en <= 1'b0;
 			RX_IDLE:
-				if(gmii_rx_dv == 1'b0 || (duplex_mode == HALF_DUPLEX && tx_busy == 1'b1))
+				if((duplex_mode == HALF_DUPLEX && tx_busy == 1'b1))
 					err_en <= 1'b1;
 				else 
 					err_en <= 1'b0;
 			RX_PRE:
-				if(gmii_rx_dv == 1'b0 || ((cnt < 11'd6) && (gmii_rxd != 8'h55) || (cnt == 11'd6) && (gmii_rxd != 8'hd5)))
+				if(gmii_rx_dv == 1'b0 || ((cnt == 11'd6) && (gmii_rxd != 8'hd5)))	//判断条件仍然存在问题
 					err_en <= 1'b1;
 				else
 					err_en <= 1'b0;
-			RX_DATA:
-				if(gmii_rx_dv == 1'b0 || (cnt > LEN_MAX || cnt < LEN_MIN))
-					err_en <= 1'b1;
-				else
-					err_en <= 1'b0;
+			RX_DATA:;
 			RX_CRCCHK:;
 			default:;
 		endcase
@@ -248,14 +282,18 @@ always @(posedge gmii_rx_clk or negedge sys_rst_n) begin
 		mac_length <= 16'd0;
 	else
 		case(next_state)
-			//RX_DROP:;
+			RX_DROP:;
 			//RX_IPG:;
 			//RX_IDLE:;
 			//RX_PRE:;
 			RX_DATA:
 				mac_length <= mac_length + 1'b1;
-			//RX_CRCCHK:;
-			default: mac_rx_fifo_wr_en <= 1'd0;
+			RX_CRCCHK:
+				if(mac_length > LEN_MAX || mac_length < LEN_MIN)
+					mac_length <= 16'd0;
+				else
+					mac_length <= mac_length;
+			default: mac_length <= 16'd0;
 		endcase
 end 
 
@@ -268,10 +306,18 @@ always @(posedge gmii_rx_clk or negedge sys_rst_n) begin
 			//RX_DROP:;
 			//RX_IPG:;
 			//RX_IDLE:;
-			//RX_PRE:;
+			RX_PRE:
+				if(gmii_rxd == 8'hd5)
+					crc_en <= 1'b1;
+				else
+					crc_en <= 1'b0;
 			RX_DATA:
-				crc_en <= 1'b1;
-			//RX_CRCCHK:;
+				if(gmii_rx_dv == 1'b0)
+					crc_en <= 1'b0;
+				else
+					crc_en <= crc_en;
+			RX_CRCCHK:
+				crc_en <= 1'b0;
 			default: crc_en <= 1'b0;
 		endcase
 end
@@ -289,10 +335,49 @@ always @(posedge gmii_rx_clk or negedge sys_rst_n) begin
 			RX_IDLE:
 				crc_clr <= 1'b1;
 			RX_PRE:
-				crc_clr <= 1'b1;
+				if(gmii_rxd == 8'hd5)
+					crc_clr <= 1'b0;
+				else
+					crc_clr <= 1'b1;
 			//RX_DATA:
 			//RX_CRCCHK:;
 			default: crc_clr <= 1'b0;
 		endcase
 end
+
+always @(posedge gmii_rx_clk or negedge sys_rst_n) begin
+	if(!sys_rst_n)
+		mac_rx_fifo_din <= 8'hff;
+	else
+		case(next_state)
+			RX_DATA:
+				if(gmii_rx_dv == 1'b0)
+					mac_rx_fifo_din <= 8'h00;
+				else
+					mac_rx_fifo_din <= gmii_rxd;
+			RX_CRCCHK:
+					mac_rx_fifo_din <= 8'h00;
+			default:
+				mac_rx_fifo_din <= 8'h00;
+		endcase
+end
+
+assign crc_check = {
+				crc_next[0], crc_next[1],
+				crc_next[2], crc_next[3],
+				crc_next[4], crc_next[5],
+				crc_next[6], crc_next[7],
+				crc_data[16], crc_data[17],
+				crc_data[18], crc_data[19],
+				crc_data[20], crc_data[21],
+				crc_data[22], crc_data[23],
+				crc_data[8],  crc_data[9],
+				crc_data[10], crc_data[11],
+				crc_data[12], crc_data[13],
+				crc_data[14], crc_data[15],
+				crc_data[0],  crc_data[1],
+				crc_data[2],  crc_data[3],
+				crc_data[4],  crc_data[5],
+				crc_data[6],  crc_data[7]};
+
 endmodule

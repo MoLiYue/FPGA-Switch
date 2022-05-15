@@ -1,6 +1,8 @@
 module MAC_top(
+    //------------------------------系统信号---------------------------------
     input wire sys_rst_n,	//系统复位信号
-	input wire mac_clk,		//MAC控制器全局系统时钟(发送时钟)
+	input wire mac_clk,		//MAC控制器全局系统时钟(100MHz)
+    //----------------------------------------------------------------------
 	
 	//---------------------------MDIO接口------------------------------
 	//input wire rd_PHYreg_en,//读取寄存器使能信号 input wire
@@ -39,7 +41,15 @@ module MAC_top(
 	output wire mac_tx_fifo_almost_full, //tx_fifo将满信号
 	output wire mac_tx_fifo_overflow //tx_fifo 写溢出信号
 	//------------------------------------------------------------------
+
+
 );
+
+//----------------------------------------------wire-reg----------------------------------------------------
+//--                                                                                                    ----
+//--                                                                                                    ----
+//----------------------------------------------------------------------------------------------------------
+
 //rx_fifo相关wire
 wire		mac_rx_fifo_wr_clk;
 wire [7:0]	mac_rx_fifo_din;
@@ -66,6 +76,10 @@ wire reg_data_en;//PHY寄存器数据有效信号 output reg
 wire [1:0] 	duplex_mode;    //双工模式   10：full 01：half							output wire [1:0] 	
 wire [2:0] 	speed_mode;     //速度模式    100：1000Mbps 010：100Mbps 001：10Mbps		output wire [2:0] 	
 
+//控制模块相关wire
+wire tx_busy;
+
+
 //RGMII与GMII转换模块
 gmii_to_rgmii gmii_to_rgmii_inst(
     .rgmii_rxc		(rgmii_rxc),   //RGMII接收时钟				input wire 		    
@@ -85,25 +99,42 @@ gmii_to_rgmii gmii_to_rgmii_inst(
     .rgmii_txd		(rgmii_txd)			//RGMII输出数据			output wire [3:0] 	
 );
 
+clock_ctl clock_ctl_inst(
+    .mac_clk        (mac_clk), //系统时钟 input wire 
+    .sys_rst_n      (sys_rst_n),   //input wire 
+
+    .speed_mode     (speed_mode),    //速度模式	100：1000Mbps 010：100Mbps 001：10Mbps  input wire [2:0] 
+
+    .gmii_tx_clk    (gmii_tx_clk), //output wire 
+    .MDIO_clk       (MDIO_clk) //MDIO时钟    output wire 
+);
 
 //MDIO模块
 MDIO MDIO_inst(
-    .mac_clk    (mac_clk),     //input wire 
+    //------------------------------系统信号---------------------------------
+    .MDIO_clk    (MDIO_clk),     //input wire 
     .sys_rst_n  (sys_rst_n),   //input wire 
+    //----------------------------------------------------------------------
+    
+    //------------------------reg_ctl模块信号--------------------------------
     .rd_PHYreg_en  (rd_PHYreg_en),    //读取寄存器使能信号 input wire
     .REG_addr   (REG_addr),    //读取寄存器地址  input wire [4:0] 
 
+    .reg_data     (reg_data),      //                   output reg [15:0] 
+    .reg_data_en  (reg_data_en),    //PHY寄存器数据有效信号 output reg 
+    //----------------------------------------------------------------------
+
+    //------------------------PHY接口信号------------------------------------
     .MDIO_data    (MDIO_data), //PHY管理数据 inout wire 
 
-    .mdc          (mdc),      //PHY管理时钟         output wire 
-    .reg_data     (reg_data),      //                   output reg [15:0] 
-    .reg_data_en  (reg_data_en)    //PHY寄存器数据有效信号 output reg  
+    .mdc          (mdc)      //PHY管理时钟         output wire  
+    //----------------------------------------------------------------------
 );
 
 //reg_ctl模块
 reg_ctl reg_ctl_inst(
     //---------------------------系统信号-------------------------------
-    .mac_clk		(mac_clk),	//input wire
+    .MDIO_clk		(MDIO_clk),	//input wire
     .sys_rst_n		(sys_rst_n),	//input wire
     //-----------------------------------------------------------------
 
@@ -118,11 +149,51 @@ reg_ctl reg_ctl_inst(
 
     //output wire [4:0] PHY_addr, //暂时用不到
     .duplex_mode	(duplex_mode), //双工模式   10：full 01：half							output wire [1:0] 	
-    .speed_mode		(speed_mode), //速度模式    100：1000Mbps 010：100Mbps 001：10Mbps		output wire [2:0] 	
+    .speed_mode		(speed_mode) //速度模式    100：1000Mbps 010：100Mbps 001：10Mbps		output wire [2:0] 	
 
     //output reg rd_MACreg_en   //MAC寄存器数据可读取信号
 );
 
+//接收控制模块
+MAC_rx_ctl_top MAC_rx_ctl_top_inst(
+    //---------------------系统信号---------------------
+    .sys_rst_n  (sys_rst_n),      //input wire 
+    //-------------------------------------------------
+
+	//------------------------gmii接口--------------------------------
+	.gmii_rx_clk    (gmii_rx_clk),//GMII接收时钟 input wire 
+	.gmii_rx_dv     (gmii_rx_dv),//GMII接收数据有效信号 input wire 
+	.gmii_rxd       (gmii_rxd),//GMII接收数据 input wire [7:0] 
+	//----------------------------------------------------------------
+	
+	//-------------------------其他------------------------------------
+	.tx_busy        (tx_busy),//半双工情况下发送忙信号 input wire 
+	.duplex_mode    (duplex_mode),//全双工：10 半双工：01 input wire [1:0] 
+	.speed_mode     (speed_mode), //速度模式	100：1000Mbps 010：100Mbps 001：10Mbps  input wire [2:0] 
+	//----------------------------------------------------------------
+
+	//------------------------rx_que_fifo相关信号-----------------------------
+	.mac_rx_que_fifo_full           (mac_rx_que_fifo_full),	//写满信号 input wire 
+	.mac_rx_que_fifo_almost_full    (mac_rx_que_fifo_almost_full),		//写将满信号 input wire 
+	.mac_rx_que_fifo_overflow       (mac_rx_que_fifo_overflow),	//写溢出信号 input wire 
+
+	.mac_rx_que_fifo_wr_en      (mac_rx_que_fifo_wr_en),//写使能 output reg 
+	.mac_rx_que_fifo_din        (mac_rx_que_fifo_din),//输入数据 output wire [7:0] 
+	//output wire mac_rx_que_fifo_clk,	//同mac_rx_fifo_wr_clk
+	//------------------------------------------------------------------------
+
+    //---------------------rx_fifo相关接口------------------------------
+	.mac_rx_fifo_full           (mac_rx_fifo_full), 	//写满信号input wire 
+	.mac_rx_fifo_almost_full    (mac_rx_fifo_almost_full), 	//写将满信号input wire 
+	.mac_rx_fifo_overflow       (mac_rx_fifo_overflow), 	//写溢出信号input wire 
+
+	.mac_rx_fifo_wr_clk     (mac_rx_fifo_wr_clk),//写时钟 output wire 
+    .mac_rx_fifo_din        (mac_rx_fifo_din),//输入数据8bit output wire [7:0] 
+	.mac_rx_fifo_wr_en      (mac_rx_fifo_wr_en)//写使能 output wire 
+	//-----------------------------------------------------------------
+);
+
+//rx_fifo接收缓存模块
 mac_rx_fifo_8x2048_64x265 mac_rx_fifo_8x2048_64x265_inst (
 	.rst(sys_rst_n),                      // input wire rst
 	.wr_clk(mac_rx_fifo_wr_clk),                // input wire wr_clk 125MHz
@@ -145,6 +216,7 @@ mac_rx_fifo_8x2048_64x265 mac_rx_fifo_8x2048_64x265_inst (
 	.rd_rst_busy()      // output wire rd_rst_busy
 );
 
+//tx_fifo发送缓存模块
 mac_tx_fifo_64x256_8x2048 mac_tx_fifo_64x256_8x2048_inst (
     .rst(sys_rst_n),                      // input wire rst
     .wr_clk(mac_tx_fifo_wr_clk),                // input wire wr_clk 100MHz
@@ -166,4 +238,6 @@ mac_tx_fifo_64x256_8x2048 mac_tx_fifo_64x256_8x2048_inst (
     .wr_rst_busy(),      // output wire wr_rst_busy
     .rd_rst_busy()      // output wire rd_rst_busy
 );
+
+
 endmodule

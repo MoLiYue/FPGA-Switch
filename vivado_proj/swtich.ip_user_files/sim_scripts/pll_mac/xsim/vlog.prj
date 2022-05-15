@@ -1,0 +1,7 @@
+verilog xil_defaultlib --include "../../../ipstatic" \
+"../../../../swtich.gen/sources_1/ip/pll_mac/pll_mac_clk_wiz.v" \
+"../../../../swtich.gen/sources_1/ip/pll_mac/pll_mac.v" \
+
+verilog xil_defaultlib "glbl.v"
+
+nosort
