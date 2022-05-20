@@ -40,7 +40,6 @@ module MAC_rx_ctl(
 
 	//------------------------CRC校验相关端口----------------------------
 	input wire [31:0] crc_data,		//CRC校验数据
-	input wire [7:0] crc_next,	//CRC下次校验完成数据
 	input wire crc_err,//CRC校验错误信号
 
 	output reg crc_en,		//crc使能，进行校验标志
@@ -50,13 +49,17 @@ module MAC_rx_ctl(
 
 );
 //mac控制状态机状态
-localparam RX_DROP    = 7'b000_0001;
-localparam RX_IPG     = 7'b000_0010;
-localparam RX_IDLE    = 7'b000_0100;
-localparam RX_PRE     = 7'b000_1000;
-localparam RX_DATA    = 7'b001_0000;
-localparam RX_CRCCHK  = 7'b010_0000;
-localparam RX_ERRSTOP = 7'b100_0000;
+localparam RX_DROP    		= 8'b0000_0001;
+localparam RX_IFG     		= 8'b0000_0010;
+localparam RX_IDLE    		= 8'b0000_0100;
+localparam RX_PRE     		= 8'b0000_1000;
+localparam RX_SFD	  		= 8'b0001_0000;
+localparam RX_DATA    		= 8'b0010_0000;
+localparam RX_CRCCHK  		= 8'b0100_0000;
+localparam RX_FFFULLDROP 	= 8'b1000_0000;
+
+
+
 //全双工、半双工模式
 localparam HALF_DUPLEX = 2'b01;
 localparam FULL_DUPLEX = 2'b10;
@@ -72,36 +75,23 @@ parameter PRE_CNT_MAX = 4'd7;
 parameter LEN_MIN = 6'd63;//最小帧长度为64字节
 parameter LEN_MAX = 11'd1517;//最大帧长度1518字节，最大数据长度为1500
 
-reg [6:0] cur_state;
-reg [6:0] next_state;
+reg [7:0] cur_state;
+reg [7:0] next_state;
 reg [10:0] cnt;			//计数器，计帧间隔、SFD
 reg [2:0] cnt_crc;		//计数器，计crc的补充32位0
 reg sw_en;
 reg err_en;
 reg [15:0] mac_length;//mac帧长度
-
-wire [31:0] crc_check;
+reg too_short;	//帧过短
+reg too_long;	//帧过长
 
 assign mac_rx_fifo_wr_clk = gmii_rx_clk;
 
-//计crc的补充32位0
 always@(posedge gmii_rx_clk or negedge sys_rst_n) begin
 	if(sys_rst_n == 1'b0)
-		cnt_crc <= 3'b0;
+		mac_rx_fifo_din <= 8'd0;
 	else
-		case(next_state)
-			RX_DROP: ;
-			RX_IPG:;
-			RX_IDLE: ;
-			RX_PRE:;
-			RX_DATA: 
-				if(gmii_rx_dv == 0)
-					cnt_crc <= cnt_crc + 1;
-				else
-					cnt_crc <= 3'd0;
-			RX_CRCCHK: cnt_crc <= cnt_crc + 1;
-			default: ;
-		endcase
+		mac_rx_fifo_din <= gmii_rxd;
 end
 
 //状态机Byte计数器
@@ -111,7 +101,7 @@ always@(posedge gmii_rx_clk or negedge sys_rst_n) begin
 	else
 		case(next_state)
 			RX_DROP: ;
-			RX_IPG:
+			RX_IFG:
 				if(cnt == IPG_CNT_MAX)
 					cnt <= 11'b0;
 				else
@@ -144,47 +134,57 @@ end
 always@(*) begin
 	next_state = RX_DROP;
 	case(cur_state)
-		RX_DROP:
-			if(sw_en)
-				next_state = RX_IPG;
+		RX_IDLE:
+			if(gmii_rx_dv == 1 && gmii_rxd == 8'h55)
+				next_state = RX_PRE;
+			else
+				next_state = RX_IDLE;
+		RX_PRE:
+			if(gmii_rx_dv == 0)
+				next_state = RX_IFG;
+			else if(gmii_rxd == 8'hd5)
+				next_state = RX_SFD;
+			else if(gmii_rxd == 8'h55)
+				next_state = RX_PRE;
 			else
 				next_state = RX_DROP;
-		RX_IPG:
-			if(sw_en)
+		RX_SFD:
+			if(gmii_rx_dv == 0)
+				next_state = RX_IFG;
+			else
+				next_state = RX_DATA;
+		RX_DATA:
+			if(gmii_rx_dv == 1'b0 && !too_short && !too_long)
+				next_state = RX_CRCCHK;
+			else if(gmii_rx_dv == 1'b0 && (too_short || too_long))
+				next_state = RX_IFG;
+			else if(mac_rx_fifo_full)
+				next_state = RX_FFFULLDROP;
+			else
+				next_state = RX_DATA;
+		RX_CRCCHK:
+			if(crc_err)
+				next_state = RX_DROP;
+			else
+				next_state = RX_IFG;
+		RX_DROP:
+			if(gmii_rx_dv == 0)
+				next_state = RX_IFG;
+			else
+				next_state = RX_DROP;
+		RX_FFFULLDROP:
+			if(gmii_rx_dv == 1'b0)
+				next_state = RX_IFG;
+			else
+				next_state = RX_FFFULLDROP;
+		RX_IFG:
+			if(cnt == IPG_CNT_MAX)
 				next_state = RX_IDLE;
 			else if(err_en) 
 				next_state = RX_DROP;
 			else
-				next_state = RX_IPG;
-		RX_IDLE:
-			if(sw_en)
-				next_state = RX_PRE;
-			else if(err_en)
-				next_state = RX_DROP;
-			else
-				next_state = RX_IDLE;
-		RX_PRE:
-			if(sw_en)
-				next_state = RX_DATA;
-			else if(err_en)
-				next_state = RX_DROP;
-			else
-				next_state = RX_PRE;
-		RX_DATA:
-			if(sw_en)
-				next_state = RX_CRCCHK;
-			else if(err_en)
-				next_state = RX_DROP;
-			else
-				next_state = RX_DATA;
-		RX_CRCCHK:
-			if(sw_en)
-				next_state = RX_DROP;
-			else if(err_en)
-				next_state = RX_DROP;
-			else
-				next_state = RX_CRCCHK;
-		default: next_state = RX_DROP;
+				next_state = RX_IFG;
+		default: next_state = RX_IDLE;
 	endcase
 end
 
@@ -200,7 +200,7 @@ always @(posedge gmii_rx_clk or negedge sys_rst_n) begin
 					sw_en <= 1'b1;
 				else
 					sw_en <= 1'b0;
-			RX_IPG:
+			RX_IFG:
 				if(cnt == IPG_CNT_MAX)
 					sw_en <= 1'b1;
 				else
@@ -216,7 +216,7 @@ always @(posedge gmii_rx_clk or negedge sys_rst_n) begin
 				else
 					sw_en <= 1'b0;
 			RX_DATA:
-				if(gmii_rx_dv == 1'b0 && sw_en == 1'b0)
+				if(gmii_rx_dv == 1'b0)
 					sw_en <= 1'b1;
 				else
 					sw_en <= 1'b0;
@@ -238,7 +238,7 @@ always @(posedge gmii_rx_clk or negedge sys_rst_n) begin
 		case(next_state)
 			RX_DROP:
 				err_en <= 1'b0;
-			RX_IPG:
+			RX_IFG:
 				if(gmii_rx_dv == 1)
 					err_en <= 1'b1;
 				else
@@ -266,7 +266,7 @@ always @(posedge gmii_rx_clk or negedge sys_rst_n) begin
 	else
 		case(next_state)
 			//RX_DROP:;
-			//RX_IPG:;
+			//RX_IFG:;
 			//RX_IDLE:;
 			//RX_PRE:;
 			RX_DATA:
@@ -278,106 +278,63 @@ end
 
 //抓取mac帧长度
 always @(posedge gmii_rx_clk or negedge sys_rst_n) begin
-	if(!sys_rst_n)
+	if(!sys_rst_n) begin
 		mac_length <= 16'd0;
-	else
+		too_long <= 1'b0;
+		too_short <= 1'b0;
+	end else
 		case(next_state)
-			RX_DROP:;
-			//RX_IPG:;
+			RX_DROP:
+				begin
+					too_long <= 1'b0;
+					too_short <= 1'b0;
+				end
+			//RX_IFG:;
 			//RX_IDLE:;
 			//RX_PRE:;
 			RX_DATA:
 				mac_length <= mac_length + 1'b1;
 			RX_CRCCHK:
-				if(mac_length > LEN_MAX || mac_length < LEN_MIN)
+				if(mac_length > LEN_MAX) begin
 					mac_length <= 16'd0;
-				else
+					too_long <= 1'b1;
+				end else if(mac_length < LEN_MIN) begin
+					mac_length <= 16'd0;
+					too_short <= 1'b1;
+				end else
 					mac_length <= mac_length;
 			default: mac_length <= 16'd0;
 		endcase
 end 
 
 //crc_en使能信号
-always @(posedge gmii_rx_clk or negedge sys_rst_n) begin
-	if(!sys_rst_n)
-		crc_en <= 1'b0;
-	else
-		case(next_state)
-			//RX_DROP:;
-			//RX_IPG:;
-			//RX_IDLE:;
-			RX_PRE:
-				if(gmii_rxd == 8'hd5)
-					crc_en <= 1'b1;
-				else
-					crc_en <= 1'b0;
-			RX_DATA:
-				if(gmii_rx_dv == 1'b0)
-					crc_en <= 1'b0;
-				else
-					crc_en <= crc_en;
-			RX_CRCCHK:
-				crc_en <= 1'b0;
-			default: crc_en <= 1'b0;
-		endcase
-end
+//always @(posedge gmii_rx_clk or negedge sys_rst_n) begin
+//	if(!sys_rst_n)
+//		crc_en <= 1'b0;
+//	else
+//		case(next_state)
+//			RX_DATA:
+//					crc_en <= 1'b1;
+//			default: crc_en <= 1'b0;
+//		endcase
+//end
 
-//crc_clr清除信号
+always @(cur_state)
+    if (cur_state==RX_DATA)
+        crc_en  =1;
+    else
+        crc_en  =0;
+
+//crc_clr复位信号
 always @(posedge gmii_rx_clk or negedge sys_rst_n) begin
 	if(!sys_rst_n)
 		crc_clr <= 1'b0;
 	else
 		case(next_state)
-			RX_DROP:
-				crc_clr <= 1'b1;
-			RX_IPG:
-				crc_clr <= 1'b1;
-			RX_IDLE:
-				crc_clr <= 1'b1;
-			RX_PRE:
-				if(gmii_rxd == 8'hd5)
-					crc_clr <= 1'b0;
-				else
+			RX_SFD:
 					crc_clr <= 1'b1;
-			//RX_DATA:
-			//RX_CRCCHK:;
 			default: crc_clr <= 1'b0;
 		endcase
 end
-
-always @(posedge gmii_rx_clk or negedge sys_rst_n) begin
-	if(!sys_rst_n)
-		mac_rx_fifo_din <= 8'hff;
-	else
-		case(next_state)
-			RX_DATA:
-				if(gmii_rx_dv == 1'b0)
-					mac_rx_fifo_din <= 8'h00;
-				else
-					mac_rx_fifo_din <= gmii_rxd;
-			RX_CRCCHK:
-					mac_rx_fifo_din <= 8'h00;
-			default:
-				mac_rx_fifo_din <= 8'h00;
-		endcase
-end
-
-assign crc_check = {
-				crc_next[0], crc_next[1],
-				crc_next[2], crc_next[3],
-				crc_next[4], crc_next[5],
-				crc_next[6], crc_next[7],
-				crc_data[16], crc_data[17],
-				crc_data[18], crc_data[19],
-				crc_data[20], crc_data[21],
-				crc_data[22], crc_data[23],
-				crc_data[8],  crc_data[9],
-				crc_data[10], crc_data[11],
-				crc_data[12], crc_data[13],
-				crc_data[14], crc_data[15],
-				crc_data[0],  crc_data[1],
-				crc_data[2],  crc_data[3],
-				crc_data[4],  crc_data[5],
-				crc_data[6],  crc_data[7]};
 
 endmodule

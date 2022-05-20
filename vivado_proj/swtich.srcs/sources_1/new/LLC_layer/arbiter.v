@@ -4,7 +4,8 @@ module arbiter(
     input wire sys_rst_n,
     //--------------------------------------------------------------------------------
 
-    input wire [2:0] mac_choose,        //MAC选择信号
+    input wire [2:0] rx_mac_choose,        //接收端MAC选择信号
+	input wire [2:0] tx_mac_choose,			//发送端MAC选择信号
 
 	//--------------------------------rx_fifo相关接口-----------------------------------
     input wire [63:0] mac_rx_fifo_dout  [7:0],//输出MAC fifo 存储数据
@@ -48,20 +49,20 @@ module arbiter(
 );
 
 //rx信号选择
-assign mac_rx_fifo_rd_clk [mac_choose] = rx_fifo_rd_clk;
-assign mac_rx_fifo_rd_en  [mac_choose] = rx_fifo_rd_en ;
+assign mac_rx_fifo_rd_clk [rx_mac_choose] = rx_fifo_rd_clk;
+assign mac_rx_fifo_rd_en  [rx_mac_choose] = rx_fifo_rd_en ;
 
-assign rx_fifo_dout         = mac_rx_fifo_dout          [mac_choose];
-assign rx_fifo_empty        = mac_rx_fifo_empty         [mac_choose];
-assign rx_fifo_almost_empty = mac_rx_fifo_almost_empty  [mac_choose];
-assign rx_fifo_underflow    = mac_rx_fifo_underflow     [mac_choose];
+assign rx_fifo_dout         = mac_rx_fifo_dout          [rx_mac_choose];
+assign rx_fifo_empty        = mac_rx_fifo_empty         [rx_mac_choose];
+assign rx_fifo_almost_empty = mac_rx_fifo_almost_empty  [rx_mac_choose];
+assign rx_fifo_underflow    = mac_rx_fifo_underflow     [rx_mac_choose];
 //tx信号选择
-assign mac_tx_fifo_wr_clk   [mac_choose] = tx_fifo_wr_clk;
-assign mac_tx_fifo_din      [mac_choose] = tx_fifo_din   ;
-assign mac_tx_fifo_wr_en    [mac_choose] = tx_fifo_wr_en ;
+assign mac_tx_fifo_wr_clk   [tx_mac_choose] = tx_fifo_wr_clk;
+assign mac_tx_fifo_din      [tx_mac_choose] = tx_fifo_din   ;
+assign mac_tx_fifo_wr_en    [tx_mac_choose] = tx_fifo_wr_en ;
 
-assign tx_fifo_full        = mac_tx_fifo_full       [mac_choose];
-assign tx_fifo_almost_full = mac_tx_fifo_almost_full[mac_choose];
-assign tx_fifo_overflow    = mac_tx_fifo_overflow   [mac_choose];
+assign tx_fifo_full        = mac_tx_fifo_full       [tx_mac_choose];
+assign tx_fifo_almost_full = mac_tx_fifo_almost_full[tx_mac_choose];
+assign tx_fifo_overflow    = mac_tx_fifo_overflow   [tx_mac_choose];
 
 endmodule

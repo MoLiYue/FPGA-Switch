@@ -1,117 +1,119 @@
-module CRC_check(
-	//--------------------------系统信号------------------------------------------
-	input wire clk,		//接受时钟信号
-	input wire sys_rst_n,	//系统复位信号
-	//---------------------------------------------------------------------------
+//////////////////////////////////////////////////////////////////////
+////                                                              ////
+////  CRC_chk.v                                                   ////
+////                                                              ////
+////  This file is part of the Ethernet IP core project           ////
+////  http://www.opencores.org/projects.cgi/web/ethernet_tri_mode/////
+////                                                              ////
+////  Author(s):                                                  ////
+////      - Jon Gao (gaojon@yahoo.com)                            ////
+////                                                              ////
+////                                                              ////
+//////////////////////////////////////////////////////////////////////
+////                                                              ////
+//// Copyright (C) 2001 Authors                                   ////
+////                                                              ////
+//// This source file may be used and distributed without         ////
+//// restriction provided that this copyright statement is not    ////
+//// removed from the file and that any derivative work contains  ////
+//// the original copyright notice and the associated disclaimer. ////
+////                                                              ////
+//// This source file is free software; you can redistribute it   ////
+//// and/or modify it under the terms of the GNU Lesser General   ////
+//// Public License as published by the Free Software Foundation; ////
+//// either version 2.1 of the License, or (at your option) any   ////
+//// later version.                                               ////
+////                                                              ////
+//// This source is distributed in the hope that it will be       ////
+//// useful, but WITHOUT ANY WARRANTY; without even the implied   ////
+//// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR      ////
+//// PURPOSE.  See the GNU Lesser General Public License for more ////
+//// details.                                                     ////
+////                                                              ////
+//// You should have received a copy of the GNU Lesser General    ////
+//// Public License along with this source; if not, download it   ////
+//// from http://www.opencores.org/lgpl.shtml                     ////
+////                                                              ////
+//////////////////////////////////////////////////////////////////////
+//                                                                    
+// CVS Revision History                                               
+//                                                                    
+// $Log: not supported by cvs2svn $
+// Revision 1.2  2005/12/16 06:44:16  Administrator
+// replaced tab with space.
+// passed 9.6k length frame test.
+//
+// Revision 1.1.1.1  2005/12/13 01:51:45  Administrator
+// no message
+//                                           
 
-	//
-	input wire [7:0] data,	//输入待校验的8位数据
-	input wire crc_en,		//crc使能，开始校验标志
-	input wire crc_clr,		//crc数据复位信号
-	
-	output reg [31:0] crc_data,		//CRC校验数据
-	output wire [31:0] crc_next,	//CRC下次校验完成数据
-	output reg crc_err//CRC校验错误信号(无用)
-	//
+module CRC_chk(
+    input       Reset_n     ,
+    input       Clk         ,
+    input[7:0]  CRC_data    ,
+    input       CRC_init    ,
+    input       CRC_en      ,
+                //From CPU  
+    input       CRC_chk_en  ,
+    output      CRC_err     
 );
 
-//输入待校验的8位数据
-wire [7:0] data_t;
+//******************************************************************************   
+//internal signals                                                              
+//******************************************************************************
+reg [31:0]  CRC_reg;
+wire[31:0]  Next_CRC;
+//******************************************************************************
+//input data width is 8bit, and the first bit is bit[0]
+function[31:0]  NextCRC;
+    input[7:0]      D;
+    input[31:0]     C;
+    reg[31:0]       NewCRC;
+    begin
+    NewCRC[0]=C[24]^C[30]^D[1]^D[7];
+    NewCRC[1]=C[25]^C[31]^D[0]^D[6]^C[24]^C[30]^D[1]^D[7];
+    NewCRC[2]=C[26]^D[5]^C[25]^C[31]^D[0]^D[6]^C[24]^C[30]^D[1]^D[7];
+    NewCRC[3]=C[27]^D[4]^C[26]^D[5]^C[25]^C[31]^D[0]^D[6];
+    NewCRC[4]=C[28]^D[3]^C[27]^D[4]^C[26]^D[5]^C[24]^C[30]^D[1]^D[7];
+    NewCRC[5]=C[29]^D[2]^C[28]^D[3]^C[27]^D[4]^C[25]^C[31]^D[0]^D[6]^C[24]^C[30]^D[1]^D[7];
+    NewCRC[6]=C[30]^D[1]^C[29]^D[2]^C[28]^D[3]^C[26]^D[5]^C[25]^C[31]^D[0]^D[6];
+    NewCRC[7]=C[31]^D[0]^C[29]^D[2]^C[27]^D[4]^C[26]^D[5]^C[24]^D[7];
+    NewCRC[8]=C[0]^C[28]^D[3]^C[27]^D[4]^C[25]^D[6]^C[24]^D[7];
+    NewCRC[9]=C[1]^C[29]^D[2]^C[28]^D[3]^C[26]^D[5]^C[25]^D[6];
+    NewCRC[10]=C[2]^C[29]^D[2]^C[27]^D[4]^C[26]^D[5]^C[24]^D[7];
+    NewCRC[11]=C[3]^C[28]^D[3]^C[27]^D[4]^C[25]^D[6]^C[24]^D[7];
+    NewCRC[12]=C[4]^C[29]^D[2]^C[28]^D[3]^C[26]^D[5]^C[25]^D[6]^C[24]^C[30]^D[1]^D[7];
+    NewCRC[13]=C[5]^C[30]^D[1]^C[29]^D[2]^C[27]^D[4]^C[26]^D[5]^C[25]^C[31]^D[0]^D[6];
+    NewCRC[14]=C[6]^C[31]^D[0]^C[30]^D[1]^C[28]^D[3]^C[27]^D[4]^C[26]^D[5];
+    NewCRC[15]=C[7]^C[31]^D[0]^C[29]^D[2]^C[28]^D[3]^C[27]^D[4];
+    NewCRC[16]=C[8]^C[29]^D[2]^C[28]^D[3]^C[24]^D[7];
+    NewCRC[17]=C[9]^C[30]^D[1]^C[29]^D[2]^C[25]^D[6];
+    NewCRC[18]=C[10]^C[31]^D[0]^C[30]^D[1]^C[26]^D[5];
+    NewCRC[19]=C[11]^C[31]^D[0]^C[27]^D[4];
+    NewCRC[20]=C[12]^C[28]^D[3];
+    NewCRC[21]=C[13]^C[29]^D[2];
+    NewCRC[22]=C[14]^C[24]^D[7];
+    NewCRC[23]=C[15]^C[25]^D[6]^C[24]^C[30]^D[1]^D[7];
+    NewCRC[24]=C[16]^C[26]^D[5]^C[25]^C[31]^D[0]^D[6];
+    NewCRC[25]=C[17]^C[27]^D[4]^C[26]^D[5];
+    NewCRC[26]=C[18]^C[28]^D[3]^C[27]^D[4]^C[24]^C[30]^D[1]^D[7];
+    NewCRC[27]=C[19]^C[29]^D[2]^C[28]^D[3]^C[25]^C[31]^D[0]^D[6];
+    NewCRC[28]=C[20]^C[30]^D[1]^C[29]^D[2]^C[26]^D[5];
+    NewCRC[29]=C[21]^C[31]^D[0]^C[30]^D[1]^C[27]^D[4];
+    NewCRC[30]=C[22]^C[31]^D[0]^C[28]^D[3];
+    NewCRC[31]=C[23]^C[29]^D[2];
+    NextCRC=NewCRC;
+    end
+        endfunction
 
-assign data_t = {data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7]};
+always @ (posedge Clk or negedge Reset_n)
+    if (!Reset_n)
+        CRC_reg     <=32'hffffffff;
+    else if (CRC_init)
+        CRC_reg     <=32'hffffffff;
+    else if (CRC_en)
+        CRC_reg     <=NextCRC(CRC_data,CRC_reg);
 
-//CRC32的生成多项式为：P(x) = x^32 + x^26 + x^23 + x^22 + x^16
-//		+ x^12 + x^11 + x^10 + x^8 + x^7 + x^5 + x^4 + x^2 + x^1 + 1
-
-assign crc_next[0] = crc_data[24] ^ crc_data[30] ^ data_t[0] ^ data_t[6];
-assign crc_next[1] = crc_data[24] ^ crc_data[25] ^ crc_data[30]
-					^ crc_data[31] ^ data_t[0] ^ data_t[1]
-					^ data_t[6] ^ data_t[7];
-assign crc_next[2] = crc_data[24] ^ crc_data[25] ^ crc_data[26]
-					^ crc_data[30] ^ crc_data[31] ^ data_t[0]
-					^ data_t[1] ^ data_t[2] ^ data_t[6] ^ data_t[7];
-assign crc_next[3] = crc_data[25] ^ crc_data[26] ^ crc_data[27]
-					^ crc_data[31] ^ data_t[1] ^ data_t[2]
-					^ data_t[3] ^ data_t[7];
-assign crc_next[4] = crc_data[24] ^ crc_data[26] ^ crc_data[27]
-					^ crc_data[28] ^ crc_data[30] ^ data_t[0]
-					^ data_t[2] ^ data_t[3] ^ data_t[4] ^ data_t[6];
-assign crc_next[5] = crc_data[24] ^ crc_data[25] ^ crc_data[27]
-					^ crc_data[28] ^ crc_data[29] ^ crc_data[30]
-					^ crc_data[31] ^ data_t[0] ^ data_t[1] ^ data_t[3]
-					^ data_t[4] ^ data_t[5] ^ data_t[6] ^ data_t[7];
-assign crc_next[6] = crc_data[25] ^ crc_data[26] ^ crc_data[28]
-					^ crc_data[29] ^ crc_data[30] ^ crc_data[31]
-					^ data_t[1] ^ data_t[2] ^ data_t[4]
-					^ data_t[5] ^ data_t[6] ^ data_t[7];
-assign crc_next[7] = crc_data[24] ^ crc_data[26] ^ crc_data[27]
-					^ crc_data[29] ^ crc_data[31] ^ data_t[0] ^ data_t[2]
-					^ data_t[3] ^ data_t[5] ^ data_t[7];
-assign crc_next[8] = crc_data[0] ^ crc_data[24] ^ crc_data[25]
-					^ crc_data[27] ^ crc_data[28] ^ data_t[0]
-					^ data_t[1] ^ data_t[3] ^ data_t[4];
-assign crc_next[9] = crc_data[1] ^ crc_data[25] ^ crc_data[26]
-					^ crc_data[28] ^ crc_data[29] ^ data_t[1]
-					^ data_t[2] ^ data_t[4] ^ data_t[5];
-assign crc_next[10] = crc_data[2] ^ crc_data[24] ^ crc_data[26]
-					^ crc_data[27] ^ crc_data[29] ^ data_t[0]
-					^ data_t[2] ^ data_t[3] ^ data_t[5];
-assign crc_next[11] = crc_data[3] ^ crc_data[24] ^ crc_data[25]
-					^ crc_data[27] ^ crc_data[28] ^ data_t[0]
-					^ data_t[1] ^ data_t[3] ^ data_t[4];
-assign crc_next[12] = crc_data[4] ^ crc_data[24] ^ crc_data[25]
-					^ crc_data[26] ^ crc_data[28] ^ crc_data[29]
-					^ crc_data[30] ^ data_t[0] ^ data_t[1]
-					^ data_t[2] ^ data_t[4] ^ data_t[5] ^ data_t[6];
-assign crc_next[13] = crc_data[5] ^ crc_data[25] ^ crc_data[26]
-					^ crc_data[27] ^ crc_data[29] ^ crc_data[30]
-					^ crc_data[31] ^ data_t[1] ^ data_t[2] ^ data_t[3]
-					^ data_t[5] ^ data_t[6] ^ data_t[7];
-assign crc_next[14] = crc_data[6] ^ crc_data[26] ^ crc_data[27]
-					^ crc_data[28] ^ crc_data[30] ^ crc_data[31]
-					^ data_t[2] ^ data_t[3] ^ data_t[4]
-					^ data_t[6] ^ data_t[7];
-assign crc_next[15] = crc_data[7] ^ crc_data[27] ^ crc_data[28]
-					^ crc_data[29] ^ crc_data[31] ^ data_t[3]
-					^ data_t[4] ^ data_t[5] ^ data_t[7];
-assign crc_next[16] = crc_data[8] ^ crc_data[24] ^ crc_data[28]
-					^ crc_data[29] ^ data_t[0] ^ data_t[4] ^ data_t[5];
-assign crc_next[17] = crc_data[9] ^ crc_data[25] ^ crc_data[29]
-					^ crc_data[30] ^ data_t[1] ^ data_t[5] ^ data_t[6];
-assign crc_next[18] = crc_data[10] ^ crc_data[26] ^ crc_data[30]
-					^ crc_data[31] ^ data_t[2] ^ data_t[6] ^ data_t[7];
-assign crc_next[19] = crc_data[11] ^ crc_data[27] ^ crc_data[31]
-					^ data_t[3] ^ data_t[7];
-assign crc_next[20] = crc_data[12] ^ crc_data[28] ^ data_t[4];
-assign crc_next[21] = crc_data[13] ^ crc_data[29] ^ data_t[5];
-assign crc_next[22] = crc_data[14] ^ crc_data[24] ^ data_t[0];
-assign crc_next[23] = crc_data[15] ^ crc_data[24] ^ crc_data[25]
-					^ crc_data[30] ^ data_t[0] ^ data_t[1] ^ data_t[6];
-assign crc_next[24] = crc_data[16] ^ crc_data[25] ^ crc_data[26]
-					^ crc_data[31] ^ data_t[1] ^ data_t[2] ^ data_t[7];
-assign crc_next[25] = crc_data[17] ^ crc_data[26] ^ crc_data[27]
-					^ data_t[2] ^ data_t[3];
-assign crc_next[26] = crc_data[18] ^ crc_data[24] ^ crc_data[27]
-					^ crc_data[28] ^ crc_data[30] ^ data_t[0]
-					^ data_t[3] ^ data_t[4] ^ data_t[6];
-assign crc_next[27] = crc_data[19] ^ crc_data[25] ^ crc_data[28]
-					^ crc_data[29] ^ crc_data[31] ^ data_t[1]
-					^ data_t[4] ^ data_t[5] ^ data_t[7];
-assign crc_next[28] = crc_data[20] ^ crc_data[26] ^ crc_data[29]
-					^ crc_data[30] ^ data_t[2] ^ data_t[5] ^ data_t[6];
-assign crc_next[29] = crc_data[21] ^ crc_data[27] ^ crc_data[30]
-					^ crc_data[31] ^ data_t[3] ^ data_t[6] ^ data_t[7];
-assign crc_next[30] = crc_data[22] ^ crc_data[28] ^ crc_data[31]
-					^ data_t[4] ^ data_t[7];
-assign crc_next[31] = crc_data[23] ^ crc_data[29] ^ data_t[5];
-
-always @(posedge clk or negedge sys_rst_n) begin
-	if(!sys_rst_n)
-		crc_data <= 32'hff_ff_ff_ff;
-	else if(crc_clr)
-		crc_data <= 32'hff_ff_ff_ff;
-	else if(crc_en)
-		crc_data <= crc_next;
-end
+assign  CRC_err = CRC_chk_en&(CRC_reg[31:0] != 32'hc704dd7b);
 
 endmodule

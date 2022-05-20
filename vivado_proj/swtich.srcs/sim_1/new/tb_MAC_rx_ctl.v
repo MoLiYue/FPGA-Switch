@@ -48,7 +48,7 @@ wire mac_rx_fifo_wr_en;
 wire mac_rx_fifo_clk;
 
 //读取sim文件夹下面的data.txt文件，并把读出的数据定义为data_mem
-initial $readmemh ("/home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.srcs/sim_1/new/data.txt", data_mem);
+initial $readmemh ("/home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.srcs/sim_1/new/data1.txt", data_mem);
 
 //时钟、复位信号
 initial begin

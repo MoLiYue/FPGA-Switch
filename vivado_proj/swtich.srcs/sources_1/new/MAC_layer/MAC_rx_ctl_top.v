@@ -16,12 +16,12 @@ module MAC_rx_ctl_top(
 	//----------------------------------------------------------------
 
 	//------------------------rx_que_fifo相关信号-----------------------------
-	input wire mac_rx_que_fifo_full,	//写满信号
-	input wire mac_rx_que_fifo_almost_full,		//写将满信号
-	input wire mac_rx_que_fifo_overflow,	//写溢出信号
-
-	output reg mac_rx_que_fifo_wr_en,//写使能
-	output wire [7:0] mac_rx_que_fifo_din,//输入数据
+	//input wire mac_rx_que_fifo_full,	//写满信号
+	//input wire mac_rx_que_fifo_almost_full,		//写将满信号
+	//input wire mac_rx_que_fifo_overflow,	//写溢出信号
+//
+	//output reg mac_rx_que_fifo_wr_en,//写使能
+	//output wire [7:0] mac_rx_que_fifo_din,//输入数据
 	//output wire mac_rx_que_fifo_clk,	//同mac_rx_fifo_wr_clk
 	//------------------------------------------------------------------------
 
@@ -38,11 +38,10 @@ module MAC_rx_ctl_top(
 
 //CRC相关wire
 wire [31:0] crc_data;
-wire [31:0] crc_next;
 wire [7:0] crc_input_data;
 wire crc_en;
 wire crc_clr;
-wire crc_err;//无用
+wire crc_err;
 
 //MAC_rx_ctl inst
 MAC_rx_ctl MAC_rx_ctl_inst(
@@ -84,29 +83,42 @@ MAC_rx_ctl MAC_rx_ctl_inst(
 
 	//------------------------CRC校验相关端口----------------------------
 	.crc_data	(crc_data),		//CRC校验数据		input wire [31:0]
-	.crc_next	(crc_next[31:24]),	//CRC下次校验完成数据	input wire [7:0] 
 	.crc_err	(crc_err),//CRC校验错误信号		input wire 
 
 	.crc_en		(crc_en),		//crc使能，进行校验标志	output reg 
 	.crc_clr	(crc_clr)		//crc数据复位信号		output reg 
 	//-------------------------------------------------------------------
 );
-//CRC_check inst
-CRC_check CRC_check_inst(
-	//--------------------------系统信号------------------------------------------
-	.clk     (gmii_rx_clk),		//接收时钟信号  input wire 
-	.sys_rst_n  (sys_rst_n),	//系统复位信号  input wire 
-	//---------------------------------------------------------------------------
 
-	//
-	.data       (mac_rx_fifo_din),	//输入待校验的8位数据   input wire [7:0] 
-	.crc_en     (crc_en),		//crc使能，开始校验标志input wire 
-	.crc_clr    (crc_clr),		//crc数据复位信号input wire 
+//CRC_check inst
+CRC_chk CRC_chk_inst(
+    .Reset_n     (sys_rst_n),//input       
+    .Clk         (gmii_rx_clk),//input    
+
+    .CRC_data    (mac_rx_fifo_din),//input[7:0]  
+    .CRC_init    (crc_clr),//input       
+    .CRC_en      (crc_en),//input       
+    //From CPU
+    .CRC_chk_en  (1'b1),//input       
 	
-	.crc_data   (crc_data),		//CRC校验数据       output reg [31:0] 
-	.crc_next   (crc_next),	//CRC下次校验完成数据    output wire [31:0] 
-	.crc_err    (crc_err)    //CRC校验错误信号            output reg 
-	//
+    .CRC_err     (crc_err) //output      
 );
+
+//CRC_check CRC_check_inst(
+//	//--------------------------系统信号------------------------------------------
+//	.clk     (gmii_rx_clk),		//接收时钟信号  input wire 
+//	.sys_rst_n  (sys_rst_n),	//系统复位信号  input wire 
+//	//---------------------------------------------------------------------------
+//
+//	//
+//	.data       (mac_rx_fifo_din),	//输入待校验的8位数据   input wire [7:0] 
+//	.crc_en     (crc_en),		//crc使能，开始校验标志input wire 
+//	.crc_clr    (crc_clr),		//crc数据复位信号input wire 
+//	
+//	.crc_data   (crc_data),		//CRC校验数据       output reg [31:0] 
+//	.crc_next   (crc_next),	//CRC下次校验完成数据    output wire [31:0] 
+//	.crc_err    (crc_err)    //CRC校验错误信号            output reg 
+//	//
+//);
 
 endmodule

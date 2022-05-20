@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_CRC_gen_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_CRC_gen" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="1,441.740 ns"></ZoomStartTime>
+      <ZoomEndTime time="2,479.741 ns"></ZoomEndTime>
+      <Cursor1Time time="1,923.240 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="178"></NameColumnWidth>
+      <ValueColumnWidth column_width="71"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="2" />
+   <wvobject type="group" fp_name="group214">
+      <obj_property name="label">tb</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_CRC_gen/clk">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_CRC_gen/sys_rst_n">
+         <obj_property name="ElementShortName">sys_rst_n</obj_property>
+         <obj_property name="ObjectShortName">sys_rst_n</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_CRC_gen/data_mem">
+         <obj_property name="ElementShortName">data_mem[85:0][7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_mem[85:0][7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_CRC_gen/crc_en">
+         <obj_property name="ElementShortName">crc_en</obj_property>
+         <obj_property name="ObjectShortName">crc_en</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_CRC_gen/crc_clr">
+         <obj_property name="ElementShortName">crc_clr</obj_property>
+         <obj_property name="ObjectShortName">crc_clr</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_CRC_gen/cnt_data">
+         <obj_property name="ElementShortName">cnt_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">cnt_data[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_CRC_gen/start_flag">
+         <obj_property name="ElementShortName">start_flag</obj_property>
+         <obj_property name="ObjectShortName">start_flag</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_CRC_gen/CRC_rd">
+         <obj_property name="ElementShortName">CRC_rd</obj_property>
+         <obj_property name="ObjectShortName">CRC_rd</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_CRC_gen/CRC_rd_cnt">
+         <obj_property name="ElementShortName">CRC_rd_cnt[2:0]</obj_property>
+         <obj_property name="ObjectShortName">CRC_rd_cnt[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_CRC_gen/crc_data">
+         <obj_property name="ElementShortName">crc_data[31:0]</obj_property>
+         <obj_property name="ObjectShortName">crc_data[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_CRC_gen/crc_next">
+         <obj_property name="ElementShortName">crc_next[31:0]</obj_property>
+         <obj_property name="ObjectShortName">crc_next[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_CRC_gen/crc_err">
+         <obj_property name="ElementShortName">crc_err</obj_property>
+         <obj_property name="ObjectShortName">crc_err</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_CRC_gen/data">
+         <obj_property name="ElementShortName">data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_CRC_gen/crc_byte">
+         <obj_property name="ElementShortName">crc_byte[31:0]</obj_property>
+         <obj_property name="ObjectShortName">crc_byte[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_CRC_gen/crc_byte_normal">
+         <obj_property name="ElementShortName">crc_byte_normal[31:0]</obj_property>
+         <obj_property name="ObjectShortName">crc_byte_normal[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_CRC_gen/DATA">
+         <obj_property name="ElementShortName">DATA[31:0]</obj_property>
+         <obj_property name="ObjectShortName">DATA[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group225">
+      <obj_property name="label">crcgen</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_CRC_gen/CRC_gen_inst/Reset_n">
+         <obj_property name="ElementShortName">Reset_n</obj_property>
+         <obj_property name="ObjectShortName">Reset_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_CRC_gen/CRC_gen_inst/Init">
+         <obj_property name="ElementShortName">Init</obj_property>
+         <obj_property name="ObjectShortName">Init</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_CRC_gen/CRC_gen_inst/Frame_data">
+         <obj_property name="ElementShortName">Frame_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">Frame_data[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_CRC_gen/CRC_gen_inst/Data_en">
+         <obj_property name="ElementShortName">Data_en</obj_property>
+         <obj_property name="ObjectShortName">Data_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_CRC_gen/CRC_gen_inst/Counter">
+         <obj_property name="ElementShortName">Counter[3:0]</obj_property>
+         <obj_property name="ObjectShortName">Counter[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_CRC_gen/CRC_gen_inst/Clk">
+         <obj_property name="ElementShortName">Clk</obj_property>
+         <obj_property name="ObjectShortName">Clk</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_CRC_gen/CRC_gen_inst/CRC_reg">
+         <obj_property name="ElementShortName">CRC_reg[31:0]</obj_property>
+         <obj_property name="ObjectShortName">CRC_reg[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_CRC_gen/CRC_gen_inst/CRC_rd">
+         <obj_property name="ElementShortName">CRC_rd</obj_property>
+         <obj_property name="ObjectShortName">CRC_rd</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_CRC_gen/CRC_gen_inst/CRC_out">
+         <obj_property name="ElementShortName">CRC_out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">CRC_out[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_CRC_gen/CRC_gen_inst/CRC_end">
+         <obj_property name="ElementShortName">CRC_end</obj_property>
+         <obj_property name="ObjectShortName">CRC_end</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

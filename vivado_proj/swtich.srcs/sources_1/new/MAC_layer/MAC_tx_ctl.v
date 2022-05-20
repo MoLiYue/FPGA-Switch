@@ -35,19 +35,24 @@ module MAC_tx_ctl(
 
 );
 
-localparam TX_DEFER     = 10'b00_0000_0001;		//系统的初始状态
-localparam TX_IPG       = 10'b00_0000_0010;		//控制发送帧的时间间隔
-localparam TX_IDLE      = 10'b00_0000_0100;		//空闲状态（分全双工或者半双工）
-localparam TX_PRE       = 10'b00_0000_1000;		//发送8‘h55前导码
-localparam TX_SFD       = 10'b00_0001_0000;		//发送8’hd5
-localparam TX_DATA      = 10'b00_0010_0000;		//发送数据
-localparam TX_JAM       = 10'b00_0100_0000;
-localparam TX_BCKOFF    = 10'b00_1000_0000;
-localparam TX_PAD       = 10'b01_0000_0000;
-localparam TX_FCS       = 10'b10_0000_0000;
+localparam TX_DEFER     		= 15'b000_0000_0000_0001;		//系统的初始状态
+localparam TX_IFG       		= 15'b000_0000_0000_0010;		//控制发送帧的时间间隔
+localparam TX_IDLE      		= 15'b000_0000_0000_0100;		//空闲状态（分全双工或者半双工）
+localparam TX_PRE       		= 15'b000_0000_0000_1000;		//发送8‘h55前导码
+localparam TX_SFD       		= 15'b000_0000_0001_0000;		//发送8’hd5
+localparam TX_DATA      		= 15'b000_0000_0010_0000;		//发送数据
+localparam TX_JAM       		= 15'b000_0000_0100_0000;
+localparam TX_BCKOFF    		= 15'b000_0000_1000_0000;
+localparam TX_PAD       		= 15'b000_0001_0000_0000;
+localparam TX_FCS       		= 15'b000_0010_0000_0000;
+localparam TX_PAUSE				= 15'b000_0100_0000_0000;
+localparam TX_JAMDROP 			= 15'b000_1000_0000_0000;
+localparam TX_FFEMPTYDROP 		= 15'b001_0000_0000_0000;
+localparam TX_SWITCHNEXT 		= 15'b010_0000_0000_0000;
+localparam TX_SENDPAUSEFRAME 	= 15'b100_0000_0000_0000;
 
-reg [9:0] cur_state;
-reg [9:0] next_state;
+reg [14:0] cur_state;
+reg [14:0] next_state;
 reg sw_en;
 
 //
