@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_MDIO_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_MDIO" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,097.574 ns"></ZoomEndTime>
+      <Cursor1Time time="1,000.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="173"></NameColumnWidth>
+      <ValueColumnWidth column_width="71"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="3" />
+   <wvobject type="group" fp_name="group246">
+      <obj_property name="label">tb</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="array" fp_name="/tb_MDIO/cnt">
+         <obj_property name="ElementShortName">cnt[4:0]</obj_property>
+         <obj_property name="ObjectShortName">cnt[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/MDIO_clk">
+         <obj_property name="ElementShortName">MDIO_clk</obj_property>
+         <obj_property name="ObjectShortName">MDIO_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/sys_rst_n">
+         <obj_property name="ElementShortName">sys_rst_n</obj_property>
+         <obj_property name="ObjectShortName">sys_rst_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/link">
+         <obj_property name="ElementShortName">link</obj_property>
+         <obj_property name="ObjectShortName">link</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/data_in">
+         <obj_property name="ElementShortName">data_in</obj_property>
+         <obj_property name="ObjectShortName">data_in</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/data_out">
+         <obj_property name="ElementShortName">data_out</obj_property>
+         <obj_property name="ObjectShortName">data_out</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/MDIO_data">
+         <obj_property name="ElementShortName">MDIO_data</obj_property>
+         <obj_property name="ObjectShortName">MDIO_data</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/reg_data_en">
+         <obj_property name="ElementShortName">reg_data_en</obj_property>
+         <obj_property name="ObjectShortName">reg_data_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MDIO/reg_data">
+         <obj_property name="ElementShortName">reg_data[15:0]</obj_property>
+         <obj_property name="ObjectShortName">reg_data[15:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MDIO/REG_addr">
+         <obj_property name="ElementShortName">REG_addr[4:0]</obj_property>
+         <obj_property name="ObjectShortName">REG_addr[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/rd_PHYreg_en">
+         <obj_property name="ElementShortName">rd_PHYreg_en</obj_property>
+         <obj_property name="ObjectShortName">rd_PHYreg_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MDIO/i">
+         <obj_property name="ElementShortName">i[31:0]</obj_property>
+         <obj_property name="ObjectShortName">i[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/mdc">
+         <obj_property name="ElementShortName">mdc</obj_property>
+         <obj_property name="ObjectShortName">mdc</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/duplex_mode">
+         <obj_property name="ElementShortName">duplex_mode</obj_property>
+         <obj_property name="ObjectShortName">duplex_mode</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/speed_mode">
+         <obj_property name="ElementShortName">speed_mode</obj_property>
+         <obj_property name="ObjectShortName">speed_mode</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group264">
+      <obj_property name="label">mdio</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="logic" fp_name="/tb_MDIO/MDIO_inst/MDIO_clk">
+         <obj_property name="ElementShortName">MDIO_clk</obj_property>
+         <obj_property name="ObjectShortName">MDIO_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/MDIO_inst/sys_rst_n">
+         <obj_property name="ElementShortName">sys_rst_n</obj_property>
+         <obj_property name="ObjectShortName">sys_rst_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/MDIO_inst/rd_PHYreg_en">
+         <obj_property name="ElementShortName">rd_PHYreg_en</obj_property>
+         <obj_property name="ObjectShortName">rd_PHYreg_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MDIO/MDIO_inst/REG_addr">
+         <obj_property name="ElementShortName">REG_addr[4:0]</obj_property>
+         <obj_property name="ObjectShortName">REG_addr[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MDIO/MDIO_inst/reg_data">
+         <obj_property name="ElementShortName">reg_data[15:0]</obj_property>
+         <obj_property name="ObjectShortName">reg_data[15:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/MDIO_inst/reg_data_en">
+         <obj_property name="ElementShortName">reg_data_en</obj_property>
+         <obj_property name="ObjectShortName">reg_data_en</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/MDIO_inst/MDIO_data">
+         <obj_property name="ElementShortName">MDIO_data</obj_property>
+         <obj_property name="ObjectShortName">MDIO_data</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/MDIO_inst/mdc">
+         <obj_property name="ElementShortName">mdc</obj_property>
+         <obj_property name="ObjectShortName">mdc</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MDIO/MDIO_inst/state">
+         <obj_property name="ElementShortName">state[7:0]</obj_property>
+         <obj_property name="ObjectShortName">state[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MDIO/MDIO_inst/cnt">
+         <obj_property name="ElementShortName">cnt[4:0]</obj_property>
+         <obj_property name="ObjectShortName">cnt[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/MDIO_inst/sw_en">
+         <obj_property name="ElementShortName">sw_en</obj_property>
+         <obj_property name="ObjectShortName">sw_en</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/MDIO_inst/err_en">
+         <obj_property name="ElementShortName">err_en</obj_property>
+         <obj_property name="ObjectShortName">err_en</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/MDIO_inst/MDIO_data_tx">
+         <obj_property name="ElementShortName">MDIO_data_tx</obj_property>
+         <obj_property name="ObjectShortName">MDIO_data_tx</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/MDIO_inst/MDIO_data_tx_ctl">
+         <obj_property name="ElementShortName">MDIO_data_tx_ctl</obj_property>
+         <obj_property name="ObjectShortName">MDIO_data_tx_ctl</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/MDIO_inst/MDIO_data_rx">
+         <obj_property name="ElementShortName">MDIO_data_rx</obj_property>
+         <obj_property name="ObjectShortName">MDIO_data_rx</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/MDIO_inst/reg_data_rx_en">
+         <obj_property name="ElementShortName">reg_data_rx_en</obj_property>
+         <obj_property name="ObjectShortName">reg_data_rx_en</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/MDIO_inst/MDIO_data_in">
+         <obj_property name="ElementShortName">MDIO_data_in</obj_property>
+         <obj_property name="ObjectShortName">MDIO_data_in</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group279">
+      <obj_property name="label">reg</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="logic" fp_name="/tb_MDIO/reg_ctl_inst/MDIO_clk">
+         <obj_property name="ElementShortName">MDIO_clk</obj_property>
+         <obj_property name="ObjectShortName">MDIO_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/reg_ctl_inst/sys_rst_n">
+         <obj_property name="ElementShortName">sys_rst_n</obj_property>
+         <obj_property name="ObjectShortName">sys_rst_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/reg_ctl_inst/reg_data_en">
+         <obj_property name="ElementShortName">reg_data_en</obj_property>
+         <obj_property name="ObjectShortName">reg_data_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MDIO/reg_ctl_inst/reg_data">
+         <obj_property name="ElementShortName">reg_data[15:0]</obj_property>
+         <obj_property name="ObjectShortName">reg_data[15:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MDIO/reg_ctl_inst/REG_addr">
+         <obj_property name="ElementShortName">REG_addr[4:0]</obj_property>
+         <obj_property name="ObjectShortName">REG_addr[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/reg_ctl_inst/rd_PHYreg_en">
+         <obj_property name="ElementShortName">rd_PHYreg_en</obj_property>
+         <obj_property name="ObjectShortName">rd_PHYreg_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MDIO/reg_ctl_inst/duplex_mode">
+         <obj_property name="ElementShortName">duplex_mode[1:0]</obj_property>
+         <obj_property name="ObjectShortName">duplex_mode[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MDIO/reg_ctl_inst/speed_mode">
+         <obj_property name="ElementShortName">speed_mode[2:0]</obj_property>
+         <obj_property name="ObjectShortName">speed_mode[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MDIO/reg_ctl_inst/cnt">
+         <obj_property name="ElementShortName">cnt[6:0]</obj_property>
+         <obj_property name="ObjectShortName">cnt[6:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/reg_ctl_inst/mode_check_en">
+         <obj_property name="ElementShortName">mode_check_en</obj_property>
+         <obj_property name="ObjectShortName">mode_check_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MDIO/reg_ctl_inst/phy_reg">
+         <obj_property name="ElementShortName">phy_reg[0:31][15:0]</obj_property>
+         <obj_property name="ObjectShortName">phy_reg[0:31][15:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MDIO/reg_ctl_inst/anlpar_and_anar">
+         <obj_property name="ElementShortName">anlpar_and_anar[4:0]</obj_property>
+         <obj_property name="ObjectShortName">anlpar_and_anar[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MDIO/reg_ctl_inst/gbsr">
+         <obj_property name="ElementShortName">gbsr[1:0]</obj_property>
+         <obj_property name="ObjectShortName">gbsr[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MDIO/reg_ctl_inst/mode_en">
+         <obj_property name="ElementShortName">mode_en</obj_property>
+         <obj_property name="ObjectShortName">mode_en</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

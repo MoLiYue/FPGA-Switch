@@ -1,3 +1,43 @@
+/*
+MAC_tx_ctl MAC_tx_ctl_inst(
+    //------------------------------系统信号------------------------------------
+    .mac_clk		(mac_clk),//发送时钟		input wire 
+    .sys_rst_n		(sys_rst_n),//复位			input wire 
+    //-------------------------------------------------------------------------
+
+    //-----------------------------tx_fifo相关接口------------------------------
+    .mac_tx_fifo_dout			(mac_tx_fifo_dout),//读数据			input wire [7:0] 	
+    .mac_tx_fifo_empty			(mac_tx_fifo_empty),//已空				input wire 			
+    .mac_tx_fifo_almost_empty	(mac_tx_fifo_almost_empty),//将空				input wire 			
+    .mac_tx_fifo_underflow		(mac_tx_fifo_underflow),//下溢出，读溢出	input wire 			
+
+	.mac_tx_fifo_rd_en			(mac_tx_fifo_rd_en),//读使能信号		output reg 			
+    //-------------------------------------------------------------------------
+
+	//------------------------rx_que_fifo相关信号-----------------------------
+	.mac_tx_que_fifo_empty			(mac_tx_que_fifo_empty),//读空信号		input wire 
+	.mac_tx_que_fifo_almost_empty	(mac_tx_que_fifo_almost_empty),//读将空信号	input wire 
+	.mac_tx_que_fifo_underflow		(mac_tx_que_fifo_underflow),//读溢出信号	input wire 
+	.mac_tx_que_fifo_dout	(mac_tx_que_fifo_dout),//输出数据	input wire [17:0] 
+
+	.mac_tx_que_fifo_rd_en	(mac_tx_que_fifo_rd_en),//读使能	output wire 			
+	//output wire mac_rx_que_fifo_clk,	//同mac_rx_que_fifo_clk
+	//------------------------------------------------------------------------
+
+	//-------------------------reg_ctl相关接口---------------------------------
+    .speed_mode		(speed_mode),//速度模式    100：1000Mbps 010：100Mbps 001：10Mbps	input wire [2:0] 
+	.duplex_mode	(duplex_mode),//双工模式   10：full 01：half							input wire [1:0] 
+	//-------------------------------------------------------------------------
+
+    //---------------------------gmii接口----------------------------------------------
+    .gmii_txd		(gmii_txd),    //GMII发送时钟				output wire 		 [7:0] 
+    .gmii_tx_clk	(gmii_tx_clk),    //GMII发送数据有效信号		output wire 		
+    .gmii_tx_en     (gmii_tx_en)     //GMII发送数据					output wire
+    //---------------------------------------------------------------------------------
+
+);
+*/
+
 module MAC_tx_ctl(
     //------------------------------系统信号------------------------------------
     input wire mac_clk,      //发送时钟
@@ -17,9 +57,9 @@ module MAC_tx_ctl(
 	input wire mac_tx_que_fifo_empty,	//读空信号
 	input wire mac_tx_que_fifo_almost_empty,		//读将空信号
 	input wire mac_tx_que_fifo_underflow,	//读溢出信号
-
-	input wire mac_tx_que_fifo_rd_en,//读使能
 	input wire [17:0] mac_tx_que_fifo_dout,//输出数据
+
+	output reg mac_tx_que_fifo_rd_en,//读使能
 	//output wire mac_rx_que_fifo_clk,	//同mac_rx_que_fifo_clk
 	//------------------------------------------------------------------------
 
@@ -29,9 +69,9 @@ module MAC_tx_ctl(
 	//-------------------------------------------------------------------------
 
     //---------------------------gmii接口----------------------------------------------
-    output reg [7:0] gmii_txd,     //GMII发送时钟				input wire 		
-    output wire gmii_tx_clk,        //GMII发送数据有效信号		input wire 		
-    output wire gmii_tx_en          //GMII发送数据					input wire [7:0] 
+    output reg [7:0] gmii_txd,     //GMII发送时钟				output wire 		
+    output wire gmii_tx_clk,        //GMII发送数据有效信号		output wire 		
+    output wire gmii_tx_en          //GMII发送数据					output wire
     //---------------------------------------------------------------------------------
 
 );
@@ -112,6 +152,7 @@ always @(posedge mac_clk or negedge sys_rst_n) begin
 					mac_length_cnt <= 16'd0;
 				else
 					mac_length_cnt <= mac_length_cnt + 16'd1;
+			default: mac_length_cnt <= 16'd0;
 		endcase
 end
 //
@@ -174,7 +215,7 @@ always @(posedge mac_clk or negedge sys_rst_n) begin
 
 end
 
-//
+//tx_fifo_rd_en接收数据缓存信号读取使能
 always @(posedge mac_clk or negedge sys_rst_n) begin
     if(!sys_rst_n)
 		mac_tx_fifo_rd_en <= 1'b0;
@@ -187,5 +228,24 @@ always @(posedge mac_clk or negedge sys_rst_n) begin
 		endcase
 end
 
+//mac_tx_que_fifo_rd_en接收队列缓存读取使能
+always @(cur_state) begin
+    if(!mac_tx_que_fifo_empty && cur_state == TX_SFD)
+		mac_tx_que_fifo_rd_en = 1'b1;
+	else
+		mac_tx_que_fifo_rd_en = 1'b0;
+end
+
+//从接收队列缓存接收mac_length
+always @(cur_state) begin
+	if(!sys_rst_n)
+		mac_length = 16'b0;
+	else if(mac_tx_que_fifo_rd_en == 1'b1)
+		mac_length = mac_tx_que_fifo_dout[15:0];
+	else
+		mac_length = mac_length;
+end
+
+//
 
 endmodule

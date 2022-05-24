@@ -122,7 +122,7 @@ wire [2:0] 	speed_mode;     //速度模式    100：1000Mbps 010：100Mbps 001�
 wire tx_busy;
 
 //时钟模块相关wire
-wire mac_clk;
+wire mac_clk;//发送时钟
 
 //RGMII与GMII转换模块
 gmii_to_rgmii gmii_to_rgmii_inst(
@@ -240,6 +240,44 @@ MAC_rx_ctl_top MAC_rx_ctl_top_inst(
 	//-----------------------------------------------------------------
 );
 
+//发送控制模块
+MAC_tx_ctl MAC_tx_ctl_inst(
+    //------------------------------系统信号------------------------------------
+    .mac_clk		(mac_clk),//发送时钟		input wire 
+    .sys_rst_n		(sys_rst_n),//复位			input wire 
+    //-------------------------------------------------------------------------
+
+    //-----------------------------tx_fifo相关接口------------------------------
+    .mac_tx_fifo_dout			(mac_tx_fifo_dout),//读数据			input wire [7:0] 	
+    .mac_tx_fifo_empty			(mac_tx_fifo_empty),//已空				input wire 			
+    .mac_tx_fifo_almost_empty	(mac_tx_fifo_almost_empty),//将空				input wire 			
+    .mac_tx_fifo_underflow		(mac_tx_fifo_underflow),//下溢出，读溢出	input wire 			
+
+	.mac_tx_fifo_rd_en			(mac_tx_fifo_rd_en),//读使能信号		output reg 			
+    //-------------------------------------------------------------------------
+
+	//------------------------rx_que_fifo相关信号-----------------------------
+	.mac_tx_que_fifo_empty			(mac_tx_que_fifo_empty),//读空信号		input wire 
+	.mac_tx_que_fifo_almost_empty	(mac_tx_que_fifo_almost_empty),//读将空信号	input wire 
+	.mac_tx_que_fifo_underflow		(mac_tx_que_fifo_underflow),//读溢出信号	input wire 
+	.mac_tx_que_fifo_dout	(mac_tx_que_fifo_dout),//输出数据	input wire [17:0] 
+
+	.mac_tx_que_fifo_rd_en	(mac_tx_que_fifo_rd_en),//读使能	output wire 			
+	//output wire mac_rx_que_fifo_clk,	//同mac_rx_que_fifo_clk
+	//------------------------------------------------------------------------
+
+	//-------------------------reg_ctl相关接口---------------------------------
+    .speed_mode		(speed_mode),//速度模式    100：1000Mbps 010：100Mbps 001：10Mbps	input wire [2:0] 
+	.duplex_mode	(duplex_mode),//双工模式   10：full 01：half							input wire [1:0] 
+	//-------------------------------------------------------------------------
+
+    //---------------------------gmii接口----------------------------------------------
+    .gmii_txd		(gmii_txd),    //GMII发送时钟				output wire 		 [7:0] 
+    .gmii_tx_clk	(gmii_tx_clk),    //GMII发送数据有效信号		output wire 		
+    .gmii_tx_en     (gmii_tx_en)     //GMII发送数据					output wire
+    //---------------------------------------------------------------------------------
+
+);
 //rx_fifo接收缓存模块
 rx_fifo_top rx_fifo_top_inst(
     //------------------------------系统信号---------------------------------
