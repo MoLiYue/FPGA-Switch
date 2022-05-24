@@ -2,3 +2,6 @@ Running: xsim.dir/tb_CRC_gen_behav/xsimk -simmode gui -wdb tb_CRC_gen_behav.wdb 
 Design successfully loaded
 Design Loading Memory Usage: 32932 KB (Peak: 33664 KB)
 Design Loading CPU Usage: 30 ms
+Simulation completed
+Simulation Memory Usage: 114928 KB (Peak: 172200 KB)
+Simulation CPU Usage: 40 ms

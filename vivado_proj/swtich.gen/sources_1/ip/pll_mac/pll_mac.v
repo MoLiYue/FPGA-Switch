@@ -76,7 +76,7 @@ module pll_mac
   output        clk_25M,
   output        clk_10M,
  // Clock in ports
-  input         mac_clk
+  input         sys_clk
  );
 
   pll_mac_clk_wiz inst
@@ -86,7 +86,7 @@ module pll_mac
   .clk_25M(clk_25M),
   .clk_10M(clk_10M),
  // Clock in ports
-  .mac_clk(mac_clk)
+  .sys_clk(sys_clk)
   );
 
 endmodule

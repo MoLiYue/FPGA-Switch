@@ -69,8 +69,8 @@ COMPONENT mac_tx_fifo_64x256_8x2048
     almost_empty : OUT STD_LOGIC;
     valid : OUT STD_LOGIC;
     underflow : OUT STD_LOGIC;
-    rd_data_count : OUT STD_LOGIC_VECTOR(10 DOWNTO 0);
-    wr_data_count : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+    rd_data_count : OUT STD_LOGIC_VECTOR(11 DOWNTO 0);
+    wr_data_count : OUT STD_LOGIC_VECTOR(8 DOWNTO 0);
     wr_rst_busy : OUT STD_LOGIC;
     rd_rst_busy : OUT STD_LOGIC
   );

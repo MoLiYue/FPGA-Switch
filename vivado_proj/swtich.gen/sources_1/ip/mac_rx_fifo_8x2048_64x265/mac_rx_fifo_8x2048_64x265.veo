@@ -70,8 +70,8 @@ mac_rx_fifo_8x2048_64x265 your_instance_name (
   .almost_empty(almost_empty),    // output wire almost_empty
   .valid(valid),                  // output wire valid
   .underflow(underflow),          // output wire underflow
-  .rd_data_count(rd_data_count),  // output wire [7 : 0] rd_data_count
-  .wr_data_count(wr_data_count),  // output wire [10 : 0] wr_data_count
+  .rd_data_count(rd_data_count),  // output wire [8 : 0] rd_data_count
+  .wr_data_count(wr_data_count),  // output wire [11 : 0] wr_data_count
   .wr_rst_busy(wr_rst_busy),      // output wire wr_rst_busy
   .rd_rst_busy(rd_rst_busy)      // output wire rd_rst_busy
 );

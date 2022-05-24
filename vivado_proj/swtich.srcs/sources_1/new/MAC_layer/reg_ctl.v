@@ -37,8 +37,8 @@ module reg_ctl(
 
 
     //output wire [4:0] PHY_addr, //暂时用不到
-    output wire [1:0] duplex_mode, //双工模式   10：full 01：half
-    output wire [2:0] speed_mode //速度模式    100：1000Mbps 010：100Mbps 001：10Mbps
+    output reg [1:0] duplex_mode, //双工模式   10：full 01：half
+    output reg [2:0] speed_mode //速度模式    100：1000Mbps 010：100Mbps 001：10Mbps
 
     //output wire [15:0] mac_reg_data     //MAC缓存下某个寄存器的数据 目前似乎仅用于测试
 

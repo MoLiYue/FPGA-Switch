@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Runs Version="1" Minor="0">
+	<Run Id="mac_rx_fifo_8x2048_64x265_synth_1" LaunchDir="/home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/mac_rx_fifo_8x2048_64x265_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="mac_tx_fifo_64x256_8x2048_synth_1" LaunchDir="/home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/mac_tx_fifo_64x256_8x2048_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="pll_mac_synth_1" LaunchDir="/home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/pll_mac_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="mac_rx_ctl_fifo_18x16_synth_1" LaunchDir="/home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/mac_rx_ctl_fifo_18x16_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="synth_1" LaunchDir="/home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado">
+		<Parent Id="mac_rx_fifo_8x2048_64x265_synth_1"/>
+		<Parent Id="mac_tx_fifo_64x256_8x2048_synth_1"/>
+		<Parent Id="pll_mac_synth_1"/>
+		<Parent Id="mac_rx_ctl_fifo_18x16_synth_1"/>
+	</Run>
+	<Parameters>
+		<Parameter Name="runs.monitorLSFJobs" Val="true" Type="bool"/>
+		<Parameter Name="runs.enableClusterConf" Val="true" Type="bool"/>
+	</Parameters>
+</Runs>
+

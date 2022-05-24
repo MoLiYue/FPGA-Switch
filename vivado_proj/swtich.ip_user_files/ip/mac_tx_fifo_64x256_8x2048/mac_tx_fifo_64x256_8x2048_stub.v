@@ -1,10 +1,10 @@
 // Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
-// Date        : Wed Apr 27 22:00:10 2022
+// Date        : Sat May 21 10:39:07 2022
 // Host        : mlyue running 64-bit Arch Linux
-// Command     : write_verilog -force -mode synth_stub
-//               /home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.gen/sources_1/ip/mac_tx_fifo_64x256_8x2048/mac_tx_fifo_64x256_8x2048_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top mac_tx_fifo_64x256_8x2048 -prefix
+//               mac_tx_fifo_64x256_8x2048_ mac_tx_fifo_64x256_8x2048_stub.v
 // Design      : mac_tx_fifo_64x256_8x2048
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a35tfgg484-2
@@ -17,7 +17,7 @@
 module mac_tx_fifo_64x256_8x2048(rst, wr_clk, rd_clk, din, wr_en, rd_en, dout, full, 
   almost_full, wr_ack, overflow, empty, almost_empty, valid, underflow, rd_data_count, 
   wr_data_count, wr_rst_busy, rd_rst_busy)
-/* synthesis syn_black_box black_box_pad_pin="rst,wr_clk,rd_clk,din[63:0],wr_en,rd_en,dout[7:0],full,almost_full,wr_ack,overflow,empty,almost_empty,valid,underflow,rd_data_count[10:0],wr_data_count[7:0],wr_rst_busy,rd_rst_busy" */;
+/* synthesis syn_black_box black_box_pad_pin="rst,wr_clk,rd_clk,din[63:0],wr_en,rd_en,dout[7:0],full,almost_full,wr_ack,overflow,empty,almost_empty,valid,underflow,rd_data_count[11:0],wr_data_count[8:0],wr_rst_busy,rd_rst_busy" */;
   input rst;
   input wr_clk;
   input rd_clk;
@@ -33,8 +33,8 @@ module mac_tx_fifo_64x256_8x2048(rst, wr_clk, rd_clk, din, wr_en, rd_en, dout, f
   output almost_empty;
   output valid;
   output underflow;
-  output [10:0]rd_data_count;
-  output [7:0]wr_data_count;
+  output [11:0]rd_data_count;
+  output [8:0]wr_data_count;
   output wr_rst_busy;
   output rd_rst_busy;
 endmodule

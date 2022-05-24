@@ -1,6 +1,6 @@
-xpm_cdc.sv,systemverilog,xpm,../tools/Xilinx/Vivado/2021.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv,incdir="../../../ipstatic"incdir="../../../ipstatic"
-xpm_memory.sv,systemverilog,xpm,../tools/Xilinx/Vivado/2021.2/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv,incdir="../../../ipstatic"incdir="../../../ipstatic"
-xpm_VCOMP.vhd,vhdl,xpm,../tools/Xilinx/Vivado/2021.2/data/ip/xpm/xpm_VCOMP.vhd,incdir="../../../ipstatic"incdir="../../../ipstatic"
+xpm_cdc.sv,systemverilog,xpm,tools/Xilinx/Vivado/2021.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv,incdir="../../../ipstatic"incdir="../../../ipstatic"
+xpm_memory.sv,systemverilog,xpm,tools/Xilinx/Vivado/2021.2/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv,incdir="../../../ipstatic"incdir="../../../ipstatic"
+xpm_VCOMP.vhd,vhdl,xpm,tools/Xilinx/Vivado/2021.2/data/ip/xpm/xpm_VCOMP.vhd,incdir="../../../ipstatic"incdir="../../../ipstatic"
 pll_mac_clk_wiz.v,verilog,xil_defaultlib,../../../../swtich.gen/sources_1/ip/pll_mac/pll_mac_clk_wiz.v,incdir="../../../ipstatic"incdir="../../../ipstatic"
 pll_mac.v,verilog,xil_defaultlib,../../../../swtich.gen/sources_1/ip/pll_mac/pll_mac.v,incdir="../../../ipstatic"incdir="../../../ipstatic"
 glbl.v,Verilog,xil_defaultlib,glbl.v

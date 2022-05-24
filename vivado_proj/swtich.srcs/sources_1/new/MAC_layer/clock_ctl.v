@@ -1,10 +1,10 @@
 module clock_ctl(
-    input wire mac_clk, //系统时钟
+    input wire sys_clk, //系统时钟
     input wire sys_rst_n,
 
     input wire [2:0] speed_mode,    //速度模式	100：1000Mbps 010：100Mbps 001：10Mbps  input wire [2:0] 
 
-    output reg gmii_tx_clk,     //发送时钟
+    output reg mac_clk,     //发送时钟
     output wire MDIO_clk        //MDIO时钟
 );
 
@@ -20,9 +20,9 @@ wire clk_25M;
 
 always @(*) begin
     case(speed_mode)
-        _1000M: gmii_tx_clk = clk_125M;
-        _100M: gmii_tx_clk = clk_25M;
-        _10M: gmii_tx_clk = clk_2500K;
+        _1000M: mac_clk = clk_125M;
+        _100M: mac_clk = clk_25M;
+        _10M: mac_clk = clk_2500K;
     endcase
 end
 
@@ -53,6 +53,6 @@ pll_mac pll_mac_inst
     .clk_25M(clk_25M),     // output clk_25M
     .clk_10M(MDIO_clk),     // output clk_10M
    // Clock in ports
-    .mac_clk(mac_clk));      // input mac_clk
+    .sys_clk(sys_clk));      // input sys_clk
 
 endmodule

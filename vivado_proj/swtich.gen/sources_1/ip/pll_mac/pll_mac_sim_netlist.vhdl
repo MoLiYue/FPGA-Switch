@@ -1,10 +1,10 @@
 -- Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
--- Date        : Sun May 15 19:06:19 2022
+-- Date        : Sat May 21 17:23:34 2022
 -- Host        : mlyue running 64-bit Arch Linux
--- Command     : write_vhdl -force -mode funcsim
---               /home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.gen/sources_1/ip/pll_mac/pll_mac_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top pll_mac -prefix
+--               pll_mac_ pll_mac_sim_netlist.vhdl
 -- Design      : pll_mac
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -14,22 +14,22 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity pll_mac_clk_wiz is
+entity pll_mac_pll_mac_clk_wiz is
   port (
     clk_125M : out STD_LOGIC;
     clk_25M : out STD_LOGIC;
     clk_10M : out STD_LOGIC;
-    mac_clk : in STD_LOGIC
+    sys_clk : in STD_LOGIC
   );
-end pll_mac_clk_wiz;
+end pll_mac_pll_mac_clk_wiz;
 
-architecture STRUCTURE of pll_mac_clk_wiz is
+architecture STRUCTURE of pll_mac_pll_mac_clk_wiz is
   signal clk_10M_pll_mac : STD_LOGIC;
   signal clk_125M_pll_mac : STD_LOGIC;
   signal clk_25M_pll_mac : STD_LOGIC;
   signal clkfbout_buf_pll_mac : STD_LOGIC;
   signal clkfbout_pll_mac : STD_LOGIC;
-  signal mac_clk_pll_mac : STD_LOGIC;
+  signal sys_clk_pll_mac : STD_LOGIC;
   signal NLW_plle2_adv_inst_CLKOUT3_UNCONNECTED : STD_LOGIC;
   signal NLW_plle2_adv_inst_CLKOUT4_UNCONNECTED : STD_LOGIC;
   signal NLW_plle2_adv_inst_CLKOUT5_UNCONNECTED : STD_LOGIC;
@@ -60,8 +60,8 @@ clkin1_ibufg: unisim.vcomponents.IBUF
       IOSTANDARD => "DEFAULT"
     )
         port map (
-      I => mac_clk,
-      O => mac_clk_pll_mac
+      I => sys_clk,
+      O => sys_clk_pll_mac
     );
 clkout1_buf: unisim.vcomponents.BUFG
      port map (
@@ -115,7 +115,7 @@ plle2_adv_inst: unisim.vcomponents.PLLE2_ADV
         port map (
       CLKFBIN => clkfbout_buf_pll_mac,
       CLKFBOUT => clkfbout_pll_mac,
-      CLKIN1 => mac_clk_pll_mac,
+      CLKIN1 => sys_clk_pll_mac,
       CLKIN2 => '0',
       CLKINSEL => '1',
       CLKOUT0 => clk_125M_pll_mac,
@@ -145,7 +145,7 @@ entity pll_mac is
     clk_125M : out STD_LOGIC;
     clk_25M : out STD_LOGIC;
     clk_10M : out STD_LOGIC;
-    mac_clk : in STD_LOGIC
+    sys_clk : in STD_LOGIC
   );
   attribute NotValidForBitStream : boolean;
   attribute NotValidForBitStream of pll_mac : entity is true;
@@ -153,11 +153,11 @@ end pll_mac;
 
 architecture STRUCTURE of pll_mac is
 begin
-inst: entity work.pll_mac_clk_wiz
+inst: entity work.pll_mac_pll_mac_clk_wiz
      port map (
       clk_10M => clk_10M,
       clk_125M => clk_125M,
       clk_25M => clk_25M,
-      mac_clk => mac_clk
+      sys_clk => sys_clk
     );
 end STRUCTURE;

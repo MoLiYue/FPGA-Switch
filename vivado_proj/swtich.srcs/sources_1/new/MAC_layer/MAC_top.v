@@ -1,48 +1,66 @@
 module MAC_top(
     //------------------------------系统信号---------------------------------
-    input wire sys_rst_n,	//系统复位信号
-	input wire mac_clk,		//MAC控制器全局系统时钟(100MHz)
+    input wire sys_rst_n	,	//系统复位信号
+	input wire sys_clk		,		//MAC控制器全局系统时钟(100MHz)
     //----------------------------------------------------------------------
 	
 	//---------------------------MDIO接口------------------------------
 	//input wire rd_PHYreg_en,//读取寄存器使能信号 input wire
 
-	inout wire MDIO_data,			//PHY管理数据 inout wire  
+	inout wire MDIO_data	,			//PHY管理数据 inout wire  
 
-	output wire mdc,//PHY管理时钟         output wire
+	output wire mdc			,//PHY管理时钟         output wire
 	//-----------------------------------------------------------------
 
 	//----------------------------PHY接口------------------------------
-	input wire			rgmii_rxc,		//MAC控制器接收数据时钟
-	input wire			rgmii_rx_ctl,
-	input wire [3:0]	rgmii_rxd,
+	input wire			rgmii_rxc		,		//MAC控制器接收数据时钟
+	input wire			rgmii_rx_ctl	,
+	input wire [3:0]	rgmii_rxd		,
 
-    output wire 		rgmii_txc	,      //RGMII发送时钟
-    output wire 		rgmii_tx_ctl,    //RGMII发送数据控制信号
-    output wire [3:0] 	rgmii_txd,           //RGMII 发送数据
+    output wire 		rgmii_txc		,      //RGMII发送时钟
+    output wire 		rgmii_tx_ctl	,    //RGMII发送数据控制信号
+    output wire [3:0] 	rgmii_txd		,           //RGMII 发送数据
 	//-----------------------------------------------------------------
 
-	//----------------------rx_fifo相关接口----------------------------
-	input wire mac_rx_fifo_rd_clk,//外部传入MACfifo读时钟
-	input wire mac_rx_fifo_rd_en,//外部输入MAC fifo读使能
+	//----------------------rx_fifo相关面向LLC接口--------------------------------------
+	input wire mac_rx_fifo_rd_clk	,//外部传入MACfifo读时钟
+	input wire mac_rx_fifo_rd_en	,//外部输入MAC fifo读使能
 
-	output wire [63:0] mac_rx_fifo_dout,//输出MAC fifo 存储数据
-	output wire mac_rx_fifo_empty,//输出MAC fifo empty
-	output wire mac_rx_fifo_almost_empty,//输出MAC fifo almost_empty
-	output wire mac_rx_fifo_underflow,//输出MAC读溢出
-	//-----------------------------------------------------------------
+	output wire [63:0] 	mac_rx_fifo_dout				,//输出MAC fifo 存储数据
+	output wire 		mac_rx_fifo_empty				,//输出MAC fifo empty
+	output wire 		mac_rx_fifo_almost_empty		,//输出MAC fifo almost_empty
+	output wire 		mac_rx_fifo_underflow			,//输出MAC读溢出
+	//--------------------------------------------------------------------------------
 
-	//------------------------tx_fifo相关接口---------------------------
-	input wire mac_tx_fifo_wr_clk,//tx_fifo写时钟
-	input wire [63:0] mac_tx_fifo_din,//tx_fifo写数据
-	input wire mac_tx_fifo_wr_en,//tx_fifo写使能
+	//------------------------rx_que_fifo相关面向LLC接口-----------------------------
+	input wire mac_rx_que_fifo_rd_en	,//读使能
+	//input wire mac_rx_que_fifo_rd_clk,	//同mac_rx_fifo_rd_clk
 
-	output wire mac_tx_fifo_full, //tx_fifo满信号
-	output wire mac_tx_fifo_almost_full, //tx_fifo将满信号
-	output wire mac_tx_fifo_overflow //tx_fifo 写溢出信号
+	output wire [17:0] 	mac_rx_que_fifo_dout			,//输出数据
+	output wire 		mac_rx_que_fifo_empty			,	//读空信号
+	output wire 		mac_rx_que_fifo_almost_empty	,		//读将空信号
+	output wire 		mac_rx_que_fifo_underflow		,	//读溢出信号
+	//-----------------------------------------------------------------------------
+
+	//------------------------tx_fifo相关面向LLC接口---------------------------
+	input wire 			mac_tx_fifo_wr_clk	,//tx_fifo写时钟
+	input wire [63:0] 	mac_tx_fifo_din		,//tx_fifo写数据
+	input wire 			mac_tx_fifo_wr_en	,//tx_fifo写使能
+
+	output wire mac_tx_fifo_full			, //tx_fifo满信号
+	output wire mac_tx_fifo_almost_full		, //tx_fifo将满信号
+	output wire mac_tx_fifo_overflow		, //tx_fifo 写溢出信号
 	//------------------------------------------------------------------
 
+    //------------------------tx_que_fifo相关面向LLC接口-----------------------------
+	input wire 			mac_tx_que_fifo_wr_en	,//写使能
+	input wire [17:0] 	mac_tx_que_fifo_din		,//输入数据
+	//input wire mac_tx_que_fifo_wr_clk,	//同mac_tx_fifo_wr_clk
 
+	output wire mac_tx_que_fifo_full		,	//写满信号
+	output wire mac_tx_que_fifo_almost_full	,	//写将满信号
+	output wire mac_tx_que_fifo_overflow		//写溢出信号
+	//-----------------------------------------------------------------------------
 );
 
 //----------------------------------------------wire-reg----------------------------------------------------
@@ -58,19 +76,43 @@ wire		mac_rx_fifo_full;
 wire		mac_rx_fifo_almost_full;
 wire		mac_rx_fifo_overflow;//输出MAC fifo 写溢出
 
-//tx_fifo相关wire
-wire mac_tx_fifo_rd_clk; //读时钟
-wire mac_tx_fifo_rd_en; //读使能
-wire mac_tx_fifo_dout; //读数据
-wire mac_tx_fifo_almost_empty; //读将空信号
-wire mac_tx_fifo_empty; //读空信号
-wire mac_tx_fifo_underflow; //读溢出信号
+wire 			mac_rx_que_fifo_full;
+wire 			mac_rx_que_fifo_almost_full;
+wire 			mac_rx_que_fifo_overflow;
+wire 			mac_rx_que_fifo_wr_en;
+wire [17:0] 	mac_rx_que_fifo_din;
 
+wire [2:0] data_added;
+wire data_added_en;
+
+//tx_fifo相关wire
+wire 		mac_tx_fifo_rd_clk; //读时钟
+wire 		mac_tx_fifo_rd_en; //读使能
+wire [7:0] 	mac_tx_fifo_dout; //读数据
+wire 		mac_tx_fifo_almost_empty; //读将空信号
+wire 		mac_tx_fifo_empty; //读空信号
+wire 		mac_tx_fifo_underflow; //读溢出信号
+
+wire [17:0] 	mac_tx_que_fifo_dout			;
+wire 			mac_tx_que_fifo_empty			;
+wire 			mac_tx_que_fifo_almost_empty	;
+wire 			mac_tx_que_fifo_underflow		;
+wire 			mac_tx_que_fifo_rd_en;
+
+//gmii相关wire
+wire gmii_rx_clk;
+wire gmii_rx_dv;
+wire [7:0] gmii_rxd;
+
+wire gmii_tx_clk;
+wire gmii_tx_en;
+wire [7:0] gmii_txd;
 
 //MDIO相关wire
 wire [4:0] REG_addr;//读取寄存器地址  input wire [4:0]
 wire [15:0] reg_data;
 wire reg_data_en;//PHY寄存器数据有效信号 output reg
+wire MDIO_clk;
 
 //reg_ctl相关wire
 wire [1:0] 	duplex_mode;    //双工模式   10：full 01：half							output wire [1:0] 	
@@ -79,6 +121,8 @@ wire [2:0] 	speed_mode;     //速度模式    100：1000Mbps 010：100Mbps 001�
 //控制模块相关wire
 wire tx_busy;
 
+//时钟模块相关wire
+wire mac_clk;
 
 //RGMII与GMII转换模块
 gmii_to_rgmii gmii_to_rgmii_inst(
@@ -100,12 +144,12 @@ gmii_to_rgmii gmii_to_rgmii_inst(
 );
 
 clock_ctl clock_ctl_inst(
-    .mac_clk        (mac_clk), //系统时钟 input wire 
+    .sys_clk        (sys_clk), //系统时钟 input wire 
     .sys_rst_n      (sys_rst_n),   //input wire 
 
     .speed_mode     (speed_mode),    //速度模式	100：1000Mbps 010：100Mbps 001：10Mbps  input wire [2:0] 
 
-    .gmii_tx_clk    (gmii_tx_clk), //output wire 
+    .mac_clk    	(mac_clk), //output wire 
     .MDIO_clk       (MDIO_clk) //MDIO时钟    output wire 
 );
 
@@ -178,7 +222,7 @@ MAC_rx_ctl_top MAC_rx_ctl_top_inst(
 	.mac_rx_que_fifo_overflow       (mac_rx_que_fifo_overflow),	//写溢出信号 input wire 
 
 	.mac_rx_que_fifo_wr_en      (mac_rx_que_fifo_wr_en),//写使能 output reg 
-	.mac_rx_que_fifo_din        (mac_rx_que_fifo_din),//输入数据 output wire [7:0] 
+	.mac_rx_que_fifo_din        (mac_rx_que_fifo_din),//输入数据 output wire [17:0] 
 	//output wire mac_rx_que_fifo_clk,	//同mac_rx_fifo_wr_clk
 	//------------------------------------------------------------------------
 
@@ -189,54 +233,109 @@ MAC_rx_ctl_top MAC_rx_ctl_top_inst(
 
 	.mac_rx_fifo_wr_clk     (mac_rx_fifo_wr_clk),//写时钟 output wire 
     .mac_rx_fifo_din        (mac_rx_fifo_din),//输入数据8bit output wire [7:0] 
-	.mac_rx_fifo_wr_en      (mac_rx_fifo_wr_en)//写使能 output wire 
+	.mac_rx_fifo_wr_en      (mac_rx_fifo_wr_en),//写使能 output wire 
+
+	.data_added		(data_added),//需要补充的长度output wire [2:0] 	
+	.data_added_en	(data_added_en)//补充长度使能output wire 		
 	//-----------------------------------------------------------------
 );
 
 //rx_fifo接收缓存模块
-mac_rx_fifo_8x2048_64x265 mac_rx_fifo_8x2048_64x265_inst (
-	.rst(sys_rst_n),                      // input wire rst
-	.wr_clk(mac_rx_fifo_wr_clk),                // input wire wr_clk 125MHz
-	.rd_clk(mac_rx_fifo_rd_clk),                // input wire rd_clk 100MHz
-	.din(mac_rx_fifo_din),                      // input wire [7 : 0] din
-	.wr_en(mac_rx_fifo_wr_en),                  // input wire wr_en
-	.rd_en(mac_rx_fifo_rd_en),                  // input wire rd_en
-	.dout(mac_rx_fifo_dout),                    // output wire [63 : 0] dout
-	.full(mac_rx_fifo_full),                    // output wire full
-	.almost_full(mac_rx_fifo_almost_full),      // output wire almost_full
-	.wr_ack(),                // output wire wr_ack
-	.overflow(mac_rx_fifo_overflow),            // output wire overflow
-	.empty(mac_rx_fifo_empty),                  // output wire empty
-	.almost_empty(mac_rx_fifo_almost_empty),    // output wire almost_empty
-	.valid(),                  // output wire valid
-	.underflow(mac_rx_fifo_underflow),          // output wire underflow
-	.rd_data_count(),  // output wire [7 : 0] rd_data_count
-	.wr_data_count(),  // output wire [10 : 0] wr_data_count
-	.wr_rst_busy(),      // output wire wr_rst_busy
-	.rd_rst_busy()      // output wire rd_rst_busy
+rx_fifo_top rx_fifo_top_inst(
+    //------------------------------系统信号---------------------------------
+    .sys_rst_n  (sys_rst_n),	//系统复位信号  input wire 
+	.mac_clk    (gmii_rx_clk),		//(接收时钟)   input wire 
+    //----------------------------------------------------------------------
+
+	//----------------------rx_fifo相关面向LLC接口----------------------------
+	.mac_rx_fifo_rd_clk (mac_rx_fifo_rd_clk),//外部传入MACfifo读时钟input wire 
+	.mac_rx_fifo_rd_en  (mac_rx_fifo_rd_en),//外部输入MAC fifo读使能input wire 
+
+	.mac_rx_fifo_dout           (mac_rx_fifo_dout),//输出MAC fifo 存储数据        output wire [63:0]  
+	.mac_rx_fifo_empty          (mac_rx_fifo_empty),//输出MAC fifo empty           output wire         
+	.mac_rx_fifo_almost_empty   (mac_rx_fifo_almost_empty),//输出MAC fifo almost_empty    output wire         
+	.mac_rx_fifo_underflow      (mac_rx_fifo_underflow),//输出MAC读溢出                output wire         
+	//------------------------------------------------------------------------
+
+	//---------------------rx_fifo相关面向MAC接口------------------------------------------
+	.mac_rx_fifo_wr_clk  (mac_rx_fifo_wr_clk),//rx_fifo写时钟			rx_que_fifo写时钟   input wire          
+    .mac_rx_fifo_din     (mac_rx_fifo_din),//输入数据			CRC输入待校验的8位数    input wire [7:0]    
+	.mac_rx_fifo_wr_en   (mac_rx_fifo_wr_en),//写使能                                   input wire          
+	.data_added          (data_added),//需要补充的长度                           input wire [2:0]    
+	.data_added_en       (data_added_en),//补充长度使能                             input wire          
+
+	.mac_rx_fifo_full            (mac_rx_fifo_full), 	//写满信号	output wire 
+	.mac_rx_fifo_almost_full     (mac_rx_fifo_almost_full), 	//写将满信号output wire 
+	.mac_rx_fifo_overflow        (mac_rx_fifo_overflow), 	//写溢出信号output wire 
+	//------------------------------------------------------------------------------
+
+	//------------------------rx_que_fifo相关面向MAC接口-----------------------------
+	.mac_rx_que_fifo_wr_en		(mac_rx_que_fifo_wr_en),//写使能	input wire 			
+	.mac_rx_que_fifo_din		(mac_rx_que_fifo_din),//输入数据	input wire [17:0] 	
+	//input wire mac_rx_que_fifo_wr_clk,	//同mac_rx_fifo_wr_clk
+
+	.mac_rx_que_fifo_full			(mac_rx_que_fifo_full),	//写满信号	output wire 
+	.mac_rx_que_fifo_almost_full	(mac_rx_que_fifo_almost_full),	//写将满信号output wire 
+	.mac_rx_que_fifo_overflow		(mac_rx_que_fifo_overflow),	//写溢出信号output wire 
+	//------------------------------------------------------------------------
+
+	//------------------------rx_que_fifo相关面向LLC接口-----------------------------
+	.mac_rx_que_fifo_rd_en	(mac_rx_que_fifo_rd_en),//读使能	input wire 			
+
+	//input wire mac_rx_que_fifo_rd_clk,	//同mac_rx_fifo_rd_clk
+	.mac_rx_que_fifo_dout	(mac_rx_que_fifo_dout),//输出数据	output wire [17:0] 	
+	.mac_rx_que_fifo_empty			(mac_rx_que_fifo_empty),	//读空信号	output wire 
+	.mac_rx_que_fifo_almost_empty	(mac_rx_que_fifo_almost_empty),	//读将空信号output wire 
+	.mac_rx_que_fifo_underflow		(mac_rx_que_fifo_underflow)	//读溢出信号output wire 
+	//------------------------------------------------------------------------
 );
 
 //tx_fifo发送缓存模块
-mac_tx_fifo_64x256_8x2048 mac_tx_fifo_64x256_8x2048_inst (
-    .rst(sys_rst_n),                      // input wire rst
-    .wr_clk(mac_tx_fifo_wr_clk),                // input wire wr_clk 100MHz
-    .rd_clk(mac_clk),                // input wire rd_clk 125MHz
-    .din(mac_tx_fifo_din),                      // input wire [63 : 0] din
-    .wr_en(mac_tx_fifo_wr_en),                  // input wire wr_en
-    .rd_en(mac_tx_fifo_rd_en),                  // input wire rd_en
-    .dout(mac_tx_fifo_dout),                    // output wire [7 : 0] dout
-    .full(mac_tx_fifo_full),                    // output wire full
-    .almost_full(mac_tx_fifo_almost_full),      // output wire almost_full
-    .wr_ack(),                // output wire wr_ackf
-    .overflow(mac_tx_fifo_overflow),            // output wire overflow
-    .empty(mac_tx_fifo_empty),                  // output wire empty
-    .almost_empty(mac_tx_fifo_almost_empty),    // output wire almost_empty
-    .valid(),                  // output wire valid
-    .underflow(mac_tx_fifo_underflow),          // output wire underflow
-    .rd_data_count(),  // output wire [10 : 0] rd_data_count
-    .wr_data_count(),  // output wire [7 : 0] wr_data_count
-    .wr_rst_busy(),      // output wire wr_rst_busy
-    .rd_rst_busy()      // output wire rd_rst_busy
+tx_fifo_top tx_fifo_top_inst(
+    //------------------------------系统信号---------------------------------
+    .sys_rst_n		(sys_rst_n),//系统复位信号						input wire 
+	.mac_clk		(mac_clk),//MAC控制器全局系统时钟(发送时钟)	input wire 
+    //----------------------------------------------------------------------
+
+	//----------------------tx_fifo相关面向MAC接口----------------------------
+	.mac_tx_fifo_rd_clk	(mac_tx_fifo_rd_clk),//外部传入MACfifo读时钟	input wire 
+	.mac_tx_fifo_rd_en	(mac_tx_fifo_rd_en),//外部输入MAC fifo读使能	input wire 
+
+	.mac_tx_fifo_dout			(mac_tx_fifo_dout),//输出MAC fifo 存储数据		output wire [7:0] 	
+	.mac_tx_fifo_empty			(mac_tx_fifo_empty),//输出MAC fifo empty			output wire 		
+	.mac_tx_fifo_almost_empty	(mac_tx_fifo_almost_empty),//输出MAC fifo almost_empty	output wire 		
+	.mac_tx_fifo_underflow		(mac_tx_fifo_underflow),//输出MAC读溢出				output wire 		
+	//------------------------------------------------------------------------
+
+    //---------------------tx_fifo相关面向LLC接口------------------------------------------
+	.mac_tx_fifo_wr_clk		(mac_tx_fifo_wr_clk),//tx_fifo写时钟			tx_que_fifo写时钟	input wire 			
+    .mac_tx_fifo_din		(mac_tx_fifo_din),//输入数据			CRC输入待校验的8位数据	input wire [63:0] 	
+	.mac_tx_fifo_wr_en		(mac_tx_fifo_wr_en),//写使能										input wire 			
+
+	.mac_tx_fifo_full				(mac_tx_fifo_full), 	//写满信号		output wire 
+	.mac_tx_fifo_almost_full		(mac_tx_fifo_almost_full), 	//写将满信号	output wire 
+	.mac_tx_fifo_overflow			(mac_tx_fifo_overflow), 	//写溢出信号	output wire 
+	//------------------------------------------------------------------------------
+
+    //------------------------tx_que_fifo相关面向LLC接口-----------------------------
+	.mac_tx_que_fifo_wr_en		(mac_tx_que_fifo_wr_en),//写使能	input wire 			
+	.mac_tx_que_fifo_din		(mac_tx_que_fifo_din),//输入数据	input wire [17:0] 	
+	//input wire mac_tx_que_fifo_wr_clk,	//同mac_tx_fifo_wr_clk
+
+	.mac_tx_que_fifo_full			(mac_tx_que_fifo_full),	//写满信号		output wire 
+	.mac_tx_que_fifo_almost_full	(mac_tx_que_fifo_almost_full),	//写将满信号	output wire 
+	.mac_tx_que_fifo_overflow		(mac_tx_que_fifo_overflow),	//写溢出信号	output wire 
+	//-----------------------------------------------------------------------------
+
+	//------------------------tx_que_fifo相关面向MAC接口-----------------------------
+	.mac_tx_que_fifo_rd_en	(mac_tx_que_fifo_rd_en),//读使能	input wire 
+	//input wire mac_tx_que_fifo_rd_clk,	//同mac_tx_fifo_rd_clk
+
+	.mac_tx_que_fifo_dout			(mac_tx_que_fifo_dout),//输出数据		output wire [17:0] 	
+	.mac_tx_que_fifo_empty			(mac_tx_que_fifo_empty),//读空信号		output wire 		
+	.mac_tx_que_fifo_almost_empty	(mac_tx_que_fifo_almost_empty),//读将空信号	output wire 		
+	.mac_tx_que_fifo_underflow		(mac_tx_que_fifo_underflow) //读溢出信号	output wire 		
+	//-----------------------------------------------------------------------------
 );
 
 

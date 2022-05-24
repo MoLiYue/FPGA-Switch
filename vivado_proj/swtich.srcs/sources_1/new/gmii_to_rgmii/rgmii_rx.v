@@ -29,7 +29,7 @@ module rgmii_rx(
     wire [1:0]  gmii_rxdv_t         ;//两位GMII接收有效信号
 
     assign gmii_rx_clk = rgmii_rxc;
-    assign gmii_rx_dv = gmii_rxdv_t[0] & gmii_rxdv_t[1];
+    assign gmii_rx_dv = gmii_rxdv_t[0] & gmii_rxdv_t[1];//原理未知
 
     IDDR #(
       .DDR_CLK_EDGE("SAME_EDGE"), // "OPPOSITE_EDGE", "SAME_EDGE" 

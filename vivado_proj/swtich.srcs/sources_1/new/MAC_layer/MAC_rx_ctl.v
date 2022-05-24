@@ -26,6 +26,8 @@ module MAC_rx_ctl(
 	output wire mac_rx_fifo_wr_clk,//rx_fifo写时钟			rx_que_fifo写时钟
     output reg [7:0] mac_rx_fifo_din,//输入数据			CRC输入待校验的8位数据
 	output reg mac_rx_fifo_wr_en,//写使能
+	output reg [2:0] data_added,//需要补充的长度
+	output reg data_added_en,//补充长度使能
 	//-----------------------------------------------------------------
 
 	//------------------------rx_que_fifo相关信号-----------------------------
@@ -34,7 +36,7 @@ module MAC_rx_ctl(
 	input wire mac_rx_que_fifo_overflow,	//写溢出信号
 
 	output reg mac_rx_que_fifo_wr_en,//写使能
-	output wire [7:0] mac_rx_que_fifo_din,//输入数据
+	output wire [17:0] mac_rx_que_fifo_din,//输入数据
 	//output wire mac_rx_que_fifo_clk,	//同mac_rx_fifo_wr_clk
 	//------------------------------------------------------------------------
 
@@ -82,6 +84,8 @@ reg [2:0] cnt_crc;		//计数器，计crc的补充32位0
 reg sw_en;
 reg err_en;
 reg [15:0] mac_length;//mac帧长度
+reg [15:0] mac_length_tmp;//计算数据
+
 reg too_short;	//帧过短
 reg too_long;	//帧过长
 
@@ -318,12 +322,11 @@ end
 //			default: crc_en <= 1'b0;
 //		endcase
 //end
-
 always @(cur_state)
-    if (cur_state==RX_DATA)
-        crc_en  =1;
+    if (cur_state == RX_DATA)
+        crc_en  = 1;
     else
-        crc_en  =0;
+        crc_en  = 0;
 
 //crc_clr复位信号
 always @(posedge gmii_rx_clk or negedge sys_rst_n) begin
@@ -335,6 +338,16 @@ always @(posedge gmii_rx_clk or negedge sys_rst_n) begin
 					crc_clr <= 1'b1;
 			default: crc_clr <= 1'b0;
 		endcase
+end
+
+always @(cur_state) begin
+	if(cur_state == RX_CRCCHK) begin
+		mac_length_tmp = ((mac_length >> 3) + 1) << 3;
+		data_added = mac_length_tmp - mac_length;
+	end else begin
+		mac_length_tmp = 16'd0;
+		data_added = 3'd0;
+	end
 end
 
 endmodule

@@ -74,15 +74,15 @@ module pll_mac_clk_wiz
   output        clk_125M,
   output        clk_25M,
   output        clk_10M,
-  input         mac_clk
+  input         sys_clk
  );
   // Input buffering
   //------------------------------------
-wire mac_clk_pll_mac;
+wire sys_clk_pll_mac;
 wire clk_in2_pll_mac;
   IBUF clkin1_ibufg
-   (.O (mac_clk_pll_mac),
-    .I (mac_clk));
+   (.O (sys_clk_pll_mac),
+    .I (sys_clk));
 
 
 
@@ -145,7 +145,7 @@ wire clk_in2_pll_mac;
     .CLKOUT5             (clkout5_unused),
      // Input clock control
     .CLKFBIN             (clkfbout_buf_pll_mac),
-    .CLKIN1              (mac_clk_pll_mac),
+    .CLKIN1              (sys_clk_pll_mac),
     .CLKIN2              (1'b0),
      // Tied to always select the primary input clock
     .CLKINSEL            (1'b1),

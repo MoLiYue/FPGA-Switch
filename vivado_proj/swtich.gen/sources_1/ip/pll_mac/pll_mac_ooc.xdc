@@ -54,5 +54,5 @@
 ############################################################
 # Clock Period Constraints                                 #
 ############################################################
-#create_clock -period 10.000 [get_ports mac_clk]
+#create_clock -period 10.000 [get_ports sys_clk]
 

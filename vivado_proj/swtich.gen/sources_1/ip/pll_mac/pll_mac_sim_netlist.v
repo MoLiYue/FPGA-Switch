@@ -1,10 +1,10 @@
 // Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
-// Date        : Sun May 15 19:06:19 2022
+// Date        : Sat May 21 17:23:33 2022
 // Host        : mlyue running 64-bit Arch Linux
-// Command     : write_verilog -force -mode funcsim
-//               /home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.gen/sources_1/ip/pll_mac/pll_mac_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top pll_mac -prefix
+//               pll_mac_ pll_mac_sim_netlist.v
 // Design      : pll_mac
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -17,33 +17,33 @@ module pll_mac
    (clk_125M,
     clk_25M,
     clk_10M,
-    mac_clk);
+    sys_clk);
   output clk_125M;
   output clk_25M;
   output clk_10M;
-  input mac_clk;
+  input sys_clk;
 
   wire clk_10M;
   wire clk_125M;
   wire clk_25M;
-  (* IBUF_LOW_PWR *) wire mac_clk;
+  (* IBUF_LOW_PWR *) wire sys_clk;
 
-  pll_mac_clk_wiz inst
+  pll_mac_pll_mac_clk_wiz inst
        (.clk_10M(clk_10M),
         .clk_125M(clk_125M),
         .clk_25M(clk_25M),
-        .mac_clk(mac_clk));
+        .sys_clk(sys_clk));
 endmodule
 
-module pll_mac_clk_wiz
+module pll_mac_pll_mac_clk_wiz
    (clk_125M,
     clk_25M,
     clk_10M,
-    mac_clk);
+    sys_clk);
   output clk_125M;
   output clk_25M;
   output clk_10M;
-  input mac_clk;
+  input sys_clk;
 
   wire clk_10M;
   wire clk_10M_pll_mac;
@@ -53,8 +53,8 @@ module pll_mac_clk_wiz
   wire clk_25M_pll_mac;
   wire clkfbout_buf_pll_mac;
   wire clkfbout_pll_mac;
-  wire mac_clk;
-  wire mac_clk_pll_mac;
+  wire sys_clk;
+  wire sys_clk_pll_mac;
   wire NLW_plle2_adv_inst_CLKOUT3_UNCONNECTED;
   wire NLW_plle2_adv_inst_CLKOUT4_UNCONNECTED;
   wire NLW_plle2_adv_inst_CLKOUT5_UNCONNECTED;
@@ -73,8 +73,8 @@ module pll_mac_clk_wiz
   IBUF #(
     .IOSTANDARD("DEFAULT")) 
     clkin1_ibufg
-       (.I(mac_clk),
-        .O(mac_clk_pll_mac));
+       (.I(sys_clk),
+        .O(sys_clk_pll_mac));
   (* BOX_TYPE = "PRIMITIVE" *) 
   BUFG clkout1_buf
        (.I(clk_125M_pll_mac),
@@ -123,7 +123,7 @@ module pll_mac_clk_wiz
     plle2_adv_inst
        (.CLKFBIN(clkfbout_buf_pll_mac),
         .CLKFBOUT(clkfbout_pll_mac),
-        .CLKIN1(mac_clk_pll_mac),
+        .CLKIN1(sys_clk_pll_mac),
         .CLKIN2(1'b0),
         .CLKINSEL(1'b1),
         .CLKOUT0(clk_125M_pll_mac),

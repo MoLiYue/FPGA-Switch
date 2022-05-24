@@ -16,13 +16,13 @@ module MAC_rx_ctl_top(
 	//----------------------------------------------------------------
 
 	//------------------------rx_que_fifo相关信号-----------------------------
-	//input wire mac_rx_que_fifo_full,	//写满信号
-	//input wire mac_rx_que_fifo_almost_full,		//写将满信号
-	//input wire mac_rx_que_fifo_overflow,	//写溢出信号
-//
-	//output reg mac_rx_que_fifo_wr_en,//写使能
-	//output wire [7:0] mac_rx_que_fifo_din,//输入数据
-	//output wire mac_rx_que_fifo_clk,	//同mac_rx_fifo_wr_clk
+	input wire mac_rx_que_fifo_full,	//写满信号
+	input wire mac_rx_que_fifo_almost_full,		//写将满信号
+	input wire mac_rx_que_fifo_overflow,	//写溢出信号
+
+	output wire mac_rx_que_fifo_wr_en,//写使能
+	output wire [17:0] mac_rx_que_fifo_din,//输入数据
+	//output wire mac_rx_que_fifo_wr_clk,	//同mac_rx_fifo_wr_clk
 	//------------------------------------------------------------------------
 
     //---------------------rx_fifo相关接口------------------------------
@@ -32,7 +32,9 @@ module MAC_rx_ctl_top(
 
 	output wire mac_rx_fifo_wr_clk,//写时钟
     output wire [7:0] mac_rx_fifo_din,//输入数据8bit
-	output wire mac_rx_fifo_wr_en//写使能
+	output wire mac_rx_fifo_wr_en,//写使能
+	output wire [2:0] data_added,//需要补充的长度
+	output wire data_added_en//补充长度使能
 	//-----------------------------------------------------------------
 );
 
@@ -69,6 +71,8 @@ MAC_rx_ctl MAC_rx_ctl_inst(
 	.mac_rx_fifo_wr_clk (mac_rx_fifo_wr_clk),//写时钟 output wire 
     .mac_rx_fifo_din    (mac_rx_fifo_din),//输入数据87ui  output wire [7:0] 
 	.mac_rx_fifo_wr_en  (mac_rx_fifo_wr_en),//写使能   output reg 
+	.data_added		(data_added),//需要补充的长度	output reg [2:0] 	
+	.data_added_en	(data_added_en),//补充长度使能		output reg 			
 	//-----------------------------------------------------------------
 
 	//------------------------rx_que_fifo相关信号-----------------------------
@@ -77,7 +81,7 @@ MAC_rx_ctl MAC_rx_ctl_inst(
 	.mac_rx_que_fifo_overflow		(mac_rx_que_fifo_overflow),	//写溢出信号input wire 
 
 	.mac_rx_que_fifo_wr_en			(mac_rx_que_fifo_wr_en),//写使能		output reg 
-	.mac_rx_que_fifo_din			(mac_rx_que_fifo_din),//输入数据		output wire [7:0] 
+	.mac_rx_que_fifo_din			(mac_rx_que_fifo_din),//输入数据		output wire [17:0] 
 	//output wire mac_rx_que_fifo_clk,	//同mac_rx_que_fifo_clk
 	//------------------------------------------------------------------------
 

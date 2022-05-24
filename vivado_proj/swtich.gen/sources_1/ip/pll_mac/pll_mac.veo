@@ -77,6 +77,6 @@
     .clk_25M(clk_25M),     // output clk_25M
     .clk_10M(clk_10M),     // output clk_10M
    // Clock in ports
-    .mac_clk(mac_clk));      // input mac_clk
+    .sys_clk(sys_clk));      // input sys_clk
 
 // INST_TAG_END ------ End INSTANTIATION Template ---------
