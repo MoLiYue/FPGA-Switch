@@ -47,15 +47,15 @@ wire gmii_tx_en ;
 always #4 mac_clk = ~mac_clk;
 
 //cnt_data:数据包字节计数器
-always @(posedge mac_clk or negedge sys_rst_n)
-	if(sys_rst_n == 1'b0)
-		cnt_data <= 8'd0;
-	else if(mac_tx_fifo_rd_en == 1'b1)
-		cnt_data <= cnt_data + 1'b1;
-	else if(mac_tx_fifo_rd_en == 1'b0)
-		cnt_data <= 0;
-	else
-		cnt_data <= cnt_data;
+//always @(posedge mac_clk or negedge sys_rst_n)
+//	if(sys_rst_n == 1'b0)
+//		cnt_data <= 8'd0;
+//	else if(mac_tx_fifo_rd_en == 1'b1)
+//		cnt_data <= cnt_data + 1'b1;
+//	else if(mac_tx_fifo_rd_en == 1'b0)
+//		cnt_data <= 0;
+//	else
+//		cnt_data <= cnt_data;
 
 //接收队列缓存输出
 always @(*) begin
@@ -64,8 +64,9 @@ always @(*) begin
 end
 
 //mac_tx_fifo_dout:LLC发送数据
-assign mac_tx_fifo_dout = (mac_tx_fifo_rd_en == 1'b1) ? data_mem[cnt_data] : 8'b0;
+//assign mac_tx_fifo_dout = (mac_tx_fifo_rd_en == 1'b1) ? data_mem[cnt_data] : 8'b0;
 
+//
 MAC_tx_ctl MAC_tx_ctl_inst(
     //------------------------------系统信号------------------------------------
     .mac_clk		(mac_clk),//发送时钟		input wire 
@@ -102,5 +103,53 @@ MAC_tx_ctl MAC_tx_ctl_inst(
     .gmii_tx_en     (gmii_tx_en)     //GMII发送数据					output wire
     //---------------------------------------------------------------------------------
 
+);
+
+//
+tx_fifo_top tx_fifo_top_inst(
+    //------------------------------系统信号---------------------------------
+    .sys_rst_n		(sys_rst_n),//系统复位信号						input wire 
+	.mac_clk		(mac_clk),//MAC控制器全局系统时钟(发送时钟)	input wire 
+    //----------------------------------------------------------------------
+
+	//----------------------tx_fifo相关面向MAC接口----------------------------
+	.mac_tx_fifo_rd_clk	(mac_tx_fifo_rd_clk),//外部传入MACfifo读时钟	input wire 
+	.mac_tx_fifo_rd_en	(mac_tx_fifo_rd_en),//外部输入MAC fifo读使能	input wire 
+
+	.mac_tx_fifo_dout			(mac_tx_fifo_dout),//输出MAC fifo 存储数据		output wire [7:0] 	
+	.mac_tx_fifo_empty			(mac_tx_fifo_empty),//输出MAC fifo empty			output wire 		
+	.mac_tx_fifo_almost_empty	(mac_tx_fifo_almost_empty),//输出MAC fifo almost_empty	output wire 		
+	.mac_tx_fifo_underflow		(mac_tx_fifo_underflow),//输出MAC读溢出				output wire 		
+	//------------------------------------------------------------------------
+
+    //---------------------tx_fifo相关面向LLC接口------------------------------------------
+	.mac_tx_fifo_wr_clk		(mac_tx_fifo_wr_clk),//tx_fifo写时钟			tx_que_fifo写时钟	input wire 			
+    .mac_tx_fifo_din		(mac_tx_fifo_din),//输入数据			CRC输入待校验的8位数据	input wire [63:0] 	
+	.mac_tx_fifo_wr_en		(mac_tx_fifo_wr_en),//写使能										input wire 			
+
+	.mac_tx_fifo_full				(mac_tx_fifo_full), 	//写满信号		output wire 
+	.mac_tx_fifo_almost_full		(mac_tx_fifo_almost_full), 	//写将满信号	output wire 
+	.mac_tx_fifo_overflow			(mac_tx_fifo_overflow), 	//写溢出信号	output wire 
+	//------------------------------------------------------------------------------
+
+    //------------------------tx_que_fifo相关面向LLC接口-----------------------------
+	.mac_tx_que_fifo_wr_en		(mac_tx_que_fifo_wr_en),//写使能	input wire 			
+	.mac_tx_que_fifo_din		(mac_tx_que_fifo_din),//输入数据	input wire [17:0] 	
+	//input wire mac_tx_que_fifo_wr_clk,	//同mac_tx_fifo_wr_clk
+
+	.mac_tx_que_fifo_full			(mac_tx_que_fifo_full),	//写满信号		output wire 
+	.mac_tx_que_fifo_almost_full	(mac_tx_que_fifo_almost_full),	//写将满信号	output wire 
+	.mac_tx_que_fifo_overflow		(mac_tx_que_fifo_overflow),	//写溢出信号	output wire 
+	//-----------------------------------------------------------------------------
+
+	//------------------------tx_que_fifo相关面向MAC接口-----------------------------
+	.mac_tx_que_fifo_rd_en	(mac_tx_que_fifo_rd_en),//读使能	input wire 
+	//input wire mac_tx_que_fifo_rd_clk,	//同mac_tx_fifo_rd_clk
+
+	.mac_tx_que_fifo_dout			(mac_tx_que_fifo_dout),//输出数据		output wire [17:0] 	
+	.mac_tx_que_fifo_empty			(mac_tx_que_fifo_empty),//读空信号		output wire 		
+	.mac_tx_que_fifo_almost_empty	(mac_tx_que_fifo_almost_empty),//读将空信号	output wire 		
+	.mac_tx_que_fifo_underflow		(mac_tx_que_fifo_underflow) //读溢出信号	output wire 		
+	//-----------------------------------------------------------------------------
 );
 endmodule
