@@ -1,0 +1,6 @@
+verilog xil_defaultlib  \
+"../../../../swtich.gen/sources_1/ip/blk_mem_18x400/sim/blk_mem_18x400.v" \
+
+verilog xil_defaultlib "glbl.v"
+
+nosort

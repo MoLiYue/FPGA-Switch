@@ -1,6 +1,0 @@
-verilog xil_defaultlib  \
-"../../../../swtich.gen/sources_1/ip/mac_rx_fifo_8x2048_64x265/sim/mac_rx_fifo_8x2048_64x265.v" \
-
-verilog xil_defaultlib "glbl.v"
-
-nosort

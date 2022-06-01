@@ -25,9 +25,10 @@ module LLC_top(
 	//---------------------------------------------------------------------------------
 
 	//-----------------------------------tx_fifo相关接口---------------------------------
-    input wire [7:0]	mac_tx_fifo_full         , //tx_fifo满信号
-	input wire [7:0]	mac_tx_fifo_almost_full  , //tx_fifo将满信号
-	input wire [7:0]	mac_tx_fifo_overflow     ,//tx_fifo 写溢出信号
+    input wire [7:0]	mac_tx_fifo_full        , //tx_fifo满信号
+	input wire [7:0]	mac_tx_fifo_almost_full , //tx_fifo将满信号
+	input wire [7:0]	mac_tx_fifo_overflow    ,//tx_fifo 写溢出信号
+	input wire [7:0] 	mac_tx_fifo_prog_empty	,//可编程空信号，用于判定可以写入信息
 
 	output wire [7:0]	mac_tx_fifo_wr_clk      ,//tx_fifo写时钟
 	output wire [511:0] mac_tx_fifo_din  		,//tx_fifo写数据
@@ -49,7 +50,7 @@ module LLC_top(
 wire rx_fifo_rd_clk;
 wire rx_fifo_rd_en ;
 
-wire [63:0] rx_fifo_dout        ;
+wire [63:0] rx_fifo_dout ;
 wire rx_fifo_empty       ;
 wire rx_fifo_almost_empty;
 wire rx_fifo_underflow   ;
@@ -90,9 +91,10 @@ arbiter arbiter_inst(
 	//----------------------------------------------------------------------------------
 
 	//-----------------------------------tx_fifo相关接口---------------------------------
-    .mac_tx_fifo_full         (mac_tx_fifo_full), //tx_fifo满信号        input wire [7:0]
-	.mac_tx_fifo_almost_full  (mac_tx_fifo_almost_full), //tx_fifo将满信号      input wire [7:0]
-	.mac_tx_fifo_overflow     (mac_tx_fifo_overflow),//tx_fifo 写溢出信号    input wire [7:0]
+    .mac_tx_fifo_full         	(mac_tx_fifo_full), //tx_fifo满信号        input wire [7:0]
+	.mac_tx_fifo_almost_full  	(mac_tx_fifo_almost_full), //tx_fifo将满信号      input wire [7:0]
+	.mac_tx_fifo_overflow     	(mac_tx_fifo_overflow),//tx_fifo 写溢出信号    input wire [7:0]
+	.mac_tx_fifo_prog_empty		(mac_tx_fifo_prog_empty),//可编程空信号，用于判定可以写入信息	input wire [7:0] 	
 
 	.mac_tx_fifo_wr_clk      (mac_tx_fifo_wr_clk),//tx_fifo写时钟  output wire         [7:0]
 	.mac_tx_fifo_din         (mac_tx_fifo_din),//tx_fifo写数据  output wire [511:0]
@@ -100,7 +102,6 @@ arbiter arbiter_inst(
 	//-----------------------------------------------------------------------------------
 
 	//--------------------------------选择后的rx_fifo相关接口---------------------------------
-	.rx_fifo_rd_clk      (rx_fifo_rd_clk),//外部传入MACfifo读时钟   input wire 
 	.rx_fifo_rd_en       (rx_fifo_rd_en),//外部输入MAC fifo读使能  input wire 
 
 	.rx_fifo_dout         (rx_fifo_dout),//输出MAC fifo 存储数据              output wire [63:0]  
@@ -120,4 +121,26 @@ arbiter arbiter_inst(
 	//-----------------------------------------------------------------------------------
 );
 
+//mac_addr模块
+mac_addr
+#(
+    .OLD_TIME    ()//老化时间   16'd48000
+)mac_addr_inst(
+    //---------------------------------系统信号----------------------------------------
+    .sys_clk      (sys_clk),//input wire 
+    .sys_rst_n    (sys_rst_n),//input wire 
+    //--------------------------------------------------------------------------------
+
+	//-----------------------------------mac_addr相关信号----------------------------------
+	.mac_addr_en	(mac_addr_en),//mac地址有效信号  input wire 
+	.D_mac		    (D_mac),//目的地址     input wire [47:0] 
+	.S_mac		    (S_mac),//源地址       input wire [47:0] 
+	//------------------------------------------------------------------------------------
+
+    .S_port_num     (S_port_num),//源地址端口号   input wire [2:0] 
+
+    .D_port_num     (D_port_num),//查询的目的地址端口号   output reg [2:0] 
+    .D_port_num_en  (D_port_num_en),//查询的目的地址端口号使能    output reg 
+    .flooding       (flooding)//泛洪信号  output reg 
+);
 endmodule

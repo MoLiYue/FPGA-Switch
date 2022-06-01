@@ -342,8 +342,12 @@ end
 
 always @(cur_state) begin
 	if(cur_state == RX_CRCCHK) begin
-		mac_length_tmp = ((mac_length >> 3) + 1) << 3;
-		data_added = mac_length_tmp - mac_length;
+		if(mac_length >> 3 << 3 == mac_length)
+			data_added =  3'd0;
+		else begin
+			mac_length_tmp = ((mac_length >> 3) + 1) << 3;
+			data_added = mac_length_tmp - mac_length;
+		end
 	end else begin
 		mac_length_tmp = 16'd0;
 		data_added = 3'd0;

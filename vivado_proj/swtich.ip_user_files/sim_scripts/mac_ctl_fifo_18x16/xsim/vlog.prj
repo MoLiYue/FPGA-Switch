@@ -1,0 +1,10 @@
+verilog fifo_generator_v13_2_6  \
+"../../../ipstatic/simulation/fifo_generator_vlog_beh.v" \
+"../../../ipstatic/hdl/fifo_generator_v13_2_rfs.v" \
+
+verilog xil_defaultlib  \
+"../../../../swtich.gen/sources_1/ip/mac_ctl_fifo_18x16/sim/mac_ctl_fifo_18x16.v" \
+
+verilog xil_defaultlib "glbl.v"
+
+nosort

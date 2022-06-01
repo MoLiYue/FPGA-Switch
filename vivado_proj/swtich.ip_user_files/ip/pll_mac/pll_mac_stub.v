@@ -1,13 +1,13 @@
 // Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
-// Date        : Sat May 21 17:23:33 2022
+// Date        : Sat May 28 14:00:49 2022
 // Host        : mlyue running 64-bit Arch Linux
-// Command     : write_verilog -force -mode synth_stub -rename_top pll_mac -prefix
-//               pll_mac_ pll_mac_stub.v
+// Command     : write_verilog -force -mode synth_stub
+//               /home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.gen/sources_1/ip/pll_mac/pll_mac_stub.v
 // Design      : pll_mac
 // Purpose     : Stub declaration of top-level module interface
-// Device      : xc7a35tfgg484-2
+// Device      : xc7a200tfbv484-2
 // --------------------------------------------------------------------------------
 
 // This empty module with port declaration file causes synthesis tools to infer a black box for IP.

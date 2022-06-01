@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2021.2 (64-bit)
+# SW Build 3367213 on Tue Oct 19 02:47:39 MDT 2021
+# IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
+# Start of session at: Sat May 28 14:14:39 2022
+# Process ID: 451573
+# Current directory: /home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/synth_1
+# Command line: vivado -log MAC_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source MAC_top.tcl
+# Log file: /home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/synth_1/MAC_top.vds
+# Journal file: /home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/synth_1/vivado.jou
+# Running On: mlyue, OS: Linux, CPU Frequency: 4009.799 MHz, CPU Physical cores: 6, Host memory: 16516 MB
+#-----------------------------------------------------------
+source MAC_top.tcl -notrace

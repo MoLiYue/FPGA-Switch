@@ -46,6 +46,7 @@ wire mac_tx_fifo_wr_en	    [7:0];
 wire mac_tx_fifo_full		[7:0];
 wire mac_tx_fifo_almost_full[7:0];
 wire mac_tx_fifo_overflow	[7:0];
+wire mac_tx_fifo_prog_empty [7:0];
 
 wire mac_tx_que_fifo_wr_en	[7:0];
 wire [17:0] mac_tx_que_fifo_din	[7:0];
@@ -110,6 +111,7 @@ generate for (i = 0; i<8; i = i+1)
         	.mac_tx_fifo_full			    (mac_tx_fifo_full[i]), //tx_fifo满信号       output wire 
         	.mac_tx_fifo_almost_full		(mac_tx_fifo_almost_full[i]), //tx_fifo将满信号     output wire 
         	.mac_tx_fifo_overflow		    (mac_tx_fifo_overflow[i]), //tx_fifo 写溢出信号  output wire 
+			.mac_tx_fifo_prog_empty			(mac_tx_fifo_prog_empty[i]),//可编程空信号，用于判定可以写入信息	output wire 
         	//------------------------------------------------------------------
 
             //------------------------tx_que_fifo相关面向LLC接口-----------------------------
@@ -268,6 +270,15 @@ LLC_top LLC_top_inst(
 									mac_tx_fifo_overflow[1],
 									mac_tx_fifo_overflow[0]
 								}),//tx_fifo 写溢出信号	input wire [7:0]	
+	.mac_tx_fifo_prog_empty		({	mac_tx_fifo_prog_empty[7],
+									mac_tx_fifo_prog_empty[6],
+									mac_tx_fifo_prog_empty[5],
+									mac_tx_fifo_prog_empty[4],
+									mac_tx_fifo_prog_empty[3],
+									mac_tx_fifo_prog_empty[2],
+									mac_tx_fifo_prog_empty[1],
+									mac_tx_fifo_prog_empty[0]
+								}),	//可编程空信号，用于判定可以写入信息
 
 	.mac_tx_fifo_wr_clk      	({	mac_tx_fifo_wr_clk[7],
 									mac_tx_fifo_wr_clk[6],

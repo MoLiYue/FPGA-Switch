@@ -22,6 +22,7 @@ module tx_fifo_top(
 	output wire mac_tx_fifo_full			, 	//写满信号
 	output wire mac_tx_fifo_almost_full		, 	//写将满信号
 	output wire mac_tx_fifo_overflow		, 	//写溢出信号
+	output wire mac_tx_fifo_prog_empty		,	//可编程空信号，用于判定可以写入信息
 	//------------------------------------------------------------------------------
 
     //------------------------tx_que_fifo相关面向LLC接口-----------------------------
@@ -50,7 +51,7 @@ wire mac_tx_que_fifo_wr_rst_busy;
 wire mac_tx_que_fifo_rd_rst_busy;
 
 //tx_fifo发送数据缓存模块
-mac_tx_fifo_64x256_8x2048 mac_tx_fifo_64x256_8x2048_inst (
+mac_tx_fifo mac_tx_fifo_64x512_8x4096_inst (
     .rst(sys_rst_n),                      // input wire rst
     .wr_clk(mac_tx_fifo_wr_clk),                // input wire wr_clk 100MHz
     .rd_clk(mac_clk),                // input wire rd_clk 125MHz
@@ -68,12 +69,13 @@ mac_tx_fifo_64x256_8x2048 mac_tx_fifo_64x256_8x2048_inst (
     .underflow(mac_tx_fifo_underflow),          // output wire underflow
     .rd_data_count(),  // output wire [10 : 0] rd_data_count
     .wr_data_count(),  // output wire [7 : 0] wr_data_count
+	.prog_empty(mac_tx_fifo_prog_empty),        // output wire prog_empty
     .wr_rst_busy(),      // output wire wr_rst_busy
     .rd_rst_busy()      // output wire rd_rst_busy
 );
 
 //发送队列缓存模块
-mac_rx_ctl_fifo_18x16 mac_tx_ctl_fifo_18x16_inst (
+mac_ctl_fifo_18x16 mac_tx_ctl_fifo_18x16_inst (
 	.rst(sys_rst_n),                    // input wire rst
 	.wr_clk(mac_tx_fifo_wr_clk),              // input wire wr_clk 100MHz
 	.rd_clk(mac_tx_fifo_rd_clk),              // input wire rd_clk 125MHz

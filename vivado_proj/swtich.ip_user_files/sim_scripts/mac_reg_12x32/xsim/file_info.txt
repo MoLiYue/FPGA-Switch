@@ -1,2 +1,0 @@
-mac_reg_12x32.v,verilog,xil_defaultlib,../../../../swtich.gen/sources_1/ip/mac_reg_12x32/sim/mac_reg_12x32.v,
-glbl.v,Verilog,xil_defaultlib,glbl.v

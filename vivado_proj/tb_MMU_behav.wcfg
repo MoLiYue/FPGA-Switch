@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_MMU_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_MMU" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,000.001 ns"></ZoomEndTime>
+      <Cursor1Time time="130.240 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="224"></NameColumnWidth>
+      <ValueColumnWidth column_width="97"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="3" />
+   <wvobject type="group" fp_name="group466">
+      <obj_property name="label">tb</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="logic" fp_name="/tb_MMU/sys_clk">
+         <obj_property name="ElementShortName">sys_clk</obj_property>
+         <obj_property name="ObjectShortName">sys_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MMU/sys_rst_n">
+         <obj_property name="ElementShortName">sys_rst_n</obj_property>
+         <obj_property name="ObjectShortName">sys_rst_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MMU/rx_en">
+         <obj_property name="ElementShortName">rx_en</obj_property>
+         <obj_property name="ObjectShortName">rx_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/tx_cur_logic_addr">
+         <obj_property name="ElementShortName">tx_cur_logic_addr[8:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_cur_logic_addr[8:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/rx_cur_logic_addr">
+         <obj_property name="ElementShortName">rx_cur_logic_addr[8:0]</obj_property>
+         <obj_property name="ObjectShortName">rx_cur_logic_addr[8:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/rx_cur_phy_addr">
+         <obj_property name="ElementShortName">rx_cur_phy_addr[16:0]</obj_property>
+         <obj_property name="ObjectShortName">rx_cur_phy_addr[16:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/tx_cur_phy_addr">
+         <obj_property name="ElementShortName">tx_cur_phy_addr[16:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_cur_phy_addr[16:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MMU/tx_en">
+         <obj_property name="ElementShortName">tx_en</obj_property>
+         <obj_property name="ObjectShortName">tx_en</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group498">
+      <obj_property name="label">mmu</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_MMU/MMU_inst/sys_clk">
+         <obj_property name="ElementShortName">sys_clk</obj_property>
+         <obj_property name="ObjectShortName">sys_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MMU/MMU_inst/sys_rst_n">
+         <obj_property name="ElementShortName">sys_rst_n</obj_property>
+         <obj_property name="ObjectShortName">sys_rst_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MMU/MMU_inst/rx_en">
+         <obj_property name="ElementShortName">rx_en</obj_property>
+         <obj_property name="ObjectShortName">rx_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/rx_cur_logic_addr">
+         <obj_property name="ElementShortName">rx_cur_logic_addr[8:0]</obj_property>
+         <obj_property name="ObjectShortName">rx_cur_logic_addr[8:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MMU/MMU_inst/tx_en">
+         <obj_property name="ElementShortName">tx_en</obj_property>
+         <obj_property name="ObjectShortName">tx_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/tx_cur_logic_addr">
+         <obj_property name="ElementShortName">tx_cur_logic_addr[8:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_cur_logic_addr[8:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/rx_cur_phy_addr">
+         <obj_property name="ElementShortName">rx_cur_phy_addr[16:0]</obj_property>
+         <obj_property name="ObjectShortName">rx_cur_phy_addr[16:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/tx_cur_phy_addr">
+         <obj_property name="ElementShortName">tx_cur_phy_addr[16:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_cur_phy_addr[16:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/cur_cnt">
+         <obj_property name="ElementShortName">cur_cnt[8:0]</obj_property>
+         <obj_property name="ObjectShortName">cur_cnt[8:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/next_cnt">
+         <obj_property name="ElementShortName">next_cnt[8:0]</obj_property>
+         <obj_property name="ObjectShortName">next_cnt[8:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/cur_state">
+         <obj_property name="ElementShortName">cur_state[1:0]</obj_property>
+         <obj_property name="ObjectShortName">cur_state[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/next_cnt_din">
+         <obj_property name="ElementShortName">next_cnt_din[19:0]</obj_property>
+         <obj_property name="ObjectShortName">next_cnt_din[19:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MMU/MMU_inst/pos_rx_en">
+         <obj_property name="ElementShortName">pos_rx_en</obj_property>
+         <obj_property name="ObjectShortName">pos_rx_en</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MMU/MMU_inst/neg_rx_en">
+         <obj_property name="ElementShortName">neg_rx_en</obj_property>
+         <obj_property name="ObjectShortName">neg_rx_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/next_cnt_dout">
+         <obj_property name="ElementShortName">next_cnt_dout[19:0]</obj_property>
+         <obj_property name="ObjectShortName">next_cnt_dout[19:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/tx_rd_dout">
+         <obj_property name="ElementShortName">tx_rd_dout[19:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_rd_dout[19:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/tx_minus">
+         <obj_property name="ElementShortName">tx_minus[2:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_minus[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/tx_rd_din">
+         <obj_property name="ElementShortName">tx_rd_din[19:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_rd_din[19:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MMU/MMU_inst/pos_tx_en">
+         <obj_property name="ElementShortName">pos_tx_en</obj_property>
+         <obj_property name="ObjectShortName">pos_tx_en</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MMU/MMU_inst/neg_tx_en">
+         <obj_property name="ElementShortName">neg_tx_en</obj_property>
+         <obj_property name="ObjectShortName">neg_tx_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/addra">
+         <obj_property name="ElementShortName">addra[8:0]</obj_property>
+         <obj_property name="ObjectShortName">addra[8:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/search_cur_state">
+         <obj_property name="ElementShortName">search_cur_state[1:0]</obj_property>
+         <obj_property name="ObjectShortName">search_cur_state[1:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group510">
+      <obj_property name="label">memtable</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_MMU/MMU_inst/blk_mem_18x400_inst/clka">
+         <obj_property name="ElementShortName">clka</obj_property>
+         <obj_property name="ObjectShortName">clka</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/blk_mem_18x400_inst/wea">
+         <obj_property name="ElementShortName">wea[0:0]</obj_property>
+         <obj_property name="ObjectShortName">wea[0:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/blk_mem_18x400_inst/addra">
+         <obj_property name="ElementShortName">addra[8:0]</obj_property>
+         <obj_property name="ObjectShortName">addra[8:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/blk_mem_18x400_inst/dina">
+         <obj_property name="ElementShortName">dina[19:0]</obj_property>
+         <obj_property name="ObjectShortName">dina[19:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/blk_mem_18x400_inst/douta">
+         <obj_property name="ElementShortName">douta[19:0]</obj_property>
+         <obj_property name="ObjectShortName">douta[19:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_MMU/MMU_inst/blk_mem_18x400_inst/clkb">
+         <obj_property name="ElementShortName">clkb</obj_property>
+         <obj_property name="ObjectShortName">clkb</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/blk_mem_18x400_inst/web">
+         <obj_property name="ElementShortName">web[0:0]</obj_property>
+         <obj_property name="ObjectShortName">web[0:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/blk_mem_18x400_inst/addrb">
+         <obj_property name="ElementShortName">addrb[8:0]</obj_property>
+         <obj_property name="ObjectShortName">addrb[8:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/blk_mem_18x400_inst/dinb">
+         <obj_property name="ElementShortName">dinb[19:0]</obj_property>
+         <obj_property name="ObjectShortName">dinb[19:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_MMU/MMU_inst/blk_mem_18x400_inst/doutb">
+         <obj_property name="ElementShortName">doutb[19:0]</obj_property>
+         <obj_property name="ObjectShortName">doutb[19:0]</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

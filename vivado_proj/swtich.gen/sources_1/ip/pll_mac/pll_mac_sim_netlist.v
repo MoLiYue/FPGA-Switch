@@ -1,14 +1,14 @@
 // Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
-// Date        : Sat May 21 17:23:33 2022
+// Date        : Sat May 28 14:00:49 2022
 // Host        : mlyue running 64-bit Arch Linux
-// Command     : write_verilog -force -mode funcsim -rename_top pll_mac -prefix
-//               pll_mac_ pll_mac_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim
+//               /home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.gen/sources_1/ip/pll_mac/pll_mac_sim_netlist.v
 // Design      : pll_mac
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
-// Device      : xc7a35tfgg484-2
+// Device      : xc7a200tfbv484-2
 // --------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
@@ -28,14 +28,14 @@ module pll_mac
   wire clk_25M;
   (* IBUF_LOW_PWR *) wire sys_clk;
 
-  pll_mac_pll_mac_clk_wiz inst
+  pll_mac_clk_wiz inst
        (.clk_10M(clk_10M),
         .clk_125M(clk_125M),
         .clk_25M(clk_25M),
         .sys_clk(sys_clk));
 endmodule
 
-module pll_mac_pll_mac_clk_wiz
+module pll_mac_clk_wiz
    (clk_125M,
     clk_25M,
     clk_10M,

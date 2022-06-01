@@ -1,29 +1,29 @@
 -- Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
--- Date        : Sat May 21 17:23:34 2022
+-- Date        : Sat May 28 14:00:49 2022
 -- Host        : mlyue running 64-bit Arch Linux
--- Command     : write_vhdl -force -mode funcsim -rename_top pll_mac -prefix
---               pll_mac_ pll_mac_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim
+--               /home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.gen/sources_1/ip/pll_mac/pll_mac_sim_netlist.vhdl
 -- Design      : pll_mac
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
--- Device      : xc7a35tfgg484-2
+-- Device      : xc7a200tfbv484-2
 -- --------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity pll_mac_pll_mac_clk_wiz is
+entity pll_mac_clk_wiz is
   port (
     clk_125M : out STD_LOGIC;
     clk_25M : out STD_LOGIC;
     clk_10M : out STD_LOGIC;
     sys_clk : in STD_LOGIC
   );
-end pll_mac_pll_mac_clk_wiz;
+end pll_mac_clk_wiz;
 
-architecture STRUCTURE of pll_mac_pll_mac_clk_wiz is
+architecture STRUCTURE of pll_mac_clk_wiz is
   signal clk_10M_pll_mac : STD_LOGIC;
   signal clk_125M_pll_mac : STD_LOGIC;
   signal clk_25M_pll_mac : STD_LOGIC;
@@ -153,7 +153,7 @@ end pll_mac;
 
 architecture STRUCTURE of pll_mac is
 begin
-inst: entity work.pll_mac_pll_mac_clk_wiz
+inst: entity work.pll_mac_clk_wiz
      port map (
       clk_10M => clk_10M,
       clk_125M => clk_125M,

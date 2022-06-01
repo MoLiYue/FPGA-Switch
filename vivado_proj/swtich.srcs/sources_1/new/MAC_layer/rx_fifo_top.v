@@ -72,6 +72,8 @@ always @(posedge mac_clk or negedge sys_rst_n) begin
 				cnt <= 3'd0;
 			else
 				cnt <= cnt + 1;
+		default:
+			cnt <= 3'd0;
 	endcase
 end
 
@@ -102,7 +104,7 @@ end
 
 //补充写使能有效
 always @(cur_state) begin
-	if(cur_state == 2'b10)
+	if(cur_state == 2'b10 && data_added != 0)
 		wr_en_tmp = 1'b1;
 	else
 		wr_en_tmp = 1'b1;
@@ -113,7 +115,7 @@ assign wr_en = wr_en_tmp ? wr_en_tmp : mac_rx_fifo_wr_en;
 assign din = wr_en_tmp ? 8'd0 : mac_rx_fifo_din;
 
 //rx_fifo接收缓存模块
-mac_rx_fifo_8x2048_64x265 mac_rx_fifo_8x2048_64x265_inst (
+mac_rx_fifo mac_rx_fifo_8x4096_64x512_inst (
 	.rst(sys_rst_n),                      // input wire rst
 	.wr_clk(mac_rx_fifo_wr_clk),                // input wire wr_clk 125MHz
 	.rd_clk(mac_rx_fifo_rd_clk),                // input wire rd_clk 100MHz
@@ -136,7 +138,7 @@ mac_rx_fifo_8x2048_64x265 mac_rx_fifo_8x2048_64x265_inst (
 );
 
 //接收队列缓存模块
-mac_rx_ctl_fifo_18x16 mac_rx_ctl_fifo_18x16_inst (
+mac_ctl_fifo_18x16 mac_rx_ctl_fifo_18x16_inst (
 	.rst(sys_rst_n),                    // input wire rst
 	.wr_clk(mac_rx_fifo_wr_clk),              // input wire wr_clk
 	.rd_clk(mac_rx_fifo_rd_clk),              // input wire rd_clk

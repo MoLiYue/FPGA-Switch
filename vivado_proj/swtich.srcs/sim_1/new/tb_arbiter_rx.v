@@ -23,7 +23,21 @@ initial begin
     sys_rst_n <= 1'b0;
     #20
     sys_rst_n <= 1'b1;
-    mac_rx_que_fifo_empty <= 8'd0;
+    mac_rx_que_fifo_empty <= 8'hff;
+    #20
+    mac_rx_que_fifo_empty <= 8'b0000_0000;
+    #200
+    mac_rx_que_fifo_empty <= 8'b0000_0010;
+    #200
+    mac_rx_que_fifo_empty <= 8'b0000_0110;
+    #200
+    mac_rx_que_fifo_empty <= 8'b0000_1110;
+    #200
+    mac_rx_que_fifo_empty <= 8'b0001_0000;
+    #200
+    mac_rx_que_fifo_empty <= 8'b0110_0000;
+    #200
+    mac_rx_que_fifo_empty <= 8'b1110_0000;
 end
 
 always @(posedge sys_clk or negedge sys_rst_n) begin
@@ -31,6 +45,7 @@ always @(posedge sys_clk or negedge sys_rst_n) begin
         mac_rx_que_fifo_dout <= 144'd0;
     else
         mac_rx_que_fifo_dout <= mac_rx_que_fifo_dout + 1;
+        //mac_rx_que_fifo_dout <= 144'b1000;
 end
 
 

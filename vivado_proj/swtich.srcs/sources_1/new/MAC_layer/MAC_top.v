@@ -47,9 +47,10 @@ module MAC_top(
 	input wire [63:0] 	mac_tx_fifo_din		,//tx_fifo写数据
 	input wire 			mac_tx_fifo_wr_en	,//tx_fifo写使能
 
-	output wire mac_tx_fifo_full			, //tx_fifo满信号
-	output wire mac_tx_fifo_almost_full		, //tx_fifo将满信号
-	output wire mac_tx_fifo_overflow		, //tx_fifo 写溢出信号
+	output wire mac_tx_fifo_full			,//tx_fifo满信号
+	output wire mac_tx_fifo_almost_full		,//tx_fifo将满信号
+	output wire mac_tx_fifo_overflow		,//tx_fifo 写溢出信号
+	output wire mac_tx_fifo_prog_empty		,//可编程空信号，用于判定可以写入信息
 	//------------------------------------------------------------------
 
     //------------------------tx_que_fifo相关面向LLC接口-----------------------------
@@ -353,6 +354,7 @@ tx_fifo_top tx_fifo_top_inst(
 	.mac_tx_fifo_full				(mac_tx_fifo_full), 	//写满信号		output wire 
 	.mac_tx_fifo_almost_full		(mac_tx_fifo_almost_full), 	//写将满信号	output wire 
 	.mac_tx_fifo_overflow			(mac_tx_fifo_overflow), 	//写溢出信号	output wire 
+	.mac_tx_fifo_prog_empty			(mac_tx_fifo_prog_empty),	//可编程空信号，用于判定可以写入信息	output wire 
 	//------------------------------------------------------------------------------
 
     //------------------------tx_que_fifo相关面向LLC接口-----------------------------

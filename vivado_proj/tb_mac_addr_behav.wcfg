@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_mac_addr_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_mac_addr" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="14,019.300 ns"></ZoomStartTime>
+      <ZoomEndTime time="14,219.201 ns"></ZoomEndTime>
+      <Cursor1Time time="14,092.600 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="224"></NameColumnWidth>
+      <ValueColumnWidth column_width="102"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="3" />
+   <wvobject type="group" fp_name="group217">
+      <obj_property name="label">tb</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_mac_addr/sys_clk">
+         <obj_property name="ElementShortName">sys_clk</obj_property>
+         <obj_property name="ObjectShortName">sys_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_mac_addr/sys_rst_n">
+         <obj_property name="ElementShortName">sys_rst_n</obj_property>
+         <obj_property name="ObjectShortName">sys_rst_n</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/S_port_num">
+         <obj_property name="ElementShortName">S_port_num[2:0]</obj_property>
+         <obj_property name="ObjectShortName">S_port_num[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_mac_addr/mac_addr_en">
+         <obj_property name="ElementShortName">mac_addr_en</obj_property>
+         <obj_property name="ObjectShortName">mac_addr_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/D_mac">
+         <obj_property name="ElementShortName">D_mac[47:0]</obj_property>
+         <obj_property name="ObjectShortName">D_mac[47:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/S_mac">
+         <obj_property name="ElementShortName">S_mac[47:0]</obj_property>
+         <obj_property name="ObjectShortName">S_mac[47:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/D_port_num">
+         <obj_property name="ElementShortName">D_port_num[2:0]</obj_property>
+         <obj_property name="ObjectShortName">D_port_num[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_mac_addr/flooding">
+         <obj_property name="ElementShortName">flooding</obj_property>
+         <obj_property name="ObjectShortName">flooding</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/D_port_num">
+         <obj_property name="ElementShortName">D_port_num[2:0]</obj_property>
+         <obj_property name="ObjectShortName">D_port_num[2:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group238">
+      <obj_property name="label">mac_addr</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="logic" fp_name="/tb_mac_addr/mac_addr_inst/sys_clk">
+         <obj_property name="ElementShortName">sys_clk</obj_property>
+         <obj_property name="ObjectShortName">sys_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_mac_addr/mac_addr_inst/sys_rst_n">
+         <obj_property name="ElementShortName">sys_rst_n</obj_property>
+         <obj_property name="ObjectShortName">sys_rst_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_mac_addr/mac_addr_inst/mac_addr_en">
+         <obj_property name="ElementShortName">mac_addr_en</obj_property>
+         <obj_property name="ObjectShortName">mac_addr_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/D_mac">
+         <obj_property name="ElementShortName">D_mac[47:0]</obj_property>
+         <obj_property name="ObjectShortName">D_mac[47:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/S_mac">
+         <obj_property name="ElementShortName">S_mac[47:0]</obj_property>
+         <obj_property name="ObjectShortName">S_mac[47:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/S_port_num">
+         <obj_property name="ElementShortName">S_port_num[2:0]</obj_property>
+         <obj_property name="ObjectShortName">S_port_num[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/D_port_num">
+         <obj_property name="ElementShortName">D_port_num[2:0]</obj_property>
+         <obj_property name="ObjectShortName">D_port_num[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_mac_addr/mac_addr_inst/flooding">
+         <obj_property name="ElementShortName">flooding</obj_property>
+         <obj_property name="ObjectShortName">flooding</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/cur_state">
+         <obj_property name="ElementShortName">cur_state[4:0]</obj_property>
+         <obj_property name="ObjectShortName">cur_state[4:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/search_cnt">
+         <obj_property name="ElementShortName">search_cnt[2:0]</obj_property>
+         <obj_property name="ObjectShortName">search_cnt[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/write_cnt">
+         <obj_property name="ElementShortName">write_cnt[2:0]</obj_property>
+         <obj_property name="ObjectShortName">write_cnt[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_mac_addr/mac_addr_inst/crc_en">
+         <obj_property name="ElementShortName">crc_en</obj_property>
+         <obj_property name="ObjectShortName">crc_en</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_mac_addr/mac_addr_inst/crc_init">
+         <obj_property name="ElementShortName">crc_init</obj_property>
+         <obj_property name="ObjectShortName">crc_init</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/mac_addr">
+         <obj_property name="ElementShortName">mac_addr[9:0]</obj_property>
+         <obj_property name="ObjectShortName">mac_addr[9:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/D_mac_table">
+         <obj_property name="ElementShortName">D_mac_table[63:0]</obj_property>
+         <obj_property name="ObjectShortName">D_mac_table[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_mac_addr/mac_addr_inst/D_port_num_en">
+         <obj_property name="ElementShortName">D_port_num_en</obj_property>
+         <obj_property name="ObjectShortName">D_port_num_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/S_mac_table">
+         <obj_property name="ElementShortName">S_mac_table[63:0]</obj_property>
+         <obj_property name="ObjectShortName">S_mac_table[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/S_mac_table_din">
+         <obj_property name="ElementShortName">S_mac_table_din[63:0]</obj_property>
+         <obj_property name="ObjectShortName">S_mac_table_din[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_mac_addr/mac_addr_inst/S_mac_table_we">
+         <obj_property name="ElementShortName">S_mac_table_we</obj_property>
+         <obj_property name="ObjectShortName">S_mac_table_we</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/mac_table">
+         <obj_property name="ElementShortName">mac_table[63:0]</obj_property>
+         <obj_property name="ObjectShortName">mac_table[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/D_mac_addr">
+         <obj_property name="ElementShortName">D_mac_addr[9:0]</obj_property>
+         <obj_property name="ObjectShortName">D_mac_addr[9:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/S_mac_addr">
+         <obj_property name="ElementShortName">S_mac_addr[9:0]</obj_property>
+         <obj_property name="ObjectShortName">S_mac_addr[9:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group315">
+      <obj_property name="label">old</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/old_cnt">
+         <obj_property name="ElementShortName">old_cnt[15:0]</obj_property>
+         <obj_property name="ObjectShortName">old_cnt[15:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/old_cur_state">
+         <obj_property name="ElementShortName">old_cur_state[1:0]</obj_property>
+         <obj_property name="ObjectShortName">old_cur_state[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/old_next_state">
+         <obj_property name="ElementShortName">old_next_state[1:0]</obj_property>
+         <obj_property name="ObjectShortName">old_next_state[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/olding_addr">
+         <obj_property name="ElementShortName">olding_addr[9:0]</obj_property>
+         <obj_property name="ObjectShortName">olding_addr[9:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_mac_addr/mac_addr_inst/olding_we">
+         <obj_property name="ElementShortName">olding_we</obj_property>
+         <obj_property name="ObjectShortName">olding_we</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/rd_olding_table">
+         <obj_property name="ElementShortName">rd_olding_table[63:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_olding_table[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_mac_addr/mac_addr_inst/wr_olding_table">
+         <obj_property name="ElementShortName">wr_olding_table[63:0]</obj_property>
+         <obj_property name="ObjectShortName">wr_olding_table[63:0]</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
