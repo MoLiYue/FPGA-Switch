@@ -6,13 +6,17 @@ module cache(
 
     //------------------------------------ctl_center接口------------------------------------
     //rx
-	input wire rx_dout,//接收数据
+	input wire [63:0] rx_dout,//接收数据
 	input wire rx_en,//接收使能
 	output wire [8:0] rx_addr,//接收地址
     //tx
     input wire tx_en,//发送数据使能信号
+    input wire [8:0] tx_addr,//发送数据逻辑地址信息
 	output wire tx_din//发送数据
 );
+
+wire [16:0] rx_cur_phy_addr;
+wire [16:0] tx_cur_phy_addr;
 
 //MMU内存管理单元
 MMU MMU_inst(
@@ -28,7 +32,7 @@ MMU MMU_inst(
     .rx_cur_logic_addr  (rx_addr),//输出的当前rx逻辑地址    output reg [8:0] 
     //tx
     .tx_en              (tx_en),//发送使能信号，由发送仲裁模块提供   input wire 
-    .tx_cur_logic_addr  (tx_cur_logic_addr),//输入的当前tx逻辑地址    input wire [8:0] 
+    .tx_cur_logic_addr  (tx_addr),//输入的当前tx逻辑地址    input wire [8:0] 
 
     //------------------------------------面向RAM的接口----------------------------------
     //rx

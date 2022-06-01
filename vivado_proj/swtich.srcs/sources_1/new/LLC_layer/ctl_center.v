@@ -34,7 +34,7 @@ module ctl_center(
 
 //----------------------------------cache相关信号--------------------------------------
 	//rx
-	output reg rx_dout,//接收数据
+	output reg [63:0] rx_dout,//接收数据
 	output reg rx_en,//接收使能信号
 	//tx
 	input wire tx_din,//发送数据
@@ -46,8 +46,8 @@ module ctl_center(
 	input wire tx_que_data_en,//数据使能信号
 	input wire [23:0] que_fifo_data_dout,//que输出数据
 
-	output reg fifo_choose_en	,//
-	output wire [2:0] fifo_choose
+	output reg fifo_choose_en	,//fifo选择使能信号
+	output wire [2:0] fifo_choose//fifo选择信号
 	//output 
 
 	
@@ -157,6 +157,18 @@ always @(posedge sys_clk or negedge sys_rst_n) begin
 		endcase
 end
 
+//rx_dout缓存数据
+always @(posedge sys_clk or negedge sys_rst_n) begin
+	if(!sys_rst_n)
+		rx_dout <= 64'd0;
+	else
+		case(rx_next_state)
+			RX_DATA: 
+				rx_dout <= rx_fifo_dout;
+			default:
+				rx_dout <= 64'd0;
+		endcase
+end
 //------------------------------------tx--------------------------------------------
 //----																			----
 //----																			----

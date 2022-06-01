@@ -25,13 +25,13 @@ wire que_fifo_rd_en[7:0];
 
 always @(*) begin
     que_fifo_din[0] = que_fifo_din_bus[24*0+23:24*0];
-    que_fifo_din[1] = que_fifo_din_bus[24*+23:24*];
-    que_fifo_din[2] = que_fifo_din_bus[24*+23:24*];
-    que_fifo_din[3] = que_fifo_din_bus[24*+23:24*];
-    que_fifo_din[4] = que_fifo_din_bus[24*+23:24*];
-    que_fifo_din[5] = que_fifo_din_bus[24*+23:24*];
-    que_fifo_din[6] = que_fifo_din_bus[24*+23:24*];
-    que_fifo_din[7] = que_fifo_din_bus[24*+23:24*];
+    que_fifo_din[1] = que_fifo_din_bus[24*1+23:24*1];
+    que_fifo_din[2] = que_fifo_din_bus[24*2+23:24*2];
+    que_fifo_din[3] = que_fifo_din_bus[24*3+23:24*3];
+    que_fifo_din[4] = que_fifo_din_bus[24*4+23:24*4];
+    que_fifo_din[5] = que_fifo_din_bus[24*5+23:24*5];
+    que_fifo_din[6] = que_fifo_din_bus[24*6+23:24*6];
+    que_fifo_din[7] = que_fifo_din_bus[24*7+23:24*7];
 end
 
 always @(*) begin
