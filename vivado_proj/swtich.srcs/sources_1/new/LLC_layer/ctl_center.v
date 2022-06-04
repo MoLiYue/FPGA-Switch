@@ -30,6 +30,10 @@ module ctl_center(
 	output reg [47:0] D_mac			,//目的地址
 	output reg [47:0] S_mac			,//源地址
 	output wire [2:0] S_port_num	,//源端口
+	//tx
+	input wire tx_mem_data_en,//发送数据准备就绪信号
+	input wire [63:0] tx_mem_data,//发送数据
+
 	//------------------------------------------------------------------------------------
 
 //----------------------------------cache相关信号--------------------------------------
@@ -45,6 +49,7 @@ module ctl_center(
 //--------------------------------------queue相关------------------------------------------
 	input wire tx_que_data_en,//数据使能信号
 	input wire [23:0] que_fifo_data_dout,//que输出数据
+	input wire tx_que_data_empty,//que数据空信号
 
 	output reg fifo_choose_en	,//fifo选择使能信号
 	output wire [2:0] fifo_choose//fifo选择信号
@@ -174,16 +179,16 @@ end
 //----																			----
 //----																			----
 //----------------------------------------------------------------------------------
-localparam TX_IDLE 			= 5'b0_0001;
-localparam TX_RDQUE_DATA 	= 5'b0_0001;
-localparam TX_RDMEM_DATA 	= 5'b0_0001;
-localparam TX_DATA 			= 5'b0_0010;
-localparam TX_EMPTY 		= 5'b0_0100;
-localparam TX_OK 			= 5'b0_1000;
-localparam TX_CHECK 		= 5'b1_0000;
+localparam TX_IDLE 			= 7'b000_0001;
+localparam TX_RDQUE_DATA 	= 7'b000_0010;
+localparam TX_RDMEM_DATA 	= 7'b000_0100;
+localparam TX_DATA 			= 7'b000_1000;
+localparam TX_EMPTY 		= 7'b001_0000;
+localparam TX_OK 			= 7'b010_0000;
+localparam TX_CHECK 		= 7'b100_0000;
 
-reg [4:0] tx_cur_state;
-reg [4:0] tx_next_state;
+reg [6:0] tx_cur_state;
+reg [6:0] tx_next_state;
 
 assign fifo_choose = tx_mac_choose;
 
@@ -206,20 +211,54 @@ always @(*) begin
 		TX_RDQUE_DATA:
 			if(tx_que_data_en)
 				tx_next_state = TX_RDMEM_DATA;
+			else if(tx_que_data_empty)
+				tx_next_state = TX_EMPTY;
 			else
 				tx_next_state = tx_cur_state;
+		
 		TX_RDMEM_DATA:
 			if(tx_mem_data_en)
 				tx_next_state = TX_DATA;
 			else
 				tx_next_state = tx_cur_state;
-		TX_DATA:;
-
-		TX_EMPTY:;
+		TX_DATA:
+			if(!tx_mem_data_en)
+				tx_next_state = TX_OK;
+			else
+				tx_next_state = tx_cur_state;
 		TX_OK:;
+		TX_EMPTY:;
 		TX_CHECK:;
 		default:;
 	endcase
 end
+
+
+//tx_fifo_din
+always @(posedge sys_clk or negedge sys_rst_n) begin
+	if(!sys_rst_n)
+		tx_fifo_din <= 64'd0;
+	else
+		case(tx_next_state)
+			TX_DATA:
+				tx_fifo_din <= tx_mem_data;
+			default:
+				tx_fifo_din <= 64'd0;
+		endcase
+end
+
+//tx_fifo_wr_en
+always @(posedge sys_clk or negedge sys_rst_n) begin
+	if(!sys_rst_n)
+		tx_fifo_wr_en <= 1'd0;
+	else
+		case(tx_next_state)
+			TX_DATA:
+				tx_fifo_wr_en <= tx_mem_data_en;
+			default:
+				tx_fifo_wr_en <= 1'd0;
+		endcase
+end
+
 
 endmodule

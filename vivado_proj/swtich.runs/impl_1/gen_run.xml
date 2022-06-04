@@ -263,8 +263,8 @@
     <Step Id="write_bitstream"/>
     <Step Id="write_device_image"/>
   </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="mac_ctl_fifo_18x16"/>
+  <BlockFileSet Type="BlockSrcs" Name="pll_mac"/>
   <BlockFileSet Type="BlockSrcs" Name="mac_tx_fifo"/>
   <BlockFileSet Type="BlockSrcs" Name="mac_rx_fifo"/>
-  <BlockFileSet Type="BlockSrcs" Name="pll_mac"/>
-  <BlockFileSet Type="BlockSrcs" Name="mac_ctl_fifo_18x16"/>
 </GenRun>

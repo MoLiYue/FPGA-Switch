@@ -92,7 +92,9 @@ always @(*) begin
         HASH:
             next_state = SEARCH;
         SEARCH:
-            if(search_cnt == 3'd3)
+            if(search_cnt == 3'd3 && D_mac_table[63] == 1'b0)
+                next_state = FLOODING;
+            else if(search_cnt == 3'd3)
                 next_state = WRITE;
             else
                 next_state = cur_state;
@@ -102,7 +104,7 @@ always @(*) begin
             else
                 next_state = cur_state;
         FLOODING:
-            next_state = IDLE;
+            next_state = WRITE;
     endcase
 end
 
@@ -176,18 +178,18 @@ always @(*) begin
 end
 
 //D_mac_table_en信号
-always @(posedge sys_clk or negedge sys_rst_n) begin
+always @(*) begin
     if(!sys_rst_n)
-        D_port_num_en <= 1'b0;
+        D_port_num_en = 1'b0;
     else
-        case (next_state)
+        case (cur_state)
             SEARCH: 
-                if(search_cnt == 3'd2)
-                    D_port_num_en <= 1'b1;
+                if(search_cnt == 3'd3 && D_mac_table[63] != 1'b0)
+                    D_port_num_en = 1'b1;
                 else
-                    D_port_num_en <= 1'b0;
+                    D_port_num_en = 1'b0;
             default: 
-                D_port_num_en <= 1'b0;
+                D_port_num_en = 1'b0;
         endcase
 end
 

@@ -223,8 +223,8 @@
     <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2021"/>
     <Step Id="synth_design"/>
   </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="pll_mac"/>
+  <BlockFileSet Type="BlockSrcs" Name="mac_ctl_fifo_18x16"/>
   <BlockFileSet Type="BlockSrcs" Name="mac_tx_fifo"/>
   <BlockFileSet Type="BlockSrcs" Name="mac_rx_fifo"/>
-  <BlockFileSet Type="BlockSrcs" Name="mac_ctl_fifo_18x16"/>
-  <BlockFileSet Type="BlockSrcs" Name="pll_mac"/>
 </GenRun>
