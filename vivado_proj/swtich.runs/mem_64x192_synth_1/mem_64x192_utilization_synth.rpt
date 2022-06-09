@@ -1,7 +1,7 @@
 Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
-| Date         : Sat May 28 13:39:46 2022
+| Date         : Mon Jun  6 21:33:11 2022
 | Host         : mlyue running 64-bit Arch Linux
 | Command      : report_utilization -file mem_64x192_utilization_synth.rpt -pb mem_64x192_utilization_synth.pb
 | Design       : mem_64x192
@@ -34,8 +34,8 @@ Table of Contents
 | Slice LUTs*             |  479 |     0 |          0 |    134600 |  0.36 |
 |   LUT as Logic          |  479 |     0 |          0 |    134600 |  0.36 |
 |   LUT as Memory         |    0 |     0 |          0 |     46200 |  0.00 |
-| Slice Registers         |   18 |     0 |          0 |    269200 | <0.01 |
-|   Register as Flip Flop |   18 |     0 |          0 |    269200 | <0.01 |
+| Slice Registers         |   11 |     0 |          0 |    269200 | <0.01 |
+|   Register as Flip Flop |   11 |     0 |          0 |    269200 | <0.01 |
 |   Register as Latch     |    0 |     0 |          0 |    269200 |  0.00 |
 | F7 Muxes                |  180 |     0 |          0 |     67300 |  0.27 |
 | F8 Muxes                |    0 |     0 |          0 |     33650 |  0.00 |
@@ -58,7 +58,7 @@ Table of Contents
 | 0     |          Yes |           - |          Set |
 | 0     |          Yes |           - |        Reset |
 | 0     |          Yes |         Set |            - |
-| 18    |          Yes |       Reset |            - |
+| 11    |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -157,7 +157,7 @@ Table of Contents
 | RAMB36E1 |  132 |        Block Memory |
 | LUT5     |   64 |                 LUT |
 | LUT3     |   56 |                 LUT |
-| FDRE     |   18 |        Flop & Latch |
+| FDRE     |   11 |        Flop & Latch |
 | RAMB18E1 |    4 |        Block Memory |
 | LUT2     |    4 |                 LUT |
 | LUT4     |    2 |                 LUT |

@@ -59,8 +59,8 @@ module MMU(
 
     reg change_delay1;
     reg change_delay2;
-    wire pos_rx_en = change_delay1 && (~change_delay2);
-    wire neg_rx_en = (~change_delay1) && change_delay2;
+    wire pos_rx_en = rx_en && (~change_delay1);
+    wire neg_rx_en = (~rx_en) && change_delay1;
 
     wire [19:0] next_cnt_dout;
 
@@ -213,8 +213,10 @@ module MMU(
     reg [2:0] tx_minus;
     reg [19:0] tx_rd_din;
 
-    wire pos_tx_en = change_delay3 && (~change_delay4);
-    wire neg_tx_en = (~change_delay3) && change_delay4;
+    wire pos_tx_en = tx_en && (~change_delay3);
+    wire neg_tx_en = (~tx_en) && change_delay3;
+
+    wire pos_tx_en_delay1 = change_delay3 && (~change_delay4);
 
     //采集tx_en上升沿、下降沿信号
     always @(posedge sys_clk or negedge sys_rst_n) begin
@@ -231,26 +233,28 @@ module MMU(
     end
 
     //tx_cur_phy_addr
-    always @(*) begin
-        if(pos_tx_en)
-            tx_cur_phy_addr = tx_rd_dout[16:0];
+    always @(posedge sys_clk or negedge sys_rst_n) begin
+        if(!sys_rst_n)
+            tx_cur_phy_addr <= 17'b0;
+        else if(pos_tx_en_delay1)
+            tx_cur_phy_addr <= tx_rd_dout[16:0];
         else
-            tx_cur_phy_addr = tx_cur_phy_addr;
+            tx_cur_phy_addr <= tx_cur_phy_addr;
     end
 
-    always @(*) begin
+    always @(posedge sys_clk or negedge sys_rst_n) begin
         if(!sys_rst_n)
-            tx_minus = 3'd0;
-        else if(pos_tx_en && tx_minus != 0)
-            tx_minus = tx_rd_dout[19:17] - 1;
+            tx_minus <= 3'd0;
+        else if(pos_tx_en_delay1 && tx_minus != 0)
+            tx_minus <= tx_rd_dout[19:17] - 1;
         else
-            tx_minus = tx_minus;
+            tx_minus <= tx_minus;
     end
 
     always @(*) begin
         if(!sys_rst_n)
             tx_rd_din = 20'd0;
-        else if(pos_tx_en)
+        else if(pos_tx_en_delay1)
             tx_rd_din = {tx_minus, tx_rd_dout[16:0]};
         else
             tx_rd_din = tx_rd_din;

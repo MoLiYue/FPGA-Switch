@@ -30,7 +30,7 @@ end
 always @(posedge clk_25M or negedge sys_rst_n) begin
     if(!sys_rst_n)
         cnt <= 4'b0;
-    else if(cnt == 4'd10)
+    else if(cnt == 4'd4)
         cnt <= 4'b0;
     else
         cnt <= cnt + 1;
@@ -40,10 +40,10 @@ end
 always @(posedge clk_25M or negedge sys_rst_n) begin
     if(!sys_rst_n)
         clk_2500K <= 1'b0;
-    else if(cnt == 4'd10)
+    else if(cnt == 4'd4)
         clk_2500K <= ~clk_2500K;
     else
-        clk_2500K <= clk_2500K + 1;
+        clk_2500K <= clk_2500K;
 end
 
 pll_mac pll_mac_inst

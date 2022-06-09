@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="mem_64x192_synth_1" LaunchPart="xc7a200tfbv484-2" LaunchTime="1653716300">
+<GenRun Id="mem_64x192_synth_1" LaunchPart="xc7a200tfbv484-2" LaunchTime="1654522301">
+  <File Type="VDS-TIMING-PB" Name="mem_64x192_timing_summary_synth.pb"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="mem_64x192_timing_summary_synth.rpt"/>
+  <File Type="RDS-DCP" Name="mem_64x192.dcp"/>
+  <File Type="RDS-UTIL-PB" Name="mem_64x192_utilization_synth.pb"/>
+  <File Type="RDS-UTIL" Name="mem_64x192_utilization_synth.rpt"/>
+  <File Type="RDS-PROPCONSTRS" Name="mem_64x192_drc_synth.rpt"/>
+  <File Type="RDS-RDS" Name="mem_64x192.vds"/>
   <File Type="REPORTS-TCL" Name="mem_64x192_reports.tcl"/>
   <File Type="PA-TCL" Name="mem_64x192.tcl"/>
-  <File Type="RDS-DCP" Name="mem_64x192.dcp"/>
-  <File Type="RDS-RDS" Name="mem_64x192.vds"/>
-  <File Type="RDS-UTIL" Name="mem_64x192_utilization_synth.rpt"/>
-  <File Type="RDS-UTIL-PB" Name="mem_64x192_utilization_synth.pb"/>
   <FileSet Name="sources" Type="BlockSrcs" RelSrcDir="$PSRCDIR/mem_64x192">
     <File Path="$PSRCDIR/sources_1/ip/mem_64x192/mem_64x192.xci">
       <FileInfo>

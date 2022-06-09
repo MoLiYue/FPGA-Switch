@@ -1,7 +1,7 @@
 -- Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
--- Date        : Sat May 28 13:39:46 2022
+-- Date        : Mon Jun  6 21:33:11 2022
 -- Host        : mlyue running 64-bit Arch Linux
 -- Command     : write_vhdl -force -mode synth_stub
 --               /home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.gen/sources_1/ip/mem_64x192/mem_64x192_stub.vhdl

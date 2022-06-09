@@ -1475,11 +1475,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat May 28 05:38:19 UTC 2022</spirit:value>
+            <spirit:value>Mon Jun 06 13:31:41 UTC 2022</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:ee7e4a65</spirit:value>
+            <spirit:value>9:a317a9e9</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1495,11 +1495,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat May 28 05:38:19 UTC 2022</spirit:value>
+            <spirit:value>Mon Jun 06 13:31:41 UTC 2022</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:ee7e4a65</spirit:value>
+            <spirit:value>9:a317a9e9</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1510,7 +1510,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:ee7e4a65</spirit:value>
+            <spirit:value>9:a317a9e9</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1526,11 +1526,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat May 28 05:38:19 UTC 2022</spirit:value>
+            <spirit:value>Mon Jun 06 13:31:41 UTC 2022</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:ee7e4a65</spirit:value>
+            <spirit:value>9:a317a9e9</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1545,11 +1545,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat May 28 05:38:19 UTC 2022</spirit:value>
+            <spirit:value>Mon Jun 06 13:31:41 UTC 2022</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:0e84d1d5</spirit:value>
+            <spirit:value>9:21b55218</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1565,11 +1565,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat May 28 05:38:19 UTC 2022</spirit:value>
+            <spirit:value>Mon Jun 06 13:31:41 UTC 2022</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:0e84d1d5</spirit:value>
+            <spirit:value>9:21b55218</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1583,11 +1583,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat May 28 05:38:19 UTC 2022</spirit:value>
+            <spirit:value>Mon Jun 06 13:31:41 UTC 2022</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:ee7e4a65</spirit:value>
+            <spirit:value>9:a317a9e9</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1601,11 +1601,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat May 28 05:38:19 UTC 2022</spirit:value>
+            <spirit:value>Mon Jun 06 13:31:41 UTC 2022</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:ee7e4a65</spirit:value>
+            <spirit:value>9:a317a9e9</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1619,11 +1619,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat May 28 05:39:47 UTC 2022</spirit:value>
+            <spirit:value>Mon Jun 06 13:33:11 UTC 2022</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:ee7e4a65</spirit:value>
+            <spirit:value>9:a317a9e9</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -3323,7 +3323,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>C_HAS_MEM_OUTPUT_REGS_B</spirit:name>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_HAS_MEM_OUTPUT_REGS_B">1</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_HAS_MEM_OUTPUT_REGS_B">0</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>C_HAS_MUX_OUTPUT_REGS_A</spirit:name>
@@ -4082,7 +4082,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>Register_PortB_Output_of_Memory_Primitives</spirit:name>
-      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.Register_PortB_Output_of_Memory_Primitives" spirit:order="32">true</spirit:value>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.Register_PortB_Output_of_Memory_Primitives" spirit:order="32">false</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -4108,7 +4108,7 @@
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PARAM_ENABLEMENT.Use_REGCEB_Pin">true</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PARAM_ENABLEMENT.Use_REGCEB_Pin">false</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:parameterInfo>
       </spirit:vendorExtensions>

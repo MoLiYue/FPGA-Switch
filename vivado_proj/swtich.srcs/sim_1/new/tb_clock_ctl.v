@@ -6,7 +6,7 @@ reg sys_clk;
 reg sys_rst_n;
 reg [2:0] speed_mode;
 
-wire gmii_tx_clk;
+wire sys_clk;
 wire MDIO_clk;
 
 initial begin
@@ -25,12 +25,12 @@ end
 always #5 sys_clk = ~sys_clk;
 
 clock_ctl clock_ctl_inst(
-    .mac_clk        (sys_clk), //系统时钟 input wire 
+    .sys_clk        (sys_clk), //系统时钟 input wire 
     .sys_rst_n      (sys_rst_n),   //input wire 
 
     .speed_mode     (speed_mode),    //速度模式	100：1000Mbps 010：100Mbps 001：10Mbps  input wire [2:0] 
 
-    .gmii_tx_clk    (gmii_tx_clk), //output wire 
+    .mac_clk        (mac_clk), //output wire 
     .MDIO_clk       (MDIO_clk) //MDIO时钟    output wire 
 );
 endmodule

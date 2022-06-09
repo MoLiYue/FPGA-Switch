@@ -2,13 +2,13 @@
 # Vivado v2021.2 (64-bit)
 # SW Build 3367213 on Tue Oct 19 02:47:39 MDT 2021
 # IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
-# Start of session at: Sat May 28 13:38:22 2022
-# Process ID: 385733
+# Start of session at: Mon Jun  6 21:31:43 2022
+# Process ID: 551509
 # Current directory: /home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/mem_64x192_synth_1
 # Command line: vivado -log mem_64x192.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source mem_64x192.tcl
 # Log file: /home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/mem_64x192_synth_1/mem_64x192.vds
 # Journal file: /home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/mem_64x192_synth_1/vivado.jou
-# Running On: mlyue, OS: Linux, CPU Frequency: 2200.000 MHz, CPU Physical cores: 6, Host memory: 16516 MB
+# Running On: mlyue, OS: Linux, CPU Frequency: 3915.923 MHz, CPU Physical cores: 6, Host memory: 16516 MB
 #-----------------------------------------------------------
 source mem_64x192.tcl -notrace
 Command: synth_design -top mem_64x192 -part xc7a200tfbv484-2 -mode out_of_context
@@ -18,9 +18,9 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a200
 INFO: [Device 21-403] Loading part xc7a200tfbv484-2
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 386209
+INFO: [Synth 8-7075] Helper process launched with PID 551993
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2724.055 ; gain = 0.000 ; free physical = 1489 ; free virtual = 22189
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2724.098 ; gain = 0.000 ; free physical = 1023 ; free virtual = 21674
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'mem_64x192' [/home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.gen/sources_1/ip/mem_64x192/synth/mem_64x192.vhd:73]
 	Parameter C_FAMILY bound to: artix7 - type: string 
@@ -72,7 +72,7 @@ INFO: [Synth 8-638] synthesizing module 'mem_64x192' [/home/mlyue/Documents/FPGA
 	Parameter C_READ_DEPTH_B bound to: 76800 - type: integer 
 	Parameter C_ADDRB_WIDTH bound to: 17 - type: integer 
 	Parameter C_HAS_MEM_OUTPUT_REGS_A bound to: 0 - type: integer 
-	Parameter C_HAS_MEM_OUTPUT_REGS_B bound to: 1 - type: integer 
+	Parameter C_HAS_MEM_OUTPUT_REGS_B bound to: 0 - type: integer 
 	Parameter C_HAS_MUX_OUTPUT_REGS_A bound to: 0 - type: integer 
 	Parameter C_HAS_MUX_OUTPUT_REGS_B bound to: 0 - type: integer 
 	Parameter C_MUX_PIPELINE_STAGES bound to: 0 - type: integer 
@@ -202,18 +202,18 @@ WARNING: [Synth 8-7129] Port WEB[0] in module blk_mem_gen_prim_wrapper__paramete
 WARNING: [Synth 8-7129] Port DINB[8] in module blk_mem_gen_prim_wrapper__parameterized133 is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:37 ; elapsed = 00:00:38 . Memory (MB): peak = 3388.941 ; gain = 664.887 ; free physical = 2200 ; free virtual = 22902
+Finished RTL Elaboration : Time (s): cpu = 00:00:38 ; elapsed = 00:00:40 . Memory (MB): peak = 3388.973 ; gain = 664.875 ; free physical = 1502 ; free virtual = 22167
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:38 ; elapsed = 00:00:40 . Memory (MB): peak = 3388.941 ; gain = 664.887 ; free physical = 2255 ; free virtual = 22957
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:39 ; elapsed = 00:00:41 . Memory (MB): peak = 3388.973 ; gain = 664.875 ; free physical = 1564 ; free virtual = 22230
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:38 ; elapsed = 00:00:40 . Memory (MB): peak = 3388.941 ; gain = 664.887 ; free physical = 2255 ; free virtual = 22957
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:39 ; elapsed = 00:00:41 . Memory (MB): peak = 3388.973 ; gain = 664.875 ; free physical = 1564 ; free virtual = 22230
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00.14 ; elapsed = 00:00:00.14 . Memory (MB): peak = 3388.941 ; gain = 0.000 ; free physical = 2228 ; free virtual = 22932
+Netlist sorting complete. Time (s): cpu = 00:00:00.16 ; elapsed = 00:00:00.16 . Memory (MB): peak = 3388.973 ; gain = 0.000 ; free physical = 1540 ; free virtual = 22206
 INFO: [Netlist 29-17] Analyzing 136 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -226,40 +226,39 @@ Parsing XDC File [/home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/m
 Finished Parsing XDC File [/home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/mem_64x192_synth_1/dont_touch.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3452.973 ; gain = 0.000 ; free physical = 2117 ; free virtual = 22819
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3453.004 ; gain = 0.000 ; free physical = 1412 ; free virtual = 22091
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.15 ; elapsed = 00:00:00.09 . Memory (MB): peak = 3452.973 ; gain = 0.000 ; free physical = 2117 ; free virtual = 22819
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.14 ; elapsed = 00:00:00.09 . Memory (MB): peak = 3453.004 ; gain = 0.000 ; free physical = 1412 ; free virtual = 22091
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:45 ; elapsed = 00:00:47 . Memory (MB): peak = 3452.973 ; gain = 728.918 ; free physical = 2231 ; free virtual = 22935
+Finished Constraint Validation : Time (s): cpu = 00:00:47 ; elapsed = 00:00:49 . Memory (MB): peak = 3453.004 ; gain = 728.906 ; free physical = 1549 ; free virtual = 22228
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a200tfbv484-2
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:45 ; elapsed = 00:00:47 . Memory (MB): peak = 3452.973 ; gain = 728.918 ; free physical = 2231 ; free virtual = 22935
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:47 ; elapsed = 00:00:49 . Memory (MB): peak = 3453.004 ; gain = 728.906 ; free physical = 1549 ; free virtual = 22228
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 Applied set_property KEEP_HIERARCHY = SOFT for U0. (constraint file  /home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/mem_64x192_synth_1/dont_touch.xdc, line 9).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:45 ; elapsed = 00:00:47 . Memory (MB): peak = 3452.973 ; gain = 728.918 ; free physical = 2231 ; free virtual = 22935
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:47 ; elapsed = 00:00:49 . Memory (MB): peak = 3453.004 ; gain = 728.906 ; free physical = 1549 ; free virtual = 22229
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:53 ; elapsed = 00:00:55 . Memory (MB): peak = 3452.973 ; gain = 728.918 ; free physical = 2304 ; free virtual = 22994
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:54 ; elapsed = 00:00:57 . Memory (MB): peak = 3453.004 ; gain = 728.906 ; free physical = 1585 ; free virtual = 22282
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Registers : 
-	               17 Bit    Registers := 1     
-	                7 Bit    Registers := 3     
+	                7 Bit    Registers := 2     
 +---Muxes : 
-	   2 Input    1 Bit        Muxes := 257   
+	   2 Input    1 Bit        Muxes := 256   
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -277,25 +276,25 @@ Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:56 ; elapsed = 00:00:59 . Memory (MB): peak = 3452.973 ; gain = 728.918 ; free physical = 2274 ; free virtual = 22986
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:58 ; elapsed = 00:01:01 . Memory (MB): peak = 3453.004 ; gain = 728.906 ; free physical = 1572 ; free virtual = 22283
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:00 ; elapsed = 00:01:03 . Memory (MB): peak = 3452.973 ; gain = 728.918 ; free physical = 2160 ; free virtual = 22875
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:02 ; elapsed = 00:01:05 . Memory (MB): peak = 3453.004 ; gain = 728.906 ; free physical = 1408 ; free virtual = 22130
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:01:00 ; elapsed = 00:01:03 . Memory (MB): peak = 3452.973 ; gain = 728.918 ; free physical = 2151 ; free virtual = 22863
+Finished Timing Optimization : Time (s): cpu = 00:01:02 ; elapsed = 00:01:05 . Memory (MB): peak = 3453.004 ; gain = 728.906 ; free physical = 1423 ; free virtual = 22145
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:01:01 ; elapsed = 00:01:04 . Memory (MB): peak = 3452.973 ; gain = 728.918 ; free physical = 2149 ; free virtual = 22860
+Finished Technology Mapping : Time (s): cpu = 00:01:02 ; elapsed = 00:01:05 . Memory (MB): peak = 3453.004 ; gain = 728.906 ; free physical = 1420 ; free virtual = 22143
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -313,37 +312,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:01:04 ; elapsed = 00:01:07 . Memory (MB): peak = 3452.973 ; gain = 728.918 ; free physical = 2160 ; free virtual = 22875
+Finished IO Insertion : Time (s): cpu = 00:01:06 ; elapsed = 00:01:09 . Memory (MB): peak = 3453.004 ; gain = 728.906 ; free physical = 1445 ; free virtual = 22166
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:01:04 ; elapsed = 00:01:07 . Memory (MB): peak = 3452.973 ; gain = 728.918 ; free physical = 2160 ; free virtual = 22875
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:06 ; elapsed = 00:01:09 . Memory (MB): peak = 3453.004 ; gain = 728.906 ; free physical = 1445 ; free virtual = 22166
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:04 ; elapsed = 00:01:07 . Memory (MB): peak = 3452.973 ; gain = 728.918 ; free physical = 2159 ; free virtual = 22873
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:06 ; elapsed = 00:01:09 . Memory (MB): peak = 3453.004 ; gain = 728.906 ; free physical = 1442 ; free virtual = 22162
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:01:04 ; elapsed = 00:01:07 . Memory (MB): peak = 3452.973 ; gain = 728.918 ; free physical = 2159 ; free virtual = 22873
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:06 ; elapsed = 00:01:09 . Memory (MB): peak = 3453.004 ; gain = 728.906 ; free physical = 1442 ; free virtual = 22162
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:01:04 ; elapsed = 00:01:07 . Memory (MB): peak = 3452.973 ; gain = 728.918 ; free physical = 2158 ; free virtual = 22873
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:06 ; elapsed = 00:01:09 . Memory (MB): peak = 3453.004 ; gain = 728.906 ; free physical = 1441 ; free virtual = 22162
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:01:04 ; elapsed = 00:01:07 . Memory (MB): peak = 3452.973 ; gain = 728.918 ; free physical = 2154 ; free virtual = 22869
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:06 ; elapsed = 00:01:09 . Memory (MB): peak = 3453.004 ; gain = 728.906 ; free physical = 1441 ; free virtual = 22162
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -367,32 +366,32 @@ Report Cell Usage:
 |6     |MUXF7    |   180|
 |7     |RAMB18E1 |     4|
 |10    |RAMB36E1 |   132|
-|15    |FDRE     |    18|
+|15    |FDRE     |    11|
 +------+---------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:01:04 ; elapsed = 00:01:07 . Memory (MB): peak = 3452.973 ; gain = 728.918 ; free physical = 2153 ; free virtual = 22868
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:06 ; elapsed = 00:01:09 . Memory (MB): peak = 3453.004 ; gain = 728.906 ; free physical = 1441 ; free virtual = 22162
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 33061 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:01:00 ; elapsed = 00:01:04 . Memory (MB): peak = 3452.973 ; gain = 664.887 ; free physical = 2212 ; free virtual = 22927
-Synthesis Optimization Complete : Time (s): cpu = 00:01:04 ; elapsed = 00:01:07 . Memory (MB): peak = 3452.973 ; gain = 728.918 ; free physical = 2212 ; free virtual = 22927
+Synthesis finished with 0 errors, 0 critical warnings and 33063 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:02 ; elapsed = 00:01:05 . Memory (MB): peak = 3453.004 ; gain = 664.875 ; free physical = 1492 ; free virtual = 22213
+Synthesis Optimization Complete : Time (s): cpu = 00:01:06 ; elapsed = 00:01:09 . Memory (MB): peak = 3453.004 ; gain = 728.906 ; free physical = 1492 ; free virtual = 22213
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.04 . Memory (MB): peak = 3452.973 ; gain = 0.000 ; free physical = 2304 ; free virtual = 23019
+Netlist sorting complete. Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.05 . Memory (MB): peak = 3453.004 ; gain = 0.000 ; free physical = 1625 ; free virtual = 22343
 INFO: [Netlist 29-17] Analyzing 316 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3452.973 ; gain = 0.000 ; free physical = 2240 ; free virtual = 22955
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3453.004 ; gain = 0.000 ; free physical = 1537 ; free virtual = 22251
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Synth Design complete, checksum: 391c950
+Synth Design complete, checksum: cc2d7740
 INFO: [Common 17-83] Releasing license: Synthesis
 20 Infos, 101 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:01:12 ; elapsed = 00:01:11 . Memory (MB): peak = 3452.973 ; gain = 729.148 ; free physical = 2453 ; free virtual = 23168
+synth_design: Time (s): cpu = 00:01:14 ; elapsed = 00:01:14 . Memory (MB): peak = 3453.004 ; gain = 729.148 ; free physical = 1631 ; free virtual = 22344
 INFO: [Common 17-1381] The checkpoint '/home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/mem_64x192_synth_1/mem_64x192.dcp' has been generated.
-INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP mem_64x192, cache-ID = 614038c6efc06932
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP mem_64x192, cache-ID = b9af929953d342ba
 INFO: [Coretcl 2-1174] Renamed 275 cell refs.
 INFO: [Common 17-1381] The checkpoint '/home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/mem_64x192_synth_1/mem_64x192.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file mem_64x192_utilization_synth.rpt -pb mem_64x192_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Sat May 28 13:39:47 2022...
+INFO: [Common 17-206] Exiting Vivado at Mon Jun  6 21:33:11 2022...
