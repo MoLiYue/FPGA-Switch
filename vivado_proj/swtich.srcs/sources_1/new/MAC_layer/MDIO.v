@@ -187,7 +187,7 @@ module MDIO(
         if (sys_rst_n == 1'b0) begin
             MDIO_data_tx <= 1'b0;
             MDIO_data_rx <= 1'b0;
-            reg_data <= 15'd0;
+            reg_data <= 16'd0;
         end else
             case(state)
                 IDLE:

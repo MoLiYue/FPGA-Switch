@@ -5,260 +5,150 @@ module ctl_center(
     //--------------------------------------------------------------------------------
 
 //--------------------------------------arbiter相关接口-----------------------------------------------------
-    //rx_fifo相关接口
-    input wire [63:0] rx_fifo_dout,//输出MAC fifo 存储数据
-	input wire rx_fifo_rd_en,//外部输入MAC fifo读使能
-	//rx相关-----------------------------------------
-    input wire [2:0] rx_mac_choose,        //接收端MAC选择信号
-	input wire [15:0] mac_length,           //接收mac地址长度
-    input wire [7:0] mac_length_ju,          //8bit转64bit mac帧长度
-    input wire mac_length_en,               //mac长度数据有效信号
+    //---------------------------------rx_fifo相关接口--------------------------------------
+    input wire [63:0] rx_fifo_dout		,//输出MAC fifo 存储数据
+	input wire rx_fifo_rd_en			,//外部输入MAC fifo读使能
+	
+	//--------------------------------------rx相关-----------------------------------------
+    input wire [2:0] rx_mac_choose		,//接收端MAC选择信号
+	input wire [15:0] mac_length		,//接收mac地址长度
+    input wire [7:0] mac_length_ju		,//8bit转64bit mac帧长度
+    input wire mac_length_en			,//mac长度数据有效信号
 	//input wire ctl_center_rx_busy,	//控制中心正在接收数据
 	//------------------------------------------------------------------------------------
-	//tx_fifo相关接口
-	output reg [63:0] tx_fifo_din,//tx_fifo写数据
-	output reg tx_fifo_wr_en,//tx_fifo写使能
-	//tx相关-----------------------------------------
-	input wire [2:0] tx_mac_choose,			//发送端MAC选择信号
+
+	//---------------------------------tx_fifo相关接口-------------------------------------
+	output wire [63:0] tx_fifo_din,//tx_fifo写数据
+	output wire tx_fifo_wr_en,//tx_fifo写使能
+
+	//--------------------------------------tx相关----------------------------------------
+	input wire [2:0] tx_mac_choose,//发送端MAC选择信号
 	input wire tx_en,//可以转发使能信号
 
-	output reg tx_data_ready,//接收转发模块准备好数据信息
+	output wire tx_data_ready,//接收转发模块准备好数据信息
+	//-----------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
 
-	//-----------------------------------mac_addr相关信号----------------------------------
-	output reg mac_addr_en			,//mac地址有效信号
-	output reg [47:0] D_mac			,//目的地址
-	output reg [47:0] S_mac			,//源地址
+//-----------------------------------mac_addr（MAC地址表）相关信号--------------------------------------------
+	//----------------------------------------rx-----------------------------------------
+	input wire flooding,//泛洪信号
+
+	output wire mac_addr_en			,//mac地址有效信号
+	output wire [47:0] D_mac		,//目的地址
+	output wire [47:0] S_mac		,//源地址
 	output wire [2:0] S_port_num	,//源端口
-	//tx
-	input wire tx_mem_data_en,//发送数据准备就绪信号
-	input wire [63:0] tx_mem_data,//发送数据
+	//-----------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------
 
-	//------------------------------------------------------------------------------------
-
-//----------------------------------cache相关信号--------------------------------------
+//----------------------------------内存cache相关信号------------------------------------------------------
 	//rx
-	output reg [63:0] rx_dout,//接收数据
-	output reg rx_en,//接收使能信号
+	input wire [8:0] rx_addr,//接收逻辑地址
+
+	output wire [63:0] rx_data,//接收数据
+	output wire rx_en,//接收使能信号
 	//tx
-	input wire tx_din,//发送数据
-	input wire [8:0] cur_logic_addr,//可用的地址
+	input wire [63:0] tx_data,//发送数据
 
-//------------------------------------------------------------------------------------
+	output wire [8:0] tx_addr,//发送数据逻辑地址信息
+	output wire cache_tx_en,//发送数据使能信号
+//--------------------------------------------------------------------------------------------------------
 
-//--------------------------------------queue相关------------------------------------------
-	input wire tx_que_data_en,//数据使能信号
-	input wire [23:0] que_fifo_data_dout,//que输出数据
+//--------------------------------------queue相关----------------------------------------------------------
+	//接收部分
+	output wire [24:0] rx_queue_data,//接收的数据信息
+	output wire rx_queue_en,//接收数据信息有效信号，同时也为rx_fifo_choose有效信号
+	output wire [2:0] rx_fifo_choose,//接收数据选择信号与rx_mac_choose相同
+
+	//发送部分
+	input wire [24:0] que_fifo_data_dout,//que输出数据
 	input wire tx_que_data_empty,//que数据空信号
 
-	output reg fifo_choose_en	,//fifo选择使能信号
-	output wire [2:0] fifo_choose//fifo选择信号
+	output wire tx_que_data_en,//数据使能信号
+	output wire tx_fifo_choose_en	,//fifo选择使能信号
+	output wire [2:0] tx_fifo_choose//fifo选择信号
 	//output 
 
 	
-//----------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 );
 
-//---------------------------------------rx---------------------------------------------
-//----																				----
-//----																				----
-//----																				----
-//----																				----
-//--------------------------------------------------------------------------------------
-localparam RX_IDLE 	= 3'b001;
-localparam RX_DATA 	= 3'b010;
-localparam RX_OK 	= 3'b100;
+//
+rx_ctl_center rx_ctl_center_inst(
+    //---------------------------------系统信号----------------------------------------
+    .sys_clk		(sys_clk),//input wire 
+    .sys_rst_n		(sys_rst_n),//input wire 
+    //--------------------------------------------------------------------------------
 
-reg [2:0] rx_cur_state;
-reg [2:0] rx_next_state;
+    //--------------------------------------arbiter相关接口----------------------------
+    //rx_fifo相关接口
+    .rx_fifo_dout			(rx_fifo_dout),//输出MAC fifo 存储数据input wire [63:0] 
+	.rx_fifo_rd_en			(rx_fifo_rd_en),//外部输入MAC fifo读使能input wire 
+	
+	//rx相关-----------------------------------------
+    .rx_mac_choose		(rx_mac_choose),//接收端MAC选择信号input wire [2:0] 
+	.mac_length			(mac_length),//接收mac地址长度input wire [15:0] 
+    .mac_length_ju		(mac_length_ju),//8bit转64bit mac帧长度input wire [7:0] 
+    .mac_length_en		(mac_length_en),//mac长度数据有效信号input wire 
+	//input wire ctl_center_rx_busy,	//控制中心正在接收数据
+	//------------------------------------------------------------------------------------
 
-reg [7:0] data_cnt;//数据长度计数器
-reg [15:0] mac8_length;	//8bit帧长度寄存器
-reg [7:0] mac64_length;	//64bit帧长度寄存器
+    //-----------------------------------mac_addr（MAC地址表）相关信号----------------------------------
+	.flooding			(flooding),//泛洪信号input wire 
 
-assign S_port_num = rx_mac_choose;
+	.mac_addr_en		(mac_addr_en),//mac地址有效信号output reg 
+	.D_mac				(D_mac),//目的地址output reg [47:0] 
+	.S_mac				(S_mac),//源地址output reg [47:0] 
+	.S_port_num			(S_port_num),//源端口output wire [2:0] 
 
-//64bit帧长度寄存器赋值
-always @(posedge sys_clk or negedge sys_rst_n) begin
-	if(!sys_rst_n)
-		mac64_length <= 8'd0;
-	else if(mac_length_en)
-		mac64_length <= mac_length_ju;
-	else
-		mac64_length <= mac64_length;
-end
+	//------------------------------------------------------------------------------------
 
-//8bit帧长度寄存器赋值
-always @(posedge sys_clk or negedge sys_rst_n) begin
-	if(!sys_rst_n)
-		mac8_length <= 16'd0;
-	else if(mac_length_en)
-		mac8_length <= mac_length;
-	else
-		mac8_length <= mac8_length;
-end
+    //----------------------------------内存cache相关信号--------------------------------------
+	.rx_addr		(rx_addr),//接收逻辑地址input wire [8:0] 
 
-//rx_state状态机
-always @(posedge sys_clk or negedge sys_rst_n) begin
-	if(!sys_rst_n)
-		rx_cur_state <= RX_IDLE;
-	else
-		rx_cur_state <= rx_next_state;
-end
-//rx_state状态转换
-always @(*) begin
-	rx_next_state = RX_IDLE;
-	case (rx_cur_state)
-		RX_IDLE: 
-			if(rx_fifo_rd_en == 1)
-				rx_next_state = RX_DATA;
-			else
-				rx_next_state = rx_cur_state;
-		RX_DATA:
-			if(rx_fifo_rd_en == 0)
-				rx_next_state = RX_OK;
-			else
-				rx_next_state = rx_cur_state;
-		RX_OK:
-			rx_next_state = RX_IDLE;
-		default: rx_next_state = RX_DATA;
-	endcase
-end
+	.rx_data		(rx_data),//接收数据output reg [63:0] 
+	.rx_en			(rx_en),//接收使能信号output reg 
+    //----------------------------------------------------------------------------------------
 
-//mac_addr相关信号
-always @(posedge sys_clk or negedge sys_rst_n) begin
-	if(!sys_rst_n) begin
-		D_mac <= 48'd0;
-		S_mac <= 48'd0;
-		mac_addr_en <= 1'b0;
-	end else
-		case (rx_next_state)
-			RX_DATA: 
-				case(data_cnt)
-					8'd1: begin
-						D_mac <= rx_fifo_dout[63:16];
-						S_mac[47:32] <= rx_fifo_dout[15:0];
-					end
-					8'd2: begin
-						S_mac[31:0] <= rx_fifo_dout[63:32];
-						mac_addr_en <= 1'b1;
-					end
-					default: ;
-				endcase
-			default: D_mac <= 48'd0;
-		endcase
-end
+    //--------------------------------------queue相关------------------------------------------
+	.rx_queue_data			(rx_queue_data),//接收的数据信息output reg [24:0] 
+	.rx_queue_en			(rx_queue_en),//接收数据信息有效信号，同时也为rx_fifo_choose有效信号output reg 
+	.rx_fifo_choose			(rx_fifo_choose)//接收数据选择信号与rx_mac_choose相同output reg [2:0] 
+);
 
-//数据长度计数器
-always @(posedge sys_clk or negedge sys_rst_n) begin
-	if(!sys_rst_n)
-		data_cnt <= 8'd0;
-	else
-		case(rx_next_state)
-			RX_DATA: 
-				data_cnt <= data_cnt + 1;
-			default:
-				data_cnt <= 8'd0;
-		endcase
-end
+//
+tx_ctl_center tx_ctl_center_inst(
+    //---------------------------------系统信号----------------------------------------
+    .sys_clk		(sys_clk),//input wire 
+    .sys_rst_n		(sys_rst_n),//input wire 
+    //--------------------------------------------------------------------------------
 
-//rx_dout缓存数据
-always @(posedge sys_clk or negedge sys_rst_n) begin
-	if(!sys_rst_n)
-		rx_dout <= 64'd0;
-	else
-		case(rx_next_state)
-			RX_DATA: 
-				rx_dout <= rx_fifo_dout;
-			default:
-				rx_dout <= 64'd0;
-		endcase
-end
-//------------------------------------tx--------------------------------------------
-//----																			----
-//----																			----
-//----																			----
-//----------------------------------------------------------------------------------
-localparam TX_IDLE 			= 7'b000_0001;
-localparam TX_RDQUE_DATA 	= 7'b000_0010;
-localparam TX_RDMEM_DATA 	= 7'b000_0100;
-localparam TX_DATA 			= 7'b000_1000;
-localparam TX_EMPTY 		= 7'b001_0000;
-localparam TX_OK 			= 7'b010_0000;
-localparam TX_CHECK 		= 7'b100_0000;
+    //--------------------------------------arbiter相关接口----------------------------
+    //tx_fifo相关接口
+	.tx_fifo_din		(tx_fifo_din),//tx_fifo写数据output reg [63:0] 
+	.tx_fifo_wr_en		(tx_fifo_wr_en),//tx_fifo写使能output reg 
 
-reg [6:0] tx_cur_state;
-reg [6:0] tx_next_state;
+	//tx相关-----------------------------------------
+	.tx_mac_choose		(tx_mac_choose),//发送端MAC选择信号input wire [2:0] 
+	.tx_en				(tx_en),//可以转发使能信号input wire 
 
-assign fifo_choose = tx_mac_choose;
+	.tx_data_ready		(tx_data_ready),//接收转发模块准备好数据信息output reg 
+    //------------------------------------------------------------------------------------
 
-//tx_state状态机
-always @(posedge sys_clk or negedge sys_rst_n) begin
-	if(!sys_rst_n)
-		tx_cur_state <= TX_IDLE;
-	else
-		tx_cur_state <= tx_next_state;
-end
-//tx_state状态转移
-always @(*) begin
-	tx_next_state = TX_IDLE;
-	case(tx_cur_state)
-		TX_IDLE:
-			if(tx_en)
-				tx_next_state = TX_RDQUE_DATA;
-			else
-				tx_next_state = tx_cur_state;
-		TX_RDQUE_DATA:
-			if(tx_que_data_en)
-				tx_next_state = TX_RDMEM_DATA;
-			else if(tx_que_data_empty)
-				tx_next_state = TX_EMPTY;
-			else
-				tx_next_state = tx_cur_state;
-		
-		TX_RDMEM_DATA:
-			if(tx_mem_data_en)
-				tx_next_state = TX_DATA;
-			else
-				tx_next_state = tx_cur_state;
-		TX_DATA:
-			if(!tx_mem_data_en)
-				tx_next_state = TX_OK;
-			else
-				tx_next_state = tx_cur_state;
-		TX_OK:;
-		TX_EMPTY:;
-		TX_CHECK:;
-		default:;
-	endcase
-end
+    //----------------------------------内存cache相关信号--------------------------------------
+    .tx_data			(tx_data),//发送数据input wire [63:0] 
 
+	.tx_addr			(tx_addr),//发送数据逻辑地址信息output reg [8:0] 
+	.cache_tx_en		(cache_tx_en),//发送数据使能信号output reg 
+    //------------------------------------------------------------------------------------
 
-//tx_fifo_din
-always @(posedge sys_clk or negedge sys_rst_n) begin
-	if(!sys_rst_n)
-		tx_fifo_din <= 64'd0;
-	else
-		case(tx_next_state)
-			TX_DATA:
-				tx_fifo_din <= tx_mem_data;
-			default:
-				tx_fifo_din <= 64'd0;
-		endcase
-end
+    //--------------------------------------queue相关------------------------------------------
+    .que_fifo_data_dout		(que_fifo_data_dout),//que输出数据input wire [24:0] 
+	.tx_que_data_empty		(tx_que_data_empty),//que数据空信号input wire 
 
-//tx_fifo_wr_en
-always @(posedge sys_clk or negedge sys_rst_n) begin
-	if(!sys_rst_n)
-		tx_fifo_wr_en <= 1'd0;
-	else
-		case(tx_next_state)
-			TX_DATA:
-				tx_fifo_wr_en <= tx_mem_data_en;
-			default:
-				tx_fifo_wr_en <= 1'd0;
-		endcase
-end
-
+	.tx_que_data_en			(tx_que_data_en),//数据使能信号output wire 
+	.tx_fifo_choose_en		(tx_fifo_choose_en),//fifo选择使能信号output reg 
+	.tx_fifo_choose			(tx_fifo_choose)//fifo选择信号output reg [2:0] 
+    //----------------------------------------------------------------------------------------
+);
 
 endmodule

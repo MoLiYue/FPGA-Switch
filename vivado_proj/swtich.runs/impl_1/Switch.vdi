@@ -1,15 +1,19 @@
-
-*** Running vivado
-    with args -log Switch.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source Switch.tcl -notrace
-
-
-****** Vivado v2021.2 (64-bit)
-  **** SW Build 3367213 on Tue Oct 19 02:47:39 MDT 2021
-  **** IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
-    ** Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
-
+#-----------------------------------------------------------
+# Vivado v2021.2 (64-bit)
+# SW Build 3367213 on Tue Oct 19 02:47:39 MDT 2021
+# IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
+# Start of session at: Fri Jun 10 16:55:03 2022
+# Process ID: 791595
+# Current directory: /home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/impl_1
+# Command line: vivado -log Switch.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source Switch.tcl -notrace
+# Log file: /home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/impl_1/Switch.vdi
+# Journal file: /home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/impl_1/vivado.jou
+# Running On: mlyue, OS: Linux, CPU Frequency: 2200.000 MHz, CPU Physical cores: 6, Host memory: 16516 MB
+#-----------------------------------------------------------
 source Switch.tcl -notrace
 Command: open_checkpoint /home/mlyue/Documents/FPGA_A7/Switch/vivado_proj/swtich.runs/impl_1/Switch.dcp
+
+Starting open_checkpoint Task
 
 Time (s): cpu = 00:00:00.05 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2727.801 ; gain = 3.969 ; free physical = 330 ; free virtual = 14219
 INFO: [Device 21-403] Loading part xc7a200tfbv484-2

@@ -1,43 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xc7a200tfbv484-2" LaunchTime="1653718528">
-  <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
-  <File Type="BITSTR-LTX" Name="MAC_top.ltx"/>
-  <File Type="BITSTR-SYSDEF" Name="MAC_top.sysdef"/>
-  <File Type="BITSTR-MMI" Name="MAC_top.mmi"/>
-  <File Type="BITSTR-BMM" Name="MAC_top_bd.bmm"/>
-  <File Type="BITSTR-NKY" Name="MAC_top.nky"/>
-  <File Type="BITSTR-RBT" Name="MAC_top.rbt"/>
-  <File Type="REPORTS-TCL" Name="MAC_top_reports.tcl"/>
-  <File Type="RCFI_FILE" Name="MAC_top.rcfi"/>
-  <File Type="OPT-HWDEF" Name="MAC_top.hwdef"/>
-  <File Type="RBD_FILE" Name="MAC_top.rbd"/>
-  <File Type="BITSTR-MSK" Name="MAC_top.msk"/>
-  <File Type="PA-TCL" Name="MAC_top.tcl"/>
-  <File Type="ROUTE-TIMING-PB" Name="MAC_top_timing_summary_routed.pb"/>
-  <File Type="NPI_FILE" Name="MAC_top.npi"/>
-  <File Type="BG-BIN" Name="MAC_top.bin"/>
-  <File Type="RNPI_FILE" Name="MAC_top.rnpi"/>
-  <File Type="BG-BGN" Name="MAC_top.bgn"/>
-  <File Type="ROUTE-BLACKBOX-DCP" Name="MAC_top_routed_bb.dcp"/>
+<GenRun Id="impl_1" LaunchPart="xc7a200tfbv484-2" LaunchTime="1654851301">
   <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
-  <File Type="PWROPT-DCP" Name="MAC_top_pwropt.dcp"/>
-  <File Type="RDI-RDI" Name="MAC_top.vdi"/>
-  <File Type="PHYSOPT-DCP" Name="MAC_top_physopt.dcp"/>
-  <File Type="CFI_FILE" Name="MAC_top.cfi"/>
-  <File Type="BG-DRC" Name="MAC_top.drc"/>
-  <File Type="ROUTE-ERROR-DCP" Name="MAC_top_routed_error.dcp"/>
-  <File Type="PDI-FILE" Name="MAC_top.pdi"/>
-  <File Type="BG-BIT" Name="MAC_top.bit"/>
-  <File Type="PLACE-PRE-SIMILARITY" Name="MAC_top_incremental_reuse_pre_placed.rpt"/>
-  <File Type="ROUTE-DCP" Name="MAC_top_routed.dcp"/>
-  <File Type="OPT-DCP" Name="MAC_top_opt.dcp"/>
-  <File Type="PLACE-DCP" Name="MAC_top_placed.dcp"/>
-  <File Type="POSTPLACE-PWROPT-DCP" Name="MAC_top_postplace_pwropt.dcp"/>
-  <File Type="POSTROUTE-PHYSOPT-DCP" Name="MAC_top_postroute_physopt.dcp"/>
-  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="MAC_top_postroute_physopt_bb.dcp"/>
+  <File Type="BITSTR-SYSDEF" Name="Switch.sysdef"/>
+  <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
+  <File Type="BITSTR-LTX" Name="Switch.ltx"/>
+  <File Type="BG-BGN" Name="Switch.bgn"/>
+  <File Type="RNPI_FILE" Name="Switch.rnpi"/>
+  <File Type="BG-DRC" Name="Switch.drc"/>
+  <File Type="CFI_FILE" Name="Switch.cfi"/>
+  <File Type="RCFI_FILE" Name="Switch.rcfi"/>
+  <File Type="BITSTR-MMI" Name="Switch.mmi"/>
+  <File Type="BITSTR-BMM" Name="Switch_bd.bmm"/>
+  <File Type="BITSTR-NKY" Name="Switch.nky"/>
+  <File Type="BITSTR-RBT" Name="Switch.rbt"/>
+  <File Type="RBD_FILE" Name="Switch.rbd"/>
+  <File Type="BITSTR-MSK" Name="Switch.msk"/>
+  <File Type="NPI_FILE" Name="Switch.npi"/>
+  <File Type="BG-BIN" Name="Switch.bin"/>
+  <File Type="PDI-FILE" Name="Switch.pdi"/>
+  <File Type="BG-BIT" Name="Switch.bit"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="Switch_bus_skew_postroute_physopted.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-PB" Name="Switch_bus_skew_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="Switch_bus_skew_postroute_physopted.rpt"/>
+  <File Type="RDI-RDI" Name="Switch.vdi"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="Switch_timing_summary_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="Switch_timing_summary_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="Switch_postroute_physopt_bb.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="Switch_postroute_physopt.dcp"/>
+  <File Type="ROUTE-BUS-SKEW" Name="Switch_bus_skew_routed.rpt"/>
+  <File Type="ROUTE-CLK" Name="Switch_clock_utilization_routed.rpt"/>
+  <File Type="ROUTE-SIMILARITY" Name="Switch_incremental_reuse_routed.rpt"/>
+  <File Type="ROUTE-TIMING-RPX" Name="Switch_timing_summary_routed.rpx"/>
+  <File Type="ROUTE-TIMING-PB" Name="Switch_timing_summary_routed.pb"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="Switch_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-STATUS-PB" Name="Switch_route_status.pb"/>
+  <File Type="ROUTE-STATUS" Name="Switch_route_status.rpt"/>
+  <File Type="ROUTE-PWR-RPX" Name="Switch_power_routed.rpx"/>
+  <File Type="ROUTE-PWR-SUM" Name="Switch_power_summary_routed.pb"/>
+  <File Type="ROUTE-PWR" Name="Switch_power_routed.rpt"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="Switch_methodology_drc_routed.pb"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="Switch_methodology_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="Switch_methodology_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-RPX" Name="Switch_drc_routed.rpx"/>
+  <File Type="ROUTE-DRC-PB" Name="Switch_drc_routed.pb"/>
+  <File Type="ROUTE-DRC" Name="Switch_drc_routed.rpt"/>
+  <File Type="ROUTE-BLACKBOX-DCP" Name="Switch_routed_bb.dcp"/>
+  <File Type="ROUTE-DCP" Name="Switch_routed.dcp"/>
+  <File Type="ROUTE-ERROR-DCP" Name="Switch_routed_error.dcp"/>
+  <File Type="PHYSOPT-TIMING" Name="Switch_timing_summary_physopted.rpt"/>
+  <File Type="PHYSOPT-DRC" Name="Switch_drc_physopted.rpt"/>
+  <File Type="PHYSOPT-DCP" Name="Switch_physopt.dcp"/>
+  <File Type="POSTPLACE-PWROPT-TIMING" Name="Switch_timing_summary_postplace_pwropted.rpt"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="Switch_postplace_pwropt.dcp"/>
+  <File Type="PLACE-TIMING" Name="Switch_timing_summary_placed.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="Switch_incremental_reuse_pre_placed.rpt"/>
+  <File Type="PLACE-SIMILARITY" Name="Switch_incremental_reuse_placed.rpt"/>
+  <File Type="PLACE-CTRL" Name="Switch_control_sets_placed.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="Switch_utilization_placed.pb"/>
+  <File Type="PLACE-UTIL" Name="Switch_utilization_placed.rpt"/>
+  <File Type="PLACE-CLK" Name="Switch_clock_utilization_placed.rpt"/>
+  <File Type="PLACE-IO" Name="Switch_io_placed.rpt"/>
+  <File Type="PLACE-DCP" Name="Switch_placed.dcp"/>
+  <File Type="PWROPT-TIMING" Name="Switch_timing_summary_pwropted.rpt"/>
+  <File Type="PWROPT-DRC" Name="Switch_drc_pwropted.rpt"/>
+  <File Type="PWROPT-DCP" Name="Switch_pwropt.dcp"/>
+  <File Type="OPT-TIMING" Name="Switch_timing_summary_opted.rpt"/>
+  <File Type="OPT-HWDEF" Name="Switch.hwdef"/>
+  <File Type="OPT-METHODOLOGY-DRC" Name="Switch_methodology_drc_opted.rpt"/>
+  <File Type="OPT-DRC" Name="Switch_drc_opted.rpt"/>
+  <File Type="OPT-DCP" Name="Switch_opt.dcp"/>
+  <File Type="INIT-TIMING" Name="Switch_timing_summary_init.rpt"/>
+  <File Type="ROUTE-BUS-SKEW-RPX" Name="Switch_bus_skew_routed.rpx"/>
+  <File Type="REPORTS-TCL" Name="Switch_reports.tcl"/>
+  <File Type="ROUTE-BUS-SKEW-PB" Name="Switch_bus_skew_routed.pb"/>
+  <File Type="PA-TCL" Name="Switch.tcl"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="Switch_timing_summary_postroute_physopted.rpx"/>
+  <File Type="PA-DCP" Name="Switch.dcp"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/new/MAC_layer/CRC_check.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/LLC_layer/LLC_top.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -58,6 +106,13 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
+    <File Path="$PSRCDIR/sources_1/new/MAC_layer/MAC_top.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PSRCDIR/sources_1/new/MAC_layer/MAC_tx_ctl.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -72,6 +127,34 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
+    <File Path="$PSRCDIR/sources_1/new/LLC_layer/MMU.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/LLC_layer/arbiter.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/LLC_layer/arbiter_rx.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/LLC_layer/cache.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PSRCDIR/sources_1/new/MAC_layer/clock_ctl.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -79,7 +162,35 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
+    <File Path="$PSRCDIR/sources_1/new/LLC_layer/crc_10.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/LLC_layer/ctl_center.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PSRCDIR/sources_1/new/gmii_to_rgmii/gmii_to_rgmii.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/LLC_layer/mac_addr.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/LLC_layer/queue.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -107,7 +218,21 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
+    <File Path="$PSRCDIR/sources_1/new/LLC_layer/rx_ctl_center.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PSRCDIR/sources_1/new/MAC_layer/rx_fifo_top.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/LLC_layer/tx_ctl_center.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -121,40 +246,8 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/MAC_layer/MAC_top.v">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PSRCDIR/sources_1/new/LLC_layer/LLC_top.v">
-      <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PSRCDIR/sources_1/new/LLC_layer/arbiter.v">
-      <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PSRCDIR/sources_1/new/LLC_layer/arbiter_rx.v">
-      <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
     <File Path="$PSRCDIR/sources_1/Switch.v">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -200,14 +293,6 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/LLC_layer/ctl_center.v">
-      <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
     <File Path="$PSRCDIR/sources_1/new/LLC_layer/arbiter_tx.v">
       <FileInfo>
         <Attr Name="AutoDisabled" Val="1"/>
@@ -216,22 +301,27 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/LLC_layer/cache.v">
+    <File Path="$PSRCDIR/sources_1/ip/blk_mem_18x400/mem_table.coe">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
-      <Option Name="TopModule" Val="MAC_top"/>
+      <Option Name="TopModule" Val="Switch"/>
     </Config>
   </FileSet>
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
     <Filter Type="Constrs"/>
+    <File Path="$PSRCDIR/constrs_1/new/test1.xdc">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
     <Config>
+      <Option Name="TargetConstrsFile" Val="$PSRCDIR/constrs_1/new/test1.xdc"/>
       <Option Name="ConstrsType" Val="XDC"/>
     </Config>
   </FileSet>
@@ -242,7 +332,6 @@
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedInSteps" Val="synth_1"/>
-        <Attr Name="UsedInSteps" Val="synth_1_copy_1"/>
         <Attr Name="AutoDcp" Val="1"/>
       </FileInfo>
     </File>
@@ -261,10 +350,13 @@
     <Step Id="route_design"/>
     <Step Id="post_route_phys_opt_design"/>
     <Step Id="write_bitstream"/>
-    <Step Id="write_device_image"/>
   </Strategy>
-  <BlockFileSet Type="BlockSrcs" Name="pll_mac"/>
-  <BlockFileSet Type="BlockSrcs" Name="mac_ctl_fifo_18x16"/>
-  <BlockFileSet Type="BlockSrcs" Name="mac_rx_fifo"/>
+  <BlockFileSet Type="BlockSrcs" Name="blk_mem_18x400"/>
   <BlockFileSet Type="BlockSrcs" Name="mac_tx_fifo"/>
+  <BlockFileSet Type="BlockSrcs" Name="mac_ctl_fifo_18x16"/>
+  <BlockFileSet Type="BlockSrcs" Name="pll_mac"/>
+  <BlockFileSet Type="BlockSrcs" Name="mac_rx_fifo"/>
+  <BlockFileSet Type="BlockSrcs" Name="blk_mem_64x1000"/>
+  <BlockFileSet Type="BlockSrcs" Name="fifo_24x32"/>
+  <BlockFileSet Type="BlockSrcs" Name="mem_64x192"/>
 </GenRun>

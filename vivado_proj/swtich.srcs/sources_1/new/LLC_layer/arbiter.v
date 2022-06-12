@@ -37,9 +37,9 @@ module arbiter(
 	//-----------------------------------------------------------------------------------
 
 	//------------------------tx_que_fifo相关接口-------------------------------------------
-	input wire [7:0]	mac_tx_que_fifo_full			,	//写满信号
-	input wire [7:0]	mac_tx_que_fifo_almost_full	,	//写将满信号
-	input wire [7:0]	mac_tx_que_fifo_overflow		,	//写溢出信号
+	input wire [7:0]	mac_tx_que_fifo_full			,//写满信号
+	input wire [7:0]	mac_tx_que_fifo_almost_full		,//写将满信号
+	input wire [7:0]	mac_tx_que_fifo_overflow		,//写溢出信号
 
 	output wire [7:0]			mac_tx_que_fifo_wr_en	,//写使能
 	output wire [143:0] 		mac_tx_que_fifo_din		,//输入数据
@@ -48,12 +48,12 @@ module arbiter(
 
 //-----------------------------------------面向ctl_center的接口------------------------------------------
 	//---------------------------------------rx相关-----------------------------------------
-    output wire [2:0] rx_mac_choose,        //接收端MAC选择信号
-	output wire [15:0] mac_length,           //接收mac地址长度
-    output wire [7:0] mac_length_ju,          //8bit转64bit mac帧长度
-    output wire mac_length_en,               //mac长度数据有效信号
+    output wire [2:0] rx_mac_choose,//接收端MAC选择信号
+	output wire [15:0] mac_length,//接收mac地址长度
+    output wire [7:0] mac_length_ju,//8bit转64bit mac帧长度
+    output wire mac_length_en,//mac长度数据有效信号
 	//----------------------------------------tx相关----------------------------------------
-	output wire [2:0] tx_mac_choose,			//发送端MAC选择信号
+	output wire [2:0] tx_mac_choose,//发送端MAC选择信号
 	//--------------------------------选择后的rx_fifo相关接口---------------------------------
 	//input wire rx_fifo_rd_clk      ,//外部传入MACfifo读时钟		使用sys_clk
 

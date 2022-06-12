@@ -238,7 +238,7 @@ LLC_top LLC_top_inst(
 								mac_rx_que_fifo_rd_en[2],
 								mac_rx_que_fifo_rd_en[1],
 								mac_rx_que_fifo_rd_en[0]
-							}),//读使能	output wire 
+							}),//读使能	output wire [7:0] 
 	//output wire mac_rx_que_fifo_rd_clk,	//同mac_rx_fifo_rd_clk
 	//---------------------------------------------------------------------------------
 

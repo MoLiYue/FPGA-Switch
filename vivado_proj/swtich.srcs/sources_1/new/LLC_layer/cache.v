@@ -12,7 +12,7 @@ module cache(
     //tx
     input wire tx_en,//发送数据使能信号
     input wire [8:0] tx_addr,//发送数据逻辑地址信息
-	output wire tx_data//发送数据
+	output wire [63:0] tx_data//发送数据
 );
 
 //----------------------------------------------------rx----------------------------------------

@@ -4,11 +4,13 @@ module arbiter_rx(
     input wire sys_rst_n,
     //--------------------------------------------------------------------------------
 
+    //-----------------------------面向ctl_center的接口------------------------------------------
     //input wire ctl_center_rx_busy,      //控制中心正在接收数据
     output reg [15:0] mac_length,           //接收mac地址长度
     output reg [7:0] mac_length_ju,          //8bit转64bit mac帧长度
     output reg mac_length_en,               //mac长度数据有效信号
     output reg [2:0] rx_mac_choose,        //接收端MAC选择信号
+    //-----------------------------------------------------------------------------------------
 
     //--------------------------------rx_fifo相关接口-----------------------------------
 	input wire [7:0] mac_rx_fifo_empty        ,//输出MAC fifo empty
